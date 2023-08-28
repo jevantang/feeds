@@ -24,7 +24,7 @@ Component({
       },
       {
         value: 'groups',
-        icon: 'internet',
+        icon: 'chart-ring-1',
         ariaLabel: '社群',
         pagePath: '/pages/groups/index',
       },
@@ -36,7 +36,7 @@ Component({
       },
       {
         value: 'channels',
-        icon: 'app',
+        icon: 'compass',
         ariaLabel: '发现',
         pagePath: '/pages/portal/channels',
       },

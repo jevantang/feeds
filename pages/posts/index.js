@@ -4,7 +4,8 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../api/api';
-import { fresnsConfig } from '../../api/tool/function';
+import { fresnsConfig, fresnsLang } from '../../api/tool/function';
+import { globalInfo } from '../../utils/fresnsGlobalInfo';
 import { parseUrlParams } from '../../utils/fresnsUtilities';
 
 Page({
@@ -19,10 +20,12 @@ Page({
   /** 页面的初始数据 **/
   data: {
     title: null,
-    logo: null,
+    userLogin: false,
+    tabs: {},
+    value: 0,
     // 默认查询条件
-    requestState: null,
     requestQuery: null,
+    listRequestQuery: null,
     // 当前页面数据
     posts: [],
     // 下次请求时候的页码，初始值为 1
@@ -35,22 +38,23 @@ Page({
 
   /** 监听页面加载 **/
   onLoad: async function (options) {
-    let requestState = await fresnsConfig('menu_post_query_state');
-    let requestQuery = parseUrlParams(await fresnsConfig('menu_post_query_config'));
+    const tabs = {
+      index: await fresnsConfig('menu_post_name'),
+      follow: await fresnsConfig('menu_follow_all_posts'),
+      new: await fresnsConfig('menu_post_list_name'),
+    };
 
-    if (requestState === 3) {
-      requestQuery = Object.assign(requestQuery, options);
-    }
+    const requestQuery = parseUrlParams(await fresnsConfig('menu_post_query_config'));
+    const listRequestQuery = parseUrlParams(await fresnsConfig('menu_post_list_query_config'));
 
     this.setData({
-      title: await fresnsConfig('menu_post_title'),
-      logo: await fresnsConfig('site_logo'),
-      requestState: requestState,
+      title: await fresnsConfig('site_name'),
+      userLogin: globalInfo.userLogin,
+      loginTip: await fresnsLang('contentLoginError'),
+      loginBtn: await fresnsLang('accountLogin'),
+      tabs: tabs,
       requestQuery: requestQuery,
-    });
-
-    wx.setNavigationBarTitle({
-      title: await fresnsConfig('menu_post_title'),
+      listRequestQuery: listRequestQuery,
     });
 
     await this.loadFresnsPageData();
@@ -68,13 +72,49 @@ Page({
       loadingStatus: true,
     });
 
-    const resultRes = await fresnsApi.post.postList(
-      Object.assign(this.data.requestQuery, {
-        whitelistKeys:
-          'pid,url,title,content,contentLength,isBrief,isMarkdown,isAnonymous,stickyState,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,readConfig,affiliatedUserConfig,moreJson,location,operations,files,group.gid,group.gname,group.cover,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,manages,editControls,interaction,quotedPost.pid,quotedPost.author.status,,quotedPost.author.avatar,quotedPost.author.nickname,quotedPost.isAnonymous,quotedPost.title,quotedPost.content,previewComments.0.author.status,previewComments.0.author.fsid,previewComments.0.author.nickname,previewComments.0.isAnonymous,previewComments.0.content,previewComments.1.author.status,previewComments.1.author.fsid,previewComments.1.author.nickname,previewComments.1.isAnonymous,previewComments.1.content,previewComments.2.author.status,previewComments.2.author.fsid,previewComments.2.author.nickname,previewComments.2.isAnonymous,previewComments.2.content,previewComments.3.author.status,previewComments.3.author.fsid,previewComments.3.author.nickname,previewComments.3.isAnonymous,previewComments.3.content,previewComments.4.author.status,previewComments.4.author.fsid,previewComments.4.author.nickname,previewComments.4.isAnonymous,previewComments.4.content',
-        page: this.data.page,
-      })
-    );
+    const type = this.data.value;
+
+    let resultRes = {};
+
+    switch (type) {
+      case '1':
+        if (!globalInfo.userLogin) {
+          this.setData({
+            loadingStatus: false,
+          });
+
+          wx.hideNavigationBarLoading();
+
+          return;
+        }
+
+        resultRes = await fresnsApi.post.postFollow({
+          type: 'all',
+          whitelistKeys:
+            'pid,url,title,content,contentLength,isBrief,isMarkdown,isAnonymous,stickyState,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,readConfig,affiliatedUserConfig,moreJson,location,operations,files,group.gid,group.gname,group.cover,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,previewComments,manages,editControls,interaction',
+          page: this.data.page,
+        });
+        break;
+
+      case '2':
+        resultRes = await fresnsApi.post.postList(
+          Object.assign(this.data.listRequestQuery, {
+            whitelistKeys:
+              'pid,url,title,content,contentLength,isBrief,isMarkdown,isAnonymous,stickyState,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,readConfig,affiliatedUserConfig,moreJson,location,operations,files,group.gid,group.gname,group.cover,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,manages,editControls,interaction,quotedPost.pid,quotedPost.author.status,,quotedPost.author.avatar,quotedPost.author.nickname,quotedPost.isAnonymous,quotedPost.title,quotedPost.content,previewComments.0.author.status,previewComments.0.author.fsid,previewComments.0.author.nickname,previewComments.0.isAnonymous,previewComments.0.content,previewComments.1.author.status,previewComments.1.author.fsid,previewComments.1.author.nickname,previewComments.1.isAnonymous,previewComments.1.content,previewComments.2.author.status,previewComments.2.author.fsid,previewComments.2.author.nickname,previewComments.2.isAnonymous,previewComments.2.content,previewComments.3.author.status,previewComments.3.author.fsid,previewComments.3.author.nickname,previewComments.3.isAnonymous,previewComments.3.content,previewComments.4.author.status,previewComments.4.author.fsid,previewComments.4.author.nickname,previewComments.4.isAnonymous,previewComments.4.content',
+            page: this.data.page,
+          })
+        );
+        break;
+
+      default:
+        resultRes = await fresnsApi.post.postList(
+          Object.assign(this.data.requestQuery, {
+            whitelistKeys:
+              'pid,url,title,content,contentLength,isBrief,isMarkdown,isAnonymous,stickyState,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,readConfig,affiliatedUserConfig,moreJson,location,operations,files,group.gid,group.gname,group.cover,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,manages,editControls,interaction,quotedPost.pid,quotedPost.author.status,,quotedPost.author.avatar,quotedPost.author.nickname,quotedPost.isAnonymous,quotedPost.title,quotedPost.content,previewComments.0.author.status,previewComments.0.author.fsid,previewComments.0.author.nickname,previewComments.0.isAnonymous,previewComments.0.content,previewComments.1.author.status,previewComments.1.author.fsid,previewComments.1.author.nickname,previewComments.1.isAnonymous,previewComments.1.content,previewComments.2.author.status,previewComments.2.author.fsid,previewComments.2.author.nickname,previewComments.2.isAnonymous,previewComments.2.content,previewComments.3.author.status,previewComments.3.author.fsid,previewComments.3.author.nickname,previewComments.3.isAnonymous,previewComments.3.content,previewComments.4.author.status,previewComments.4.author.fsid,previewComments.4.author.nickname,previewComments.4.isAnonymous,previewComments.4.content',
+            page: this.data.page,
+          })
+        );
+    }
 
     if (resultRes.code === 0) {
       const { paginate, list } = resultRes.data;
@@ -114,15 +154,6 @@ Page({
 
   /** 监听用户上拉触底 **/
   onReachBottom: async function () {
-    // 不接受客户端传参，包括分页
-    if (this.data.requestState == 1) {
-      this.setData({
-        loadingTipType: this.data.posts.length > 0 ? 'page' : 'empty',
-        isReachBottom: true,
-      });
-      return;
-    }
-
     await this.loadFresnsPageData();
   },
 
@@ -140,9 +171,18 @@ Page({
     };
   },
 
-  handleClick() {
-    wx.navigateTo({
-      url: '/pages/editor/index?type=post',
+  // 菜单切换
+  onTabsClick: async function (e) {
+    const value = e.detail.value;
+
+    this.setData({
+      value: value,
+      posts: [],
+      page: 1,
+      loadingTipType: 'none',
+      isReachBottom: false,
     });
+
+    await this.loadFresnsPageData();
   },
 });

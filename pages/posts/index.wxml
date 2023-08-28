@@ -4,13 +4,23 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
-    <t-navbar title="{{ title }}">
-        <view slot="left">
-            <t-image t-class="custom-image" src="{{ logo }}" aria-label="Fresns" />
-        </view>
-    </t-navbar>
+    <t-tabs default-value="{{ value }}" sticky bind:change="onTabsChange" bind:click="onTabsClick" t-class="custom-tabs">
+        <t-tab-panel label="{{ tabs.index }}" value="0" />
+        <t-tab-panel label="{{ tabs.follow }}" value="1" />
+        <t-tab-panel label="{{ tabs.new }}" value="2" />
+    </t-tabs>
 
-    <tabs defaultValue="index"></tabs>
+    <!-- 关注页未登录提示 -->
+    <view class="weui-msg" wx:if="{{ value == 1 && !userLogin }}">
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__desc">{{ loginTip }}</view>
+        </view>
+        <view class="weui-msg__opr-area">
+            <view class="weui-btn-area">
+                <navigator class="weui-btn weui-btn_primary" aria-role="button" url="/pages/account/login">{{ loginBtn }}</navigator>
+            </view>
+        </view>
+    </view>
 
     <!-- 帖子列表 -->
     <view class="post-list" wx:for="{{ posts }}" wx:for-item="post" wx:key="pid">
@@ -23,9 +33,6 @@
     <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
         <text class="weui-loadmore__tips">Powered by Fresns</text>
     </view>
-
-    <!-- 发表按钮 -->
-    <!-- <t-fab icon="add" bind:click="handleClick" aria-label="发表" style="bottom:110px;"></t-fab> -->
 
     <!-- Tabbar -->
     <tabbar activeLabel="posts"></tabbar>

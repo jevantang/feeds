@@ -1,7 +1,7 @@
 {
   "navigationBarTitleText": "我",
-  "enablePullDownRefresh": true,
   "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
   "component": true,
   "usingComponents": {
     "t-navbar": "tdesign-miniprogram/navbar/navbar",

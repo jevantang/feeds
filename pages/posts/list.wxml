@@ -4,6 +4,8 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
+    <tabs defaultValue="new"></tabs>
+
     <!-- 帖子列表 -->
     <view class="post-list" wx:for="{{ posts }}" wx:for-item="post" wx:key="pid">
         <post post="{{ post }}" type="list"></post>
@@ -15,4 +17,7 @@
     <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
         <text class="weui-loadmore__tips">Powered by Fresns</text>
     </view>
+
+    <!-- Tabbar -->
+    <tabbar activeLabel="posts"></tabbar>
 </view>

@@ -9,7 +9,6 @@
     "es6": true,
     "postcss": true,
     "compileHotReLoad": true,
-    "skylineRenderEnable": true,
     "lazyloadPlaceholderEnable": false,
     "preloadBackgroundData": false,
     "minified": true,
@@ -37,12 +36,15 @@
     "condition": true
   },
   "compileType": "miniprogram",
+  "appid": "wxbc94bda125907f11",
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
   },
-  "appid": "wxbc94bda125907f11",
+  "simulatorPluginLibVersion": {
+    "wxext14566970e7e9f62": "2.27.3"
+  },
   "libVersion": "3.0.1",
   "packOptions": {
     "ignore": [

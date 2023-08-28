@@ -16,27 +16,19 @@
 
     "pages/groups/index",
     "pages/groups/list",
-    "pages/groups/likes",
-    "pages/groups/dislikes",
     "pages/groups/following",
-    "pages/groups/blocking",
     "pages/groups/detail",
 
     "pages/hashtags/index",
     "pages/hashtags/list",
-    "pages/hashtags/likes",
-    "pages/hashtags/dislikes",
     "pages/hashtags/following",
-    "pages/hashtags/blocking",
     "pages/hashtags/detail",
 
     "pages/posts/list",
-    "pages/posts/nearby",
     "pages/posts/location",
     "pages/posts/likes",
     "pages/posts/dislikes",
     "pages/posts/following",
-    "pages/posts/blocking",
     "pages/posts/detail",
 
     "pages/comments/index",
@@ -49,19 +41,7 @@
     "pages/comments/blocking",
     "pages/comments/detail",
 
-    "pages/follows/all-posts",
-    "pages/follows/all-comments",
-    "pages/follows/user-posts",
-    "pages/follows/user-comments",
-    "pages/follows/group-posts",
-    "pages/follows/group-comments",
-    "pages/follows/hashtag-posts",
-    "pages/follows/hashtag-comments",
-
     "pages/notifications/index",
-
-    "pages/messages/index",
-    "pages/messages/conversation",
 
     "pages/search/index",
 
@@ -118,13 +98,6 @@
   },
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents",
-  "renderer": "skyline",
-  "componentFramework": "glass-easel",
-  "rendererOptions": {
-    "skyline": {
-      "defaultDisplayBlock": true
-    }
-  },
   "useExtendedLib": {
     "weui": true
   }
