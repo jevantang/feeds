@@ -8,7 +8,8 @@
     "coverView": true,
     "es6": true,
     "postcss": true,
-    "compileHotReLoad": false,
+    "compileHotReLoad": true,
+    "skylineRenderEnable": true,
     "lazyloadPlaceholderEnable": false,
     "preloadBackgroundData": false,
     "minified": true,
@@ -36,16 +37,13 @@
     "condition": true
   },
   "compileType": "miniprogram",
-  "appid": "wxcdaa14554bd22f64",
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
   },
-  "simulatorPluginLibVersion": {
-    "wxext14566970e7e9f62": "2.27.3"
-  },
-  "libVersion": "3.0.0",
+  "appid": "wxbc94bda125907f11",
+  "libVersion": "3.0.1",
   "packOptions": {
     "ignore": [
       {
@@ -60,5 +58,5 @@
     "include": []
   },
   "projectArchitecture": "multiPlatform",
-  "projectname": "Fresns"
+  "projectname": "%E7%9F%A5%E7%BB%93"
 }

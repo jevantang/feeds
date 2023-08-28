@@ -4,6 +4,12 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
+    <t-navbar title="{{ title }}">
+        <view slot="left">
+            <t-image t-class="custom-image" src="{{ logo }}" aria-label="Fresns" />
+        </view>
+    </t-navbar>
+
     <view class="portal">
         {{ content }}
     </view>

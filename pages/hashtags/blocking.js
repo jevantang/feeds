@@ -20,6 +20,11 @@ Page({
   /** 页面的初始数据 **/
   data: {
     title: null,
+    userName: null,
+    groupName: null,
+    hashtagName: null,
+    postName: null,
+    commentName: null,
     // 当前页面数据
     hashtags: [],
     // 下次请求时候的页码，初始值为 1
@@ -38,6 +43,11 @@ Page({
 
     this.setData({
       title: await fresnsConfig('menu_block_hashtags'),
+      userName: await fresnsConfig('user_name'),
+      groupName: await fresnsConfig('group_name'),
+      hashtagName: await fresnsConfig('hashtag_name'),
+      postName: await fresnsConfig('post_name'),
+      commentName: await fresnsConfig('comment_name'),
     });
 
     await this.loadFresnsPageData();

@@ -2,7 +2,6 @@
   "navigationBarTitleText": "用户列表",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "tabbar": "/components/commons/tabbar/tabbar",
     "loading": "/components/commons/loading/loading",
     "user": "/components/user/user"
   }

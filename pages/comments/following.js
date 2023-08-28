@@ -20,6 +20,8 @@ Page({
   /** 页面的初始数据 **/
   data: {
     title: null,
+    postName: null,
+    commentName: null,
     // 当前页面数据
     comments: [],
     // 下次请求时候的页码，初始值为 1
@@ -38,6 +40,8 @@ Page({
 
     this.setData({
       title: await fresnsConfig('menu_follow_comments'),
+      postName: await fresnsConfig('post_name'),
+      commentName: await fresnsConfig('comment_name'),
     });
 
     await this.loadFresnsPageData();

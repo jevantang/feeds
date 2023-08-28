@@ -2,6 +2,8 @@
   "navigationBarTitleText": "通知",
   "enablePullDownRefresh": true,
   "usingComponents": {
+    "t-tabs": "tdesign-miniprogram/tabs/tabs",
+    "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
     "tabbar": "/components/commons/tabbar/tabbar",
     "loading": "/components/commons/loading/loading",
     "notification": "/components/message/notification"

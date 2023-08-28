@@ -72,8 +72,7 @@ Page({
     const resultRes = await fresnsApi.group.groupList(
       Object.assign(this.data.requestQuery, {
         gid: this.data.gid,
-        whitelistKeys:
-          'gid,url,type,gname,description,cover,followType,followUrl,likeCount,dislikeCount,followCount,blockCount,postCount,postDigestCount,interaction',
+        whitelistKeys: 'gid,url,type,gname,description,cover,postCount',
         page: this.data.page,
       })
     );

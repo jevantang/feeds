@@ -39,7 +39,7 @@
 		</view>
 	</view>
 
-    <view aria-role="dialog" aria-modal="true" class="fadeIn" wx:if="{{ showConnectTip }}">
+    <view aria-role="dialog" aria-modal="true" wx:if="{{ showConnectTip }}">
         <view class="weui-mask"></view>
         <view class="weui-dialog">
             <view class="weui-dialog__bd">请先使用「密码」或者「验证码」登录账号，登录后在用户中心的账号设置中绑定关联。</view>

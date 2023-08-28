@@ -1,7 +1,8 @@
 {
   "component": true,
   "usingComponents": {
-    "mp-tabs": "@miniprogram-component-plus/tabs",
+    "t-tabs": "tdesign-miniprogram/tabs/tabs",
+    "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
     "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet",
     "editor-mention": "/components/editor/editor-mention/editor-mention",
     "editor-hashtag": "/components/editor/editor-hashtag/editor-hashtag"

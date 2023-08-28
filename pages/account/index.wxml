@@ -4,48 +4,11 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
-    <!-- 已登录 -->
-    <view class="profile-header" wx:if="{{ userLogin }}">
-        <view class="weui-flex">
-            <view class="profile-info">
-                <view class="profile-avatar">
-                    <image wx:if="{{ fresnsUser.decorate }}" src="{{ fresnsUser.decorate }}" class="avatar-decorate" mode="scaleToFill"></image>
-                    <image src="{{ fresnsUser.avatar }}" class="avatar-img" mode="scaleToFill"></image>
-                </view>
-                <view class="profile-name weui-flex">
-                    <text class="profile-nickname">{{ fresnsUser.nickname }}</text>
-
-                    <view wx:if="{{ fresnsUser.verifiedStatus }}" class="profile-verified">
-                        <image src="{{ fresnsUser.verifiedIcon ? fresnsUser.verifiedIcon : '/assets/images/icon-verified.png' }}" mode="heightFix"></image>
-                    </view>
-
-                    <text class="profile-username">{{ '@' + fresnsUser.username }}</text>
-
-                    <view wx:if="{{ fresnsUser.roleIcon }}" class="profile-role-icon">
-                        <image src="{{ fresnsUser.roleIcon }}" mode="heightFix"></image>
-                    </view>
-
-                    <view wx:if="{{ fresnsUser.roleName }}" class="profile-role-name">
-                        <text class="weui-badge">{{ fresnsUser.roleName }}</text>
-                    </view>
-                </view>
-            </view>
-            <view class="weui-flex__item settings-btn">
-                <navigator url="/pages/account/settings" class="weui-btn weui-btn_mini weui-btn_default">
-                    {{ fresnsConfig.menu_account_settings }}
-                </navigator>
-            </view>
+    <t-navbar title="{{ title }}">
+        <view slot="left">
+            <t-image t-class="custom-image" src="{{ logo }}" aria-label="Fresns" />
         </view>
-        <view class="user-bio" wx-if="{{ fresnsUser.bio }}">{{ fresnsUser.bio }}</view>
-        <view class="weui-media-box__info">
-            <view class="weui-media-box__info__meta">
-                {{ fresnsUser.stats.followUserCount }} {{ fresnsLang.userFollowing }}
-            </view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
-                {{ fresnsUser.stats.followMeCount }} {{ fresnsConfig.user_follower_name }}
-            </view>
-        </view>
-    </view>
+    </t-navbar>
 
     <!-- 未登录 -->
     <view class="profile-header" wx:if="{{ !userLogin }}">
@@ -54,27 +17,109 @@
         </navigator>
     </view>
 
-    <view class="weui-cells weui-cells_after-title">
-        <navigator url="/pages/search/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd">{{ fresnsConfig.menu_search }}</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-        </navigator>
-    </view>
+    <!-- 已登录 -->
+    <block wx:if="{{ userLogin }}">
+        <view class="profile-header">
+            <view class="weui-flex">
+                <view class="profile-info">
+                    <navigator url="{{ userHomePath + fresnsUser.fsid }}">
+                        <view class="profile-avatar">
+                            <image wx:if="{{ fresnsUser.decorate }}" src="{{ fresnsUser.decorate }}" class="avatar-decorate" mode="scaleToFill"></image>
+                            <image src="{{ fresnsUser.avatar }}" class="avatar-img" mode="scaleToFill"></image>
+                        </view>
+                        <view class="profile-name weui-flex">
+                            <text class="profile-nickname">{{ fresnsUser.nickname }}</text>
 
-    <view class="weui-cells weui-cells_after-title">
-        <navigator url="/pages/editor/index?type=post" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd">{{ fresnsConfig.publish_post_name }}</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-        </navigator>
-        <navigator url="/pages/account/wallet" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd">{{ fresnsConfig.menu_account_wallet }}</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">{{ fresnsAccount.wallet.currencyCode }} {{ fresnsAccount.wallet.balance }} {{ fresnsAccount.wallet.currencyUnit }}</view>
-        </navigator>
-        <navigator url="/pages/editor/draft-box?type=post" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd">{{ fresnsConfig.menu_editor_drafts }}</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">{{ fresnsUserPanel.draftCount.posts }}</view>
-        </navigator>
-    </view>
+                            <view wx:if="{{ fresnsUser.verifiedStatus }}" class="profile-verified">
+                                <image src="{{ fresnsUser.verifiedIcon ? fresnsUser.verifiedIcon : '/assets/images/icon-verified.png' }}" mode="heightFix"></image>
+                            </view>
+
+                            <text class="profile-username">{{ '@' + fresnsUser.username }}</text>
+
+                            <view wx:if="{{ fresnsUser.roleIcon }}" class="profile-role-icon">
+                                <image src="{{ fresnsUser.roleIcon }}" mode="heightFix"></image>
+                            </view>
+
+                            <view wx:if="{{ fresnsUser.roleName }}" class="profile-role-name">
+                                <text class="weui-badge">{{ fresnsUser.roleName }}</text>
+                            </view>
+                        </view>
+                    </navigator>
+                </view>
+                <view class="weui-flex__item settings-btn">
+                    <navigator url="/pages/account/settings" class="weui-btn weui-btn_mini weui-btn_default">
+                        {{ fresnsConfig.menu_account_settings }}
+                    </navigator>
+                </view>
+            </view>
+            <view class="user-bio" wx-if="{{ fresnsUser.bio }}">{{ fresnsUser.bio }}</view>
+            <view class="weui-media-box__info">
+                <view class="weui-media-box__info__meta">
+                    <navigator url="/pages/profile/following/users?fsid={{ fresnsUser.fsid }}" style="color: var(--weui-LINK);">{{ fresnsUser.stats.followUserCount }} {{ fresnsLang.userFollowing }}</navigator>
+                </view>
+                <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
+                    <navigator url="/pages/profile/interactions/followers?fsid={{ fresnsUser.fsid }}" style="color: var(--weui-LINK);">{{ fresnsUser.stats.followMeCount }} {{ fresnsConfig.user_follower_name }}</navigator>
+                </view>
+            </view>
+        </view>
+
+        <!-- 通知和私信 -->
+        <view class="weui-cells weui-cells_after-title">
+            <navigator url="/pages/notifications/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">{{ fresnsConfig.menu_notifications }}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">
+                    <text class="weui-badge" wx:if="{{ fresnsUserPanel.unreadNotifications.all > 0 }}">{{ fresnsUserPanel.unreadNotifications.all }}</text>
+                </view>
+            </navigator>
+            <navigator url="/pages/messages/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">{{ fresnsConfig.menu_conversations }}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">
+                    <text class="weui-badge" wx:if="{{ fresnsUserPanel.conversations.unreadMessages > 0 }}">{{ fresnsUserPanel.conversations.unreadMessages }}</text>
+                </view>
+            </navigator>
+        </view>
+
+        <!-- 积分 -->
+        <view class="weui-cells weui-cells_after-title {{ userExtcredits ? 'userExtcredits' : '' }}">
+            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onClickExtcredits">
+                <view class="weui-cell__bd">{{ fresnsLang.userExtcredits }}</view>
+                <view wx:if="{{ userExtcredits }}">
+                    <t-icon name="chevron-up" size="24" color="#999999"/>
+                </view>
+                <view wx:else>
+                    <t-icon name="chevron-down" size="24" color="#999999"/>
+                </view>
+            </navigator>
+
+            <t-cell-group theme="card" wx:if="{{ userExtcredits }}">
+                <t-cell wx:if="{{ fresnsUser.stats.extcredits1State != 1 }}" title="{{ fresnsUser.stats.extcredits1Name }}" note="{{ fresnsUser.stats.extcredits1 }} {{ fresnsUser.stats.extcredits1Unit }}" url="/pages/account/user-extcredits?id=1" hover arrow />
+                <t-cell wx:if="{{ fresnsUser.stats.extcredits2State != 1 }}" title="{{ fresnsUser.stats.extcredits2Name }}" note="{{ fresnsUser.stats.extcredits2 }} {{ fresnsUser.stats.extcredits2Unit }}" url="/pages/account/user-extcredits?id=2" hover arrow />
+                <t-cell wx:if="{{ fresnsUser.stats.extcredits3State != 1 }}" title="{{ fresnsUser.stats.extcredits3Name }}" note="{{ fresnsUser.stats.extcredits3 }} {{ fresnsUser.stats.extcredits3Unit }}" url="/pages/account/user-extcredits?id=3" hover arrow />
+                <t-cell wx:if="{{ fresnsUser.stats.extcredits4State != 1 }}" title="{{ fresnsUser.stats.extcredits4Name }}" note="{{ fresnsUser.stats.extcredits4 }} {{ fresnsUser.stats.extcredits4Unit }}" url="/pages/account/user-extcredits?id=4" hover arrow />
+                <t-cell wx:if="{{ fresnsUser.stats.extcredits5State != 1 }}" title="{{ fresnsUser.stats.extcredits5Name }}" note="{{ fresnsUser.stats.extcredits5 }} {{ fresnsUser.stats.extcredits5Unit }}" url="/pages/account/user-extcredits?id=5" hover arrow />
+            </t-cell-group>
+        </view>
+
+        <!-- 内容 -->
+        <view class="weui-cells weui-cells_after-title">
+            <navigator url="/pages/editor/index?type=post" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">{{ fresnsConfig.publish_post_name }}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+            <navigator url="/pages/editor/draft-box?type=post" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">{{ fresnsConfig.menu_editor_drafts }}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{ fresnsUserPanel.draftCount.posts }}</view>
+            </navigator>
+            <navigator url="/pages/posts/following" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">{{ fresnsConfig.menu_follow_posts }}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+            <navigator url="/pages/posts/blocking" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">{{ fresnsConfig.menu_block_users }}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+        </view>
+    </block>
 
     <view class="user-extensions" wx:if="{{ fresnsUserPanel.features.length > 0 }}">
         <view class="extension-box">

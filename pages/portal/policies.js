@@ -52,18 +52,22 @@ Page({
       });
     }
 
-    const index = tabs.findIndex((tab) => tab.active === options.active);
+    const idx = tabs.findIndex((tab) => tab.active === options.active);
 
     this.setData({
       tabs: tabs,
-      activeTab: index,
-      content: tabs[index].content,
+      activeTab: idx,
+      content: tabs[idx].content,
     });
   },
 
   onClickTab: async function (e) {
+    const value = e.detail.value;
+    const tabs = this.data.tabs;
+
     this.setData({
-      content: this.data.tabs[e.detail.index].content,
+      activeTab: value,
+      content: tabs[value].content,
     });
   },
 });

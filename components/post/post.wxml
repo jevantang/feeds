@@ -20,14 +20,11 @@
         <!-- 内容 -->
         <view class="fresns-content">
             <view class="content-title">
-                <block wx:for="{{ post.operations.diversifyImages }}" wx:for-item="iconItem" wx:key="code">
-                    <image wx:if="{{ iconItem.code == 'title' }}" src="{{ iconItem.imageUrl }}" mode="heightFix"></image>
-                </block>
                 <text wx:if="{{ post.title }}">{{ post.title }}</text>
             </view>
 
             <view class="content-text">
-                <mp-html content="{{ postContent }}" markdown="{{ post.isMarkdown }}" lazy-load="true" />
+                <mp-html content="{{ postContent }}" markdown="{{ true }}" lazy-load="true" />
             </view>
 
             <view class="content-brief" wx:if="{{ type == 'list' && post.isBrief }}">
@@ -82,6 +79,13 @@
                 <image wx:if="{{ post.group.cover }}" src="{{ post.group.cover }}" class="group-icon" mode="aspectFit"></image>
                 {{ post.group.gname }}
             </navigator>
+
+            <!-- 标题图标 -->
+            <view class="title-icons">
+                <block wx:for="{{ post.operations.diversifyImages }}" wx:for-item="iconItem" wx:key="code">
+                    <image wx:if="{{ iconItem.code == 'title' }}" src="{{ iconItem.imageUrl }}" mode="heightFix"></image>
+                </block>
+            </view>
 
             <!-- 特殊用户 -->
             <navigator wx:if="{{ post.affiliatedUserConfig.hasUserList }}" class="content-users float-end" url="/pages/webview" bind:tap="fresnsExtensions"

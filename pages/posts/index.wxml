@@ -4,32 +4,13 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
-    <view class="weui-flex tab-navbar weui-navbar">
-        <view class="weui-flex__item weui-navbar__item weui-navbar__item_on">
-            <navigator url="/pages/posts/index" open-type="redirect">主页</navigator>
+    <t-navbar title="{{ title }}">
+        <view slot="left">
+            <t-image t-class="custom-image" src="{{ logo }}" aria-label="Fresns" />
         </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/posts/list" open-type="redirect">列表</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/posts/nearby" open-type="redirect">附近</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/follows/all-posts" open-type="redirect">关注</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/posts/likes" open-type="redirect">我赞</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/posts/dislikes" open-type="redirect">我踩</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/posts/following" open-type="redirect">我关注</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/posts/blocking" open-type="redirect">我屏蔽</navigator>
-        </view>
-    </view>
+    </t-navbar>
+
+    <tabs defaultValue="index"></tabs>
 
     <!-- 帖子列表 -->
     <view class="post-list" wx:for="{{ posts }}" wx:for-item="post" wx:key="pid">
@@ -42,6 +23,9 @@
     <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
         <text class="weui-loadmore__tips">Powered by Fresns</text>
     </view>
+
+    <!-- 发表按钮 -->
+    <!-- <t-fab icon="add" bind:click="handleClick" aria-label="发表" style="bottom:110px;"></t-fab> -->
 
     <!-- Tabbar -->
     <tabbar activeLabel="posts"></tabbar>

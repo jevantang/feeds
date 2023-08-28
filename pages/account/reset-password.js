@@ -183,6 +183,7 @@ Page({
       wx.showToast({
         title: resetRes.message,
       });
+
       wx.redirectTo({
         url: '/pages/account/login',
       });

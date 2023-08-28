@@ -58,7 +58,6 @@ Page({
       callPrevPageFunction('onChangeGroup', groupDetailRes.data.detail);
     }
 
-    // 置顶帖子
     const resultRes = await fresnsApi.post.postList({
       gid: options.gid,
       stickyState: 2,
@@ -97,6 +96,8 @@ Page({
     const postsRes = await fresnsApi.post.postList(
       Object.assign(this.data.query, {
         gid: this.data.gid,
+        whitelistKeys:
+          'pid,url,title,content,contentLength,isBrief,isMarkdown,isAnonymous,stickyState,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,readConfig,affiliatedUserConfig,moreJson,location,operations,files,group.gid,group.gname,group.cover,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,manages,editControls,interaction',
         page: this.data.page,
       })
     );

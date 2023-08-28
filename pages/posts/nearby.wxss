@@ -6,3 +6,8 @@
 .weui-cell__hd {
   margin-right: 6px;
 }
+
+.custom-image {
+  height: 48rpx;
+  width: 204rpx;
+}

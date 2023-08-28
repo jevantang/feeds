@@ -255,8 +255,8 @@ Component({
     },
 
     // 切换表情
-    onClickTab: function (e) {
-      const index = e.detail.index;
+    onTabsClick: function (e) {
+      const index = e.detail.value;
       const stickerTabs = this.data.stickerTabs;
 
       this.setData({

@@ -123,4 +123,20 @@ Page({
       notifications: notifications,
     });
   },
+
+  // 切换类型
+  onTabsClick: async function (e) {
+    const value = e.detail.value;
+
+    this.setData({
+      type: value,
+      notifications: [],
+      page: 1,
+      loadingStatus: false,
+      loadingTipType: 'none',
+      isReachBottom: false,
+    });
+
+    await this.loadFresnsPageData();
+  },
 });

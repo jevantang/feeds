@@ -19,6 +19,7 @@ Page({
   /** 页面的初始数据 **/
   data: {
     title: null,
+    logo: null,
     // 当前页面数据
     posts: [],
     // 下次请求时候的页码，初始值为 1
@@ -37,6 +38,7 @@ Page({
 
     this.setData({
       title: await fresnsConfig('menu_follow_all_posts'),
+      logo: await fresnsConfig('site_logo'),
     });
 
     await this.loadFresnsPageData();

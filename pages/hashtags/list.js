@@ -19,6 +19,7 @@ Page({
   /** 页面的初始数据 **/
   data: {
     title: null,
+    hashtagFormat: null,
     // 默认查询条件
     requestState: null,
     requestQuery: null,
@@ -43,6 +44,7 @@ Page({
 
     this.setData({
       title: await fresnsConfig('menu_hashtag_list_title'),
+      hashtagFormat: await fresnsConfig('hashtag_format'),
       requestState: requestState,
       requestQuery: requestQuery,
     });

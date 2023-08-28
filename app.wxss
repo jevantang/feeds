@@ -3,6 +3,10 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+page {
+  background-color: var(--weui-BG-1);
+}
+
 .page {
   background-color: var(--weui-BG-1);
 }
@@ -41,7 +45,6 @@
 
 .weui-navbar {
   margin: 0 auto;
-  padding-top: 0;
 }
 
 .weui-navbar:after {

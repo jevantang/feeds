@@ -4,14 +4,7 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
-    <profile-user user="{{ profile.detail }}" items="{{ profile.items }}"/>
-
-    <profile-switch user="{{ profile.detail }}"/>
-
-    <!-- 标题 -->
-    <view class="page-title">
-        <text>{{ title }}</text>
-    </view>
+    <tabs-followers user="{{ profile.detail }}" defaultValue="following"/>
 
     <!-- 列表 -->
     <view class="profile-list">

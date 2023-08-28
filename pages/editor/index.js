@@ -467,7 +467,7 @@ Page({
       wx.showModal({
         title: submitRes.message,
         cancelText: await fresnsConfig('menu_editor_drafts'), // 草稿箱
-        confirmText: await fresnsConfig('menu_post_title'), // 帖子主页
+        confirmText: await fresnsConfig('menu_post_title'), // 广场
         success(res) {
           if (res.confirm) {
             // 去帖子主页

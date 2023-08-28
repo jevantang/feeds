@@ -1,0 +1,10 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<t-tabs default-value="{{ value }}" sticky bind:change="onTabsChange" bind:click="onTabsClick" t-class="custom-tabs">
+  <t-tab-panel label="{{ tabs.index }}" value="0" />
+  <t-tab-panel label="{{ tabs.follow }}" value="1" />
+  <t-tab-panel label="{{ tabs.nearby }}" value="2" />
+</t-tabs>

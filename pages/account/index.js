@@ -13,6 +13,9 @@ Page({
 
   /** 页面的初始数据 **/
   data: {
+    title: null,
+    logo: null,
+
     accountLogin: false,
     userLogin: false,
 
@@ -27,6 +30,9 @@ Page({
 
     showLogoutDialog: false,
     loginButtons: [],
+
+    userHomePath: '',
+    userExtcredits: false,
   },
 
   /** 监听页面加载 **/
@@ -58,6 +64,8 @@ Page({
       });
 
     this.setData({
+      title: await fresnsConfig('menu_account'),
+      logo: await fresnsConfig('site_logo'),
       accountLogin: globalInfo.accountLogin,
       userLogin: globalInfo.userLogin,
       fresnsConfig: await fresnsConfig(),
@@ -75,6 +83,7 @@ Page({
           extClass: 'warn',
         },
       ],
+      userHomePath: await globalInfo.userHomePath(),
     });
   },
 
@@ -97,6 +106,13 @@ Page({
 
     wx.hideNavigationBarLoading();
     console.log('reload data end');
+  },
+
+  // 展开用户积分
+  onClickExtcredits: function () {
+    this.setData({
+      userExtcredits: !this.data.userExtcredits,
+    });
   },
 
   /** 切换语言菜单 **/

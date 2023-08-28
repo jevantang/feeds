@@ -53,6 +53,12 @@ Component({
           /<img\s+src="([^"]+)"\s+class="fresns_sticker"\s+alt="([\s\S]*?)"\s*\/?>/gi,
           '<img src="$1" style="zoom: 0.5" alt="$2"/>'
         );
+
+        // 匹配 Fresns 链接
+        newContent = newContent.replace(
+          /<a\s+href="(https?:\/\/[^"]*fresns\.cn[^"]*)"[^>]*>([^<]+)<\/a>/gi,
+          '<a href="/pages/webview?url=$1">$2</a>'
+        );
       }
 
       this.setData({

@@ -54,7 +54,7 @@
     </view>
 
     <!-- 分享菜单 -->
-	<view wx:if="{{ showShareActionSheet }}" class="fadeIn" bind:tap="onHideShareMenus">
+	<view wx:if="{{ showShareActionSheet }}" bind:tap="onHideShareMenus">
 		<view class="weui-mask"></view>
 		<view class="weui-actionsheet weui-actionsheet_toggle">
 			<view class="weui-actionsheet__title">
@@ -74,4 +74,4 @@
     <mp-actionSheet show="{{ showActionSheet }}" actions="{{ actionGroups }}" title="{{ title }}" bindactiontap="actionClickMore"/>
 </view>
 
-<view wx:if="{{ comment.interaction.postAuthorLikeStatus }}">{{ fresnsLang.contentAuthorLiked }}</view>
+<t-tag variant="outline" shape="round" wx:if="{{ comment.interaction.postAuthorLikeStatus }}">{{ fresnsLang.contentAuthorLiked }}</t-tag>

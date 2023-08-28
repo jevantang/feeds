@@ -2,8 +2,7 @@
   "navigationBarTitleText": "小组列表",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "tabbar": "/components/commons/tabbar/tabbar",
-    "loading": "/components/commons/loading/loading",
-    "group": "/components/group/group"
+    "t-cell": "tdesign-miniprogram/cell/cell",
+    "loading": "/components/commons/loading/loading"
   }
 }

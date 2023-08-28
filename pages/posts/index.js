@@ -19,6 +19,7 @@ Page({
   /** 页面的初始数据 **/
   data: {
     title: null,
+    logo: null,
     // 默认查询条件
     requestState: null,
     requestQuery: null,
@@ -43,6 +44,7 @@ Page({
 
     this.setData({
       title: await fresnsConfig('menu_post_title'),
+      logo: await fresnsConfig('site_logo'),
       requestState: requestState,
       requestQuery: requestQuery,
     });
@@ -136,5 +138,11 @@ Page({
     return {
       title: this.data.title,
     };
+  },
+
+  handleClick() {
+    wx.navigateTo({
+      url: '/pages/editor/index?type=post',
+    });
   },
 });

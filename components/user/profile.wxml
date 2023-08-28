@@ -36,12 +36,21 @@
 
     <view class="profile-bio" wx:if="{{ user.bio }}"><mp-html content="{{ user.bioHtml }}"/></view>
 
+    <view class="profile-extcredits">
+        <t-tag t-class="extcredits-tag" variant="outline" shape="round" wx:if="{{ user.stats.extcredits1State == 3 && user.stats.extcredits1 }}">{{ user.stats.extcredits1Name }} | {{ user.stats.extcredits1 }}</t-tag>
+        <t-tag t-class="extcredits-tag" variant="outline" shape="round" wx:if="{{ user.stats.extcredits2State == 3 && user.stats.extcredits2 }}">{{ user.stats.extcredits2Name }} | {{ user.stats.extcredits2 }}</t-tag>
+        <t-tag t-class="extcredits-tag" variant="outline" shape="round" wx:if="{{ user.stats.extcredits3State == 3 && user.stats.extcredits3 }}">{{ user.stats.extcredits3Name }} | {{ user.stats.extcredits3 }}</t-tag>
+        <t-tag t-class="extcredits-tag" variant="outline" shape="round" wx:if="{{ user.stats.extcredits4State == 3 && user.stats.extcredits4 }}">{{ user.stats.extcredits4Name }} | {{ user.stats.extcredits4 }}</t-tag>
+        <t-tag t-class="extcredits-tag" variant="outline" shape="round" wx:if="{{ user.stats.extcredits5State == 3 && user.stats.extcredits5 }}">{{ user.stats.extcredits5Name }} | {{ user.stats.extcredits5 }}</t-tag>
+    </view>
+
     <view class="profile-stats weui-media-box__info">
         <view class="weui-media-box__info__meta">
-            {{ user.stats.followMeCount }} {{ userFollowerName }}
+            <navigator url="/pages/profile/following/users?fsid={{ user.fsid }}" style="color: var(--weui-LINK);">{{ user.stats.followUserCount }} {{ userFollowingName }}</navigator>
         </view>
+
         <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
-            {{ user.stats.followUserCount }} {{ userFollowingName }}
+            <navigator url="/pages/profile/interactions/followers?fsid={{ user.fsid }}" style="color: var(--weui-LINK);">{{ user.stats.followMeCount }} {{ userFollowerName }}</navigator>
         </view>
 
         <view class="weui-media-box__info__meta weui-media-box__info__meta_extra" wx:if="{{ actionGroups.length > 0 }}" bind:tap="onClickMore">

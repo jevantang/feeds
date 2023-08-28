@@ -87,6 +87,14 @@
   font-weight: 300;
 }
 
+.profile-extcredits {
+  padding: 10px 20px;
+}
+
+.extcredits-tag {
+  margin-right: 10px;
+}
+
 .profile-tab-text {
   font-size: 14px;
   padding-top: 10px;
@@ -94,5 +102,5 @@
 }
 
 .profile-stats {
-  margin: 0 20px;
+  margin: 10px 20px;
 }

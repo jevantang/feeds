@@ -19,8 +19,7 @@ Page({
   /** 页面的初始数据 **/
   data: {
     title: null,
-    vtabs: [],
-    activeTab: 0,
+    logo: null,
     menuGroupType: null,
     // 默认查询条件
     requestState: null,
@@ -47,6 +46,7 @@ Page({
 
     this.setData({
       title: await fresnsConfig('menu_group_title'),
+      logo: await fresnsConfig('site_logo'),
       menuGroupType: await fresnsConfig('menu_group_type'),
       requestState: requestState,
       requestQuery: requestQuery,
@@ -59,17 +59,6 @@ Page({
     await this.loadFresnsPageData();
   },
 
-  /** vtabs 交互 **/
-  onTabClick(e) {
-    const index = e.detail.index;
-    console.log('tabClick', index);
-  },
-
-  onChange(e) {
-    const index = e.detail.index;
-    console.log('change', index);
-  },
-
   /** 加载列表数据 **/
   loadFresnsPageData: async function () {
     wx.showNavigationBarLoading();
@@ -80,8 +69,7 @@ Page({
 
     if (this.data.menuGroupType === 'tree') {
       const resultRes = await fresnsApi.group.groupTree({
-        whitelistKeys:
-          'gid,url,type,gname,description,cover,followType,followUrl,likeCount,dislikeCount,followCount,blockCount,postCount,postDigestCount,interaction',
+        whitelistKeys: 'gid,url,type,gname,description,cover,postCount',
       });
 
       if (resultRes.code === 0) {
@@ -104,8 +92,7 @@ Page({
 
       const resultRes = await fresnsApi.group.groupList(
         Object.assign(this.data.requestQuery, {
-          whitelistKeys:
-            'gid,url,type,gname,description,cover,followType,followUrl,likeCount,dislikeCount,followCount,blockCount,postCount,postDigestCount,interaction',
+          whitelistKeys: 'gid,url,type,gname,description,cover,postCount',
           page: this.data.page,
         })
       );

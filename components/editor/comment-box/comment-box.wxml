@@ -57,7 +57,9 @@
 
     <!-- 表情菜单 -->
     <view class="sticker-box" wx:if="{{ showStickerBox }}">
-        <mp-tabs tabs="{{ stickerTabs }}" active-tab="0" bindtabclick="onClickTab" active-class="tab-title-selected"/>
+        <t-tabs defaultValue="{{ 0 }}" space-evenly="{{false}}" bind:change="onTabsChange" bind:click="onTabsClick">
+            <t-tab-panel wx:for="{{ stickerTabs }}" wx:for-item="tab" wx:for-index="index" wx:key="index" label="{{ tab.title }}" value="{{index}}" />
+        </t-tabs>
 
         <scroll-view scroll-y="true" style="height:399rpx;">
             <view class="stickers">

@@ -1,0 +1,40 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view class="page" data-weui-theme="{{ theme }}">
+    <t-navbar title="{{ title }}">
+        <view slot="left">
+            <t-image t-class="custom-image" src="{{ logo }}" aria-label="Fresns" />
+        </view>
+    </t-navbar>
+
+    <t-cell-group theme="card" wx:if="{{ stickyPosts.length > 0 }}" style="margin-top:20px;margin-bottom:20px;">
+        <block wx:for="{{ stickyPosts }}" wx:for-item="post">
+            <t-cell title="{{ post.title || post.shortContent }}" leftIcon="backtop-rectangle" url="/pages/posts/detail?pid={{ post.pid }}" hover/>
+        </block>
+    </t-cell-group>
+
+    <t-cell-group>
+        <t-cell wx:if="{{ fresnsConfig.menu_user_list_status }}" title="{{ fresnsConfig.menu_user_list_name }}" leftIcon="usergroup" url="/pages/users/list" hover arrow/>
+        <t-cell wx:if="{{ fresnsConfig.menu_group_list_status }}" title="{{ fresnsConfig.menu_group_list_name }}" leftIcon="internet" url="/pages/groups/list" hover arrow/>
+        <t-cell wx:if="{{ fresnsConfig.menu_hashtag_list_status }}" title="{{ fresnsConfig.menu_hashtag_list_name }}" leftIcon="flag" url="/pages/hashtags/list" hover arrow/>
+        <t-cell wx:if="{{ fresnsConfig.menu_post_list_status }}" title="{{ fresnsConfig.menu_post_list_name }}" leftIcon="view-module" url="/pages/posts/list" hover arrow/>
+        <t-cell wx:if="{{ fresnsConfig.menu_comment_list_status }}" title="{{ fresnsConfig.menu_comment_list_name }}" leftIcon="chat" url="/pages/comments/list" hover arrow/>
+    </t-cell-group>
+
+    <t-cell-group wx:if="{{ channels.length > 0 }}" style="margin-top:20px;">
+        <block wx:for="{{ channels }}" wx:for-item="channel">
+            <t-cell title="{{ channel.name }}" image="{{ channel.icon }}" url="/pages/webview" data-type="portal" data-scene="fresnsChannel" data-post-message-key="fresnsChannel" bind:tap="fresnsExtensions" hover arrow>
+                <t-badge wx:if="{{ channel.badgeType }}" count="{{ channel.badgeValue }}" slot="note" />
+            </t-cell>
+        </block>
+    </t-cell-group>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
+    </view>
+
+    <tabbar activeLabel="channels"></tabbar>
+</view>

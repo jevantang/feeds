@@ -4,55 +4,26 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
-    <view class="weui-flex tab-navbar weui-navbar">
-        <view class="weui-flex__item weui-navbar__item weui-navbar__item_on">
-            <navigator url="/pages/groups/index" open-type="redirect">主页</navigator>
+    <t-navbar title="{{ title }}">
+        <view slot="left">
+            <t-image t-class="custom-image" src="{{ logo }}" aria-label="Fresns" />
         </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/groups/list" open-type="redirect">列表</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/follows/group-posts" open-type="redirect">关注</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/groups/likes" open-type="redirect">我赞</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/groups/dislikes" open-type="redirect">我踩</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/groups/following" open-type="redirect">我关注</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/groups/blocking" open-type="redirect">我屏蔽</navigator>
-        </view>
-    </view>
+    </t-navbar>
 
-    <!-- 视图类型: 树结构 -->
-    <view class="groups-vtabs" wx:if="{{ menuGroupType == 'tree' }}">
-        <mp-vtabs vtabs="{{ vtabs }}" activeTab="{{ activeTab }}" bindtabclick="onTabClick" bindchange="onChange">
-            <block wx:for="{{ vtabs }}">
-                <mp-vtabs-content tabIndex="{{ index }}">
-                    <view class="weui-panel weui-panel_access">
-                        <view class="weui-panel__hd">{{ item.title }}</view>
-                        <view class="weui-panel__bd">
-                            <group wx:for="{{ groupTree[index].groups }}" wx:for-item="group" wx:key="gid" group="{{ group }}"></group>
-                        </view>
-                    </view>
-                </mp-vtabs-content>
+    <block wx:for="{{ groupTree }}" wx:for-item="tree" wx:key="gid">
+        <t-cell-group theme="card" title="{{ tree.gname }}">
+            <block wx:for="{{ tree.groups }}" wx:for-item="group" wx:key="gid">
+                <t-cell 
+                    title="{{ group.gname }}"
+                    note="{{ group.postCount }}"
+                    description="{{ group.description }}"
+                    image="{{ group.cover }}"
+                    url="{{ '/pages/groups/detail?gid=' + group.gid }}"
+                    align="top"
+                    hover arrow />
             </block>
-        </mp-vtabs>
-    </view>
-
-    <!-- 视图类型: 列表 -->
-    <view class="weui-media-box weui-media-box_small-appmsg" wx:if="{{ menuGroupType !== 'tree' }}">
-        <view class="weui-cells">
-            <group wx:for="{{ groups }}" wx:for-item="group" wx:key="gid" group="{{ group }}"></group>
-        </view>
-    </view>
-
-    <!-- 加载动效 -->
-    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+        </t-cell-group>
+    </block>
 
     <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
         <text class="weui-loadmore__tips">Powered by Fresns</text>

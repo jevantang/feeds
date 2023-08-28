@@ -3,6 +3,7 @@
   "usingComponents": {
     "mp-html": "mp-html",
     "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet",
+    "t-tag": "tdesign-miniprogram/tag/tag",
     "interaction": "/components/user/section/interaction"
   }
 }

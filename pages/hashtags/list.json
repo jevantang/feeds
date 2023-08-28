@@ -2,8 +2,7 @@
   "navigationBarTitleText": "话题",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "tabbar": "/components/commons/tabbar/tabbar",
-    "loading": "/components/commons/loading/loading",
-    "hashtag": "/components/hashtag/hashtag"
+    "t-cell": "tdesign-miniprogram/cell/cell",
+    "loading": "/components/commons/loading/loading"
   }
 }

@@ -4,38 +4,21 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
-    <view class="weui-flex tab-navbar weui-navbar">
-        <view class="weui-flex__item weui-navbar__item {{ !type ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index" open-type="redirect">{{ navName.all }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 1 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=1" open-type="redirect">{{ navName.systems }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 2 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=2" open-type="redirect">{{ navName.recommends }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 3 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=3" open-type="redirect">{{ navName.likes }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 4 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=4" open-type="redirect">{{ navName.dislikes }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 5 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=5" open-type="redirect">{{ navName.follows }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 6 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=6" open-type="redirect">{{ navName.blocks }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 7 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=7" open-type="redirect">{{ navName.mentions }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 8 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=8" open-type="redirect">{{ navName.comments }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 9 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=9" open-type="redirect">{{ navName.quotes }}</navigator>
-        </view>
-    </view>
+    <t-tabs
+        default-value="{{ type || 0 }}"
+        sticky
+        stickyProps="{{stickyProps}}"
+        bind:change="onTabsChange"
+        bind:click="onTabsClick"
+        bind:scroll="onStickyScroll"
+        t-class="custom-tabs"
+        >
+        <t-tab-panel label="{{ navName.all }}" value="0" />
+        <t-tab-panel label="{{ navName.systems }}" value="1" />
+        <t-tab-panel label="{{ navName.recommends }}" value="2" />
+        <t-tab-panel label="{{ navName.mentions }}" value="7" />
+        <t-tab-panel label="{{ navName.comments }}" value="8" />
+    </t-tabs>
 
     <!-- 通知列表 -->
     <view class="notifications" wx:for="{{ notifications }}" wx:for-item="notification" wx:key="id">
@@ -48,7 +31,4 @@
     <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
         <text class="weui-loadmore__tips">Powered by Fresns</text>
     </view>
-
-    <!-- Tabbar -->
-    <tabbar activeLabel="notifications"></tabbar>
 </view>

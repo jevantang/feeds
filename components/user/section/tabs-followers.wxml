@@ -1,0 +1,10 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<t-tabs default-value="{{ defaultValue }}" sticky bind:change="onTabsChange" bind:click="onTabsClick" t-class="custom-tabs">
+    <t-tab-panel label="{{ tabs.followersYouFollow }}" value="followersYouFollow" wx:if="{{ fresnsUser.uid != user.uid }}" />
+    <t-tab-panel label="{{ tabs.followers }}" value="followers" />
+    <t-tab-panel label="{{ tabs.following }}" value="following" />
+</t-tabs>

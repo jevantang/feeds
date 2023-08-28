@@ -6,28 +6,19 @@
 <view class="page" data-weui-theme="{{ theme }}">
     <view class="weui-flex tab-navbar weui-navbar">
         <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/comments/index" open-type="redirect">主页</navigator>
+            <navigator url="/pages/users/blocking" open-type="redirect">{{ userName }}</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/comments/list" open-type="redirect">列表</navigator>
+            <navigator url="/pages/groups/blocking" open-type="redirect">{{ groupName }}</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/comments/nearby" open-type="redirect">附近</navigator>
+            <navigator url="/pages/hashtags/blocking" open-type="redirect">{{ hashtagName }}</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/follows/all-comments" open-type="redirect">关注</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/comments/likes" open-type="redirect">我赞</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/comments/dislikes" open-type="redirect">我踩</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/comments/following" open-type="redirect">我关注</navigator>
+            <navigator url="/pages/posts/blocking" open-type="redirect">{{ postName }}</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item weui-navbar__item_on">
-            <navigator url="/pages/comments/blocking" open-type="redirect">我屏蔽</navigator>
+            <navigator url="/pages/comments/blocking" open-type="redirect">{{ commentName }}</navigator>
         </view>
     </view>
 
@@ -42,7 +33,4 @@
     <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
         <text class="weui-loadmore__tips">Powered by Fresns</text>
     </view>
-
-    <!-- Tabbar -->
-    <tabbar activeLabel="comments"></tabbar>
 </view>

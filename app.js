@@ -13,8 +13,6 @@ const themeListeners = [];
 App({
   // 全局数据
   globalData: {
-    theme: 'light', // dark
-
     // fresns extensions
     fresnsExtensions: {},
     extensionsUrl: '',
@@ -58,10 +56,6 @@ App({
         confirmText: false,
       });
     }
-
-    // 主题配置
-    const appBaseInfo = wx.getAppBaseInfo();
-    this.onThemeChange(appBaseInfo);
   },
 
   // 监听小程序启动
@@ -100,31 +94,6 @@ App({
       }
     } catch (e) {
       console.log('fresnsConfigs', e);
-    }
-  },
-
-  // 监听系统主题变化
-  onThemeChange(result) {
-    this.globalData.theme = result.theme;
-
-    themeListeners.forEach((listener) => {
-      listener(result.theme);
-    });
-  },
-
-  // 主题变更
-  themeChanged(theme) {
-    this.onThemeChange({ theme });
-  },
-  watchThemeChange(listener) {
-    if (themeListeners.indexOf(listener) < 0) {
-      themeListeners.push(listener);
-    }
-  },
-  unWatchThemeChange(listener) {
-    const index = themeListeners.indexOf(listener);
-    if (index > -1) {
-      themeListeners.splice(index, 1);
     }
   },
 });

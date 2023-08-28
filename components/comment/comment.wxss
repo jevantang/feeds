@@ -51,7 +51,11 @@
   zoom: 0.5;
 }
 
-.content-text,
+.content-text {
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+
 .content-brief {
   margin-top: 8px;
 }

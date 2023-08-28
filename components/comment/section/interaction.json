@@ -3,6 +3,7 @@
   "usingComponents": {
     "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet",
     "mp-half-screen-dialog": "weui-miniprogram/half-screen-dialog/half-screen-dialog",
+    "t-tag": "tdesign-miniprogram/tag/tag",
     "comment-box": "/components/editor/comment-box/comment-box"
   }
 }

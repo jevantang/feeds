@@ -19,6 +19,7 @@ Page({
   /** 页面的初始数据 **/
   data: {
     title: null,
+    logo: null,
     // 位置
     mapUrl: null,
     mapId: 5,
@@ -54,6 +55,7 @@ Page({
 
     this.setData({
       title: await fresnsConfig('menu_nearby_posts'),
+      logo: await fresnsConfig('site_logo'),
       mapUrl: mapUrl,
       poi: await fresnsLang('location'),
       select: await fresnsLang('select'),
@@ -107,7 +109,7 @@ Page({
       mapLng: this.data.longitude,
       mapLat: this.data.latitude,
       whitelistKeys:
-        'pid,url,title,content,contentLength,isBrief,isMarkdown,isAnonymous,stickyState,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,readConfig,affiliatedUserConfig,moreJson,location,operations,files,group.gid,group.gname,group.cover,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,previewComments,manages,editControls,interaction',
+        'pid,url,title,content,contentLength,isBrief,isMarkdown,isAnonymous,stickyState,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,readConfig,affiliatedUserConfig,moreJson,location,operations,files,group.gid,group.gname,group.cover,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,manages,editControls,interaction',
       page: this.data.page,
     });
 

@@ -75,7 +75,7 @@ Page({
 
       // 替换上一页数据
       // mixins/fresnsInteraction.js
-      callPrevPageFunction('onChangePost', post);
+      // callPrevPageFunction('onChangePost', post);
     }
 
     await this.loadFresnsPageData();
