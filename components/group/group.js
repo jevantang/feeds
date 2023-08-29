@@ -22,14 +22,12 @@ Component({
 
   /** 组件数据字段监听器 **/
   observers: {
-    group: async function (group) {
+    group: function (group) {
       if (!group) {
         return;
       }
 
       this.setData({
-        postName: await fresnsConfig('post_name'),
-        digestName: await fresnsLang('contentDigest'),
         description: truncateText(group.description, 56, true),
       });
     },
@@ -82,5 +80,15 @@ Component({
         url: '/pages/groups/detail?gid=' + gid,
       });
     },
-  }
+  },
+
+  /** 组件生命周期声明对象 **/
+  lifetimes: {
+    attached: async function () {
+      this.setData({
+        postName: await fresnsConfig('post_name'),
+        digestName: await fresnsLang('contentDigest'),
+      });
+    },
+  },
 });

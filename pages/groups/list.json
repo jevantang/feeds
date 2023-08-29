@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "小组列表",
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "t-cell": "tdesign-miniprogram/cell/cell",
-    "loading": "/components/commons/loading/loading"
-  }
-}

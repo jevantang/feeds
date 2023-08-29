@@ -15,7 +15,6 @@
     "pages/users/blocking",
 
     "pages/groups/index",
-    "pages/groups/list",
     "pages/groups/following",
     "pages/groups/detail",
 
@@ -26,19 +25,10 @@
 
     "pages/posts/list",
     "pages/posts/location",
-    "pages/posts/likes",
-    "pages/posts/dislikes",
     "pages/posts/following",
     "pages/posts/detail",
 
-    "pages/comments/index",
-    "pages/comments/list",
-    "pages/comments/nearby",
-    "pages/comments/location",
-    "pages/comments/likes",
-    "pages/comments/dislikes",
     "pages/comments/following",
-    "pages/comments/blocking",
     "pages/comments/detail",
 
     "pages/notifications/index",

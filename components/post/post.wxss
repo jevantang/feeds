@@ -118,6 +118,10 @@
   background-color: var(--weui-LINK-ACTIVE);
 }
 
+.group-icon {
+  border-radius: 6rpx;
+}
+
 /* Allow */
 .allow_mask_static {
   margin-top: -120px;
