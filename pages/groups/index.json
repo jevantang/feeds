@@ -1,13 +1,14 @@
 {
   "navigationBarTitleText": "小组主页",
   "navigationStyle": "custom",
-  "enablePullDownRefresh": true,
-  "component": true,
   "usingComponents": {
     "t-navbar": "tdesign-miniprogram/navbar/navbar",
     "t-image": "tdesign-miniprogram/image/image",
     "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",
-    "t-cell": "tdesign-miniprogram/cell/cell",
+    "t-side-bar": "tdesign-miniprogram/side-bar/side-bar",
+    "t-side-bar-item": "tdesign-miniprogram/side-bar-item/side-bar-item",
+    "group": "/components/group/group",
+    "loading": "/components/commons/loading/loading",
     "tabbar": "/components/commons/tabbar/tabbar"
   }
 }

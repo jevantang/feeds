@@ -1,6 +1,8 @@
 {
   "component": true,
   "usingComponents": {
-    "interaction": "/components/group/section/interaction"
+    "t-cell": "tdesign-miniprogram/cell/cell",
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-divider": "tdesign-miniprogram/divider/divider"
   }
 }

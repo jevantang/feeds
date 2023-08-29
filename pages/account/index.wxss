@@ -5,7 +5,7 @@
  */
 .custom-image {
   height: 48rpx;
-  width: 204rpx;
+  width: 168rpx;
 }
 
 .weui-cell__bd {

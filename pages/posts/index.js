@@ -74,6 +74,7 @@ Page({
 
     const type = this.data.value;
 
+    const whitelistKeys = 'pid,url,title,content,contentLength,isBrief,isMarkdown,isAnonymous,stickyState,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,readConfig,affiliatedUserConfig,moreJson,location,operations,files,group.gid,group.gname,group.cover,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,previewComments,manages,editControls,interaction';
     let resultRes = {};
 
     switch (type) {
@@ -90,8 +91,7 @@ Page({
 
         resultRes = await fresnsApi.post.postFollow({
           type: 'all',
-          whitelistKeys:
-            'pid,url,title,content,contentLength,isBrief,isMarkdown,isAnonymous,stickyState,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,readConfig,affiliatedUserConfig,moreJson,location,operations,files,group.gid,group.gname,group.cover,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,previewComments,manages,editControls,interaction',
+          whitelistKeys: whitelistKeys,
           page: this.data.page,
         });
         break;
@@ -99,8 +99,7 @@ Page({
       case '2':
         resultRes = await fresnsApi.post.postList(
           Object.assign(this.data.listRequestQuery, {
-            whitelistKeys:
-              'pid,url,title,content,contentLength,isBrief,isMarkdown,isAnonymous,stickyState,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,readConfig,affiliatedUserConfig,moreJson,location,operations,files,group.gid,group.gname,group.cover,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,manages,editControls,interaction,quotedPost.pid,quotedPost.author.status,,quotedPost.author.avatar,quotedPost.author.nickname,quotedPost.isAnonymous,quotedPost.title,quotedPost.content,previewComments.0.author.status,previewComments.0.author.fsid,previewComments.0.author.nickname,previewComments.0.isAnonymous,previewComments.0.content,previewComments.1.author.status,previewComments.1.author.fsid,previewComments.1.author.nickname,previewComments.1.isAnonymous,previewComments.1.content,previewComments.2.author.status,previewComments.2.author.fsid,previewComments.2.author.nickname,previewComments.2.isAnonymous,previewComments.2.content,previewComments.3.author.status,previewComments.3.author.fsid,previewComments.3.author.nickname,previewComments.3.isAnonymous,previewComments.3.content,previewComments.4.author.status,previewComments.4.author.fsid,previewComments.4.author.nickname,previewComments.4.isAnonymous,previewComments.4.content',
+            whitelistKeys: whitelistKeys,
             page: this.data.page,
           })
         );
@@ -109,8 +108,7 @@ Page({
       default:
         resultRes = await fresnsApi.post.postList(
           Object.assign(this.data.requestQuery, {
-            whitelistKeys:
-              'pid,url,title,content,contentLength,isBrief,isMarkdown,isAnonymous,stickyState,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,readConfig,affiliatedUserConfig,moreJson,location,operations,files,group.gid,group.gname,group.cover,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,manages,editControls,interaction,quotedPost.pid,quotedPost.author.status,,quotedPost.author.avatar,quotedPost.author.nickname,quotedPost.isAnonymous,quotedPost.title,quotedPost.content,previewComments.0.author.status,previewComments.0.author.fsid,previewComments.0.author.nickname,previewComments.0.isAnonymous,previewComments.0.content,previewComments.1.author.status,previewComments.1.author.fsid,previewComments.1.author.nickname,previewComments.1.isAnonymous,previewComments.1.content,previewComments.2.author.status,previewComments.2.author.fsid,previewComments.2.author.nickname,previewComments.2.isAnonymous,previewComments.2.content,previewComments.3.author.status,previewComments.3.author.fsid,previewComments.3.author.nickname,previewComments.3.isAnonymous,previewComments.3.content,previewComments.4.author.status,previewComments.4.author.fsid,previewComments.4.author.nickname,previewComments.4.isAnonymous,previewComments.4.content',
+            whitelistKeys: whitelistKeys,
             page: this.data.page,
           })
         );

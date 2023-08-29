@@ -3,7 +3,54 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-.custom-image {
+page {
+  background-color: var(--weui-BG-2);
+  --td-side-bar-width: 180rpx;
+  --td-side-bar-font-size: 28rpx;
+  --td-cell-title-font-size: 28rpx;
+  --td-cell-image-height: 80rpx;
+  --td-cell-image-width: 80rpx;
+  --td-cell-description-font-size: 24rpx;
+  --td-cell-description-color: var(--weui-FG-2);
+  --td-button-extra-small-font-size: 24rpx;
+}
+
+.page {
+  background-color: var(--weui-BG-2);
+}
+
+.logo-image {
   height: 48rpx;
-  width: 204rpx;
+  width: 168rpx;
+}
+
+page .round-image {
+  border-radius: 12rpx;
+}
+
+.side-bar-wrapper {
+  display: flex;
+  height: calc(100vh - 88px);
+  overflow: hidden;
+}
+
+.side-bar-wrapper .content {
+  flex: 1;
+  transition: transform 0.3s ease;
+}
+
+.side-bar-wrapper .section {
+  padding: 32rpx 0;
+  box-sizing: border-box;
+  height: calc(100% - 88px);
+}
+
+.t-cell {
+  position: initial !important;
+  margin-top: -22rpx;
+}
+
+.t-cell__note {
+  display: block !important;
+  text-align: right !important;
 }

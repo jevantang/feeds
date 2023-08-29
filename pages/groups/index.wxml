@@ -6,27 +6,28 @@
 <view class="page" data-weui-theme="{{ theme }}">
     <t-navbar title="{{ title }}">
         <view slot="left">
-            <t-image t-class="custom-image" src="{{ logo }}" aria-label="Fresns" />
+            <t-image t-class="logo-image" src="{{ logo }}" aria-label="Fresns" />
         </view>
     </t-navbar>
 
-    <block wx:for="{{ groupTree }}" wx:for-item="tree" wx:key="gid">
-        <t-cell-group theme="card" title="{{ tree.gname }}">
-            <block wx:for="{{ tree.groups }}" wx:for-item="group" wx:key="gid">
-                <t-cell 
-                    title="{{ group.gname }}"
-                    note="{{ group.postCount }}"
-                    description="{{ group.description }}"
-                    image="{{ group.cover }}"
-                    url="{{ '/pages/groups/detail?gid=' + group.gid }}"
-                    align="top"
-                    hover arrow />
-            </block>
-        </t-cell-group>
-    </block>
+    <view class="side-bar-wrapper">
+        <t-side-bar value="{{ sideBarIndex }}" bind:change="onSideBarChange">
+            <t-side-bar-item wx:for="{{ categories }}" wx:key="index" value="{{ index }}" label="{{ item.gname }}"/>
+        </t-side-bar>
+        <view class="content">
+            <scroll-view class="section" scroll-y scroll-with-animation show-scrollbar="{{ false }}">
+                <t-cell-group>
+                    <group wx:for="{{ groups }}" wx:for-item="group" group="{{ group }}" wx:key="gid"></group>
+                </t-cell-group>
 
-    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
-        <text class="weui-loadmore__tips">Powered by Fresns</text>
+                <!-- 加载动效 -->
+                <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+
+                <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+                    <text class="weui-loadmore__tips">Powered by Fresns</text>
+                </view>
+            </scroll-view>
+        </view>
     </view>
 
     <!-- Tabbar -->
