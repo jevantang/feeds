@@ -10,6 +10,9 @@
         </view>
     </t-navbar>
 
+    <!-- 加载动效 -->
+    <loading status="{{ loadingStatus }}" tipType="none"></loading>
+
     <!-- 未登录 -->
     <view class="profile-header" wx:if="{{ !userLogin }}">
         <navigator url="/pages/account/login" class="weui-btn weui-btn_primary login">
