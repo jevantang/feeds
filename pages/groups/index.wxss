@@ -4,19 +4,18 @@
  * Licensed under the Apache-2.0 license
  */
 page {
-  background-color: #fff;
+  background-color: var(--weui-BG-2);
   --td-side-bar-width: 180rpx;
   --td-side-bar-font-size: 28rpx;
   --td-cell-title-font-size: 28rpx;
   --td-cell-image-height: 80rpx;
   --td-cell-image-width: 80rpx;
   --td-cell-description-font-size: 24rpx;
-  --td-cell-description-color: rgba(0,0,0,.3);
   --td-button-extra-small-font-size: 24rpx;
 }
 
 .page {
-  background-color: #fff;
+  background-color: var(--weui-BG-2);
 }
 
 .logo-image {
@@ -53,4 +52,8 @@ page .round-image {
 .t-cell__note {
   display: block !important;
   text-align: right !important;
+}
+
+.t-cell__title-text {
+  font-weight: 500 !important;
 }
