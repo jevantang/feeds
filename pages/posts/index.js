@@ -155,20 +155,6 @@ Page({
     await this.loadFresnsPageData();
   },
 
-  /** 右上角菜单-分享到朋友圈 **/
-  onShareTimeline: function () {
-    return {
-      title: this.data.title,
-    };
-  },
-
-  /** 右上角菜单-收藏 **/
-  onAddToFavorites: function () {
-    return {
-      title: this.data.title,
-    };
-  },
-
   // 菜单切换
   onTabsClick: async function (e) {
     const value = e.detail.value;

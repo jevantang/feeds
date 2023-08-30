@@ -6,14 +6,17 @@
 <view class="group-box">
     <t-cell class="custom-cell" title="{{ group.gname }}" image="{{ group.cover }}" bordered="{{ false }}" url="/pages/groups/detail?gid={{ group.gid }}">
         <view slot="description">
-            {{ group.postCount }} {{ postName }} <text style="margin: 0 8px;">|</text> {{ group.postDigestCount }} {{ digestName }}
+            {{ group.postCount }} {{ postName }} <text style="margin: 0 5px;">|</text> {{ group.postDigestCount }} {{ digestName }}
         </view>
-        <block wx:if="{{ group.interaction.followStatus }}">
-            <t-button slot="note" size="extra-small" icon="check" content="{{ group.interaction.followName }}" bind:tap="onClickGroupFollow" data-gid="{{ group.gid }}"/>
-        </block>
-        <block wx:else>
-            <t-button slot="note" size="extra-small" variant="outline" content="{{ group.interaction.followName }}" bind:tap="onClickGroupFollow" data-gid="{{ group.gid }}"/>
-        </block>
+        <view slot="note">
+            <t-button 
+                size="extra-small" 
+                icon="{{ group.interaction.followStatus ? 'check' : '' }}" 
+                variant="{{ group.interaction.followStatus ? '' : 'outline' }}" 
+                content="{{ group.interaction.followName }}" 
+                bind:tap="onClickGroupFollow" 
+                data-gid="{{ group.gid }}"/>
+        </view>
     </t-cell>
     <view class="group-description">
         <view class="description-content" bind:tap="onClickToDetail" data-gid="{{ group.gid }}">
