@@ -48,6 +48,7 @@ Component({
         pagePath: '/pages/account/index',
       },
     ],
+    publishPostName: '发表',
   },
 
   /** 组件生命周期声明对象 **/
@@ -65,7 +66,7 @@ Component({
         const count = unreadNotifications + unreadMessages;
 
         const list = this.data.list;
-        const idx = list.findIndex((value) => value.value === 'account');
+        const idx = list.findIndex((value) => value.value == 'account');
 
         list[idx].count = count;
 
@@ -88,6 +89,34 @@ Component({
 
       wx.reLaunch({
         url: item.pagePath,
+      });
+    },
+
+    // 修改通知消息数
+    onChangeUnreadNotifications: function () {
+      console.log('onChangeUnreadNotifications tabbar');
+
+      const list = this.data.list;
+      const newCount = list[4].count - 1;
+
+      list[4].count = newCount;
+
+      this.setData({
+        list: list,
+      });
+    },
+
+    // 修改私信消息数
+    onChangeUnreadMessages: function (count = 1) {
+      console.log('onChangeUnreadMessages tabbar', count);
+
+      const list = this.data.list;
+      const newCount = list[4].count - count;
+
+      list[4].count = newCount;
+
+      this.setData({
+        list: list,
       });
     },
   },

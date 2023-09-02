@@ -31,5 +31,5 @@
     </view>
 
     <!-- Tabbar -->
-    <tabbar activeLabel="groups"></tabbar>
+    <tabbar id="fresnsTabbar" activeLabel="groups"></tabbar>
 </view>

@@ -5,7 +5,6 @@
 * -->
 <t-tab-bar value="{{ value }}" bindchange="onChange" shape="round" theme="tag" split="{{false}}">
     <t-tab-bar-item wx:for="{{ list }}" wx:key="index" value="{{ item.value }}" icon="{{ item.icon }}" ariaLabel="{{ item.ariaLabel }}" badge-props="{{ {count: item.count} }}">
-        <text wx:if="{{ item.value == 'editor' }}">{{ publishPostName }}</text>
-        {{ item.label }}
+        <text wx:if="{{ item.value == 'editor'}}" style="margin-left: -12rpx;margin-right: -12rpx;">{{ publishPostName }}</text>
     </t-tab-bar-item>
 </t-tab-bar>
