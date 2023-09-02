@@ -9,8 +9,8 @@ import { fresnsLogin } from './fresnsLogin';
 import { cacheGet, cachePut } from './fresnsUtilities';
 
 export class GlobalInfo {
-  clientName = 'Moments';
-  clientVersion = '1.0.1';
+  clientName = 'ZhiJie';
+  clientVersion = '1.0.0';
   theme = null;
 
   // 处理用户主页路径
