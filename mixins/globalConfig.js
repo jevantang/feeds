@@ -15,7 +15,7 @@ module.exports = {
   onLoad() {
     const app = getApp();
     // this.themeChanged(globalInfo.theme);
-    this.themeChanged('light');
+    this.themeChanged('light'); // 该小程序使用的 TDesign 组件库不支持暗黑模式
     app.watchThemeChange(this.themeChanged);
   },
 
