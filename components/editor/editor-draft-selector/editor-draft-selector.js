@@ -136,7 +136,7 @@ Component({
         this.setData({
           posts: newPosts,
           page: this.data.page + 1,
-          loadingTipType: tipType,
+          // loadingTipType: tipType,
           isReachBottom: isReachBottom,
         });
       }
