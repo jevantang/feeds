@@ -30,6 +30,7 @@ export default class Button extends SuperComponent {
         opensetting(e: any): void;
         launchapp(e: any): void;
         chooseavatar(e: any): void;
+        agreeprivacyauthorization(e: any): void;
         handleTap(e: any): void;
     };
 }

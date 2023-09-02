@@ -25,7 +25,10 @@ let Stepper = class Stepper extends SuperComponent {
         ];
         this.observers = {
             value(v) {
-                this.observeValue(v);
+                this.preValue = Number(v);
+                this.setData({
+                    currentValue: this.format(Number(v)),
+                });
             },
         };
         this.data = {
@@ -33,12 +36,33 @@ let Stepper = class Stepper extends SuperComponent {
             classPrefix: name,
             prefix,
         };
-    }
-    attached() {
-        const { value, min } = this.properties;
-        this.setData({
-            currentValue: value ? Number(value) : min,
-        });
+        this.lifetimes = {
+            attached() {
+                const { value, min } = this.properties;
+                this.setData({
+                    currentValue: value ? Number(value) : min,
+                });
+            },
+        };
+        this.methods = {
+            handleFocus(e) {
+                const { value } = e.detail;
+                this.triggerEvent('focus', { value });
+            },
+            handleInput(e) {
+                const { value } = e.detail;
+                if (value === '') {
+                    return;
+                }
+                this.triggerEvent('input', { value });
+            },
+            handleBlur(e) {
+                const { value: rawValue } = e.detail;
+                const value = this.format(rawValue);
+                this.setValue(value);
+                this.triggerEvent('blur', { value });
+            },
+        };
     }
     isDisabled(type) {
         const { min, max, disabled } = this.properties;
@@ -54,12 +78,6 @@ let Stepper = class Stepper extends SuperComponent {
         }
         return false;
     }
-    observeValue(v) {
-        this.preValue = Number(v);
-        this.setData({
-            currentValue: this.format(Number(v)),
-        });
-    }
     getLen(num) {
         const numStr = num.toString();
         return numStr.indexOf('.') === -1 ? 0 : numStr.split('.')[1].length;
@@ -71,9 +89,11 @@ let Stepper = class Stepper extends SuperComponent {
     }
     format(value) {
         const { min, max, step } = this.properties;
-        return Math.max(Math.min(max, value, Number.MAX_SAFE_INTEGER), min, Number.MIN_SAFE_INTEGER).toFixed(this.getLen(step));
+        const len = Math.max(this.getLen(step), this.getLen(value));
+        return Math.max(Math.min(max, value, Number.MAX_SAFE_INTEGER), min, Number.MIN_SAFE_INTEGER).toFixed(len);
     }
     setValue(value) {
+        value = this.format(value);
         if (this.preValue === value)
             return;
         this.preValue = value;
@@ -85,7 +105,7 @@ let Stepper = class Stepper extends SuperComponent {
             return false;
         }
         const { currentValue, step } = this.data;
-        this.setValue(this.format(this.add(currentValue, -step)));
+        this.setValue(this.add(currentValue, -step));
     }
     plusValue() {
         if (this.isDisabled('plus')) {
@@ -93,29 +113,7 @@ let Stepper = class Stepper extends SuperComponent {
             return false;
         }
         const { currentValue, step } = this.data;
-        this.setValue(this.format(this.add(currentValue, step)));
-    }
-    changeValue(e) {
-        const value = String(e.detail.value)
-            .split('.')[0]
-            .replace(/[^-0-9]/g, '') || 0;
-        this.setValue(this.format(Number(value)));
-        return value;
-    }
-    focusHandle(e) {
-        const value = this.changeValue(e);
-        this.triggerEvent('focus', { value });
-    }
-    inputHandle(e) {
-        if (e.detail.value === '') {
-            return;
-        }
-        const value = this.changeValue(e);
-        this.triggerEvent('input', { value });
-    }
-    blurHandle(e) {
-        const value = this.changeValue(e);
-        this.triggerEvent('blur', { value });
+        this.setValue(this.add(currentValue, step));
     }
 };
 Stepper = __decorate([

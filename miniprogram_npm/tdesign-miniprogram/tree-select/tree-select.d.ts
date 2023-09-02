@@ -15,7 +15,7 @@ export default class TreeSelect extends SuperComponent {
         event: string;
     }[];
     observers: {
-        value(): void;
+        'value, options, keys, multiple'(): void;
     };
     methods: {
         buildTreeOptions(): void;

@@ -28,7 +28,7 @@ let TreeSelect = class TreeSelect extends SuperComponent {
             },
         ];
         this.observers = {
-            value() {
+            'value, options, keys, multiple'() {
                 this.buildTreeOptions();
             },
         };
@@ -38,6 +38,8 @@ let TreeSelect = class TreeSelect extends SuperComponent {
                 const treeOptions = [];
                 let level = -1;
                 let node = { children: options };
+                if (options.length === 0 || (Array.isArray(value) && value.length === 0))
+                    return;
                 while (node && node.children) {
                     level += 1;
                     const list = node.children.map((item) => ({

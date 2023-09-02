@@ -1,6 +1,10 @@
 import { LoadingProps } from '../loading/index';
 import { SizeEnum } from '../common/common';
 export interface TdButtonProps {
+    tId?: {
+        type: StringConstructor;
+        value?: string;
+    };
     block?: {
         type: BooleanConstructor;
         value?: boolean;
@@ -59,7 +63,7 @@ export interface TdButtonProps {
     };
     openType?: {
         type: StringConstructor;
-        value?: 'contact' | 'share' | 'getPhoneNumber' | 'getUserInfo' | 'launchApp' | 'openSetting' | 'feedback' | 'chooseAvatar';
+        value?: 'contact' | 'share' | 'getPhoneNumber' | 'getUserInfo' | 'launchApp' | 'openSetting' | 'feedback' | 'chooseAvatar' | 'agreePrivacyAuthorization';
     };
     hoverClass?: {
         type: StringConstructor;

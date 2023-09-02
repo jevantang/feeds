@@ -21,6 +21,10 @@ const props = {
         type: null,
         value: 8,
     },
+    iconPrefix: {
+        type: String,
+        value: undefined,
+    },
     icon: {
         type: null,
     },
