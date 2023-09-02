@@ -1,6 +1,6 @@
 {
   "dependencies": {
     "mp-html": "^2.4.2",
-    "tdesign-miniprogram": "^1.2.1"
+    "tdesign-miniprogram": "^1.2.2"
   }
 }

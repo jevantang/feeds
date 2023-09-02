@@ -86,6 +86,8 @@
     "navigationBarTitleText": "知结社区",
     "navigationBarTextStyle": "black"
   },
+  "darkmode": false,
+  "themeLocation": "theme.json",
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents",
   "useExtendedLib": {
