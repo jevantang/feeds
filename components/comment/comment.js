@@ -32,6 +32,10 @@ Component({
       let newContent = comment.content;
 
       if (newContent) {
+        // 处理换行
+        newContent = newContent.replace(/(?<!\n)\n(?!\n)/g, '\n\n'); // 替换单独的换行
+        newContent = newContent.replace(/\n{3,}/g, '\n\n'); // 如果有3个或更多连续的换行，只保留两个
+
         // 匹配话题
         newContent = newContent.replace(
           /<a\s+href="(?:[^"]*\/)?([^"]+)"\s+class="fresns_hashtag"\s+target="_blank">([\s\S]*?)<\/a>/gi,
@@ -56,6 +60,14 @@ Component({
 
         // 匹配 Fresns 链接
         newContent = newContent.replace(
+          /\[([^\]]+)\]\((https?:\/\/[^)]*fresns\.cn[^)]*)\)/gi,
+          '<a href="/pages/webview?url=$2">$1</a>'
+        );
+        newContent = newContent.replace(
+          /(^|[^"])(https?:\/\/[^ \n<]*fresns\.cn[^ \n<]*)/gi,
+          '$1<a href="/pages/webview?url=$2">$2</a>'
+        );
+        newContent = newContent.replace(
           /<a\s+href="(https?:\/\/[^"]*fresns\.cn[^"]*)"[^>]*>([^<]+)<\/a>/gi,
           '<a href="/pages/webview?url=$1">$2</a>'
         );
@@ -77,6 +89,10 @@ Component({
       wx.navigateTo({
         url: '/pages/comments/detail?cid=' + this.data.comment.cid,
       });
+    },
+
+    triggerComment: function () {
+      this.selectComponent('#interactionComponent').onClickCreateComment();
     },
   },
 

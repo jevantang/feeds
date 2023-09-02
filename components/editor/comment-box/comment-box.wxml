@@ -7,11 +7,10 @@
     <view class="weui-cells weui-cells_form">
         <view class="weui-cell" hover-class="weui-cell_active">
             <view class="weui-cell__bd">
-                <textarea class="weui-textarea" placeholder-class="weui-input__placeholder" placeholder="{{ fresnsConfig.publish_comment_name + ' ' +  nickname }}"
-                    rows="3"
+                <textarea class="weui-textarea" style="height:140px" placeholder-class="weui-input__placeholder" placeholder="{{ fresnsConfig.publish_comment_name + ' ' +  nickname }}"
                     value="{{ content }}"
                     maxlength="{{ contentLengthConfig }}"
-                    bindfocus="handleFocus"
+                    adjust-position="{{ false }}"
                     bindblur="handleBlur"
                     bindinput="handleInput"
                     bindconfirm="handleConfirm"
@@ -77,11 +76,11 @@
 
     <!-- 图片菜单 -->
     <mp-actionSheet show="{{ imageShowActionSheet }}" actions="{{ imageActionGroups }}" bindactiontap="clickManageImage"/>
-
-    <view style="height:{{ boxBottom + 'rpx' }}"></view>
 </block>
 
 <block wx:else>
+    <view class="login-tip">{{ fsLang.errorNoLogin }}</view>
+
     <navigator url="/pages/account/login" class="weui-btn weui-btn_primary">
         {{ fsLang.accountLogin }}
     </navigator>

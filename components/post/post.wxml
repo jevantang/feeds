@@ -6,7 +6,7 @@
 <view class="card">
     <view class="card-header">
         <!-- 用户信息 -->
-        <author author="{{ post.author }}" isAnonymous="{{ post.isAnonymous }}" createdTimeAgo="{{ post.createdTimeAgo }}" location="{{ post.location }}"></author>
+        <author author="{{ post.author }}" isAnonymous="{{ post.isAnonymous }}" createdTimeAgo="{{ post.createdTimeAgo }}" location="{{ post.location }}" ipLocation="{{ post.moreJson.ipLocation || '' }}"></author>
     </view>
 
     <!-- 角标 -->
@@ -24,7 +24,7 @@
             </view>
 
             <view class="content-text">
-                <mp-html content="{{ postContent }}" markdown="{{ true }}" lazy-load="true" />
+                <mp-html content="{{ postContent }}" markdown="{{ true }}" lazy-load="true"/>
             </view>
 
             <view class="content-brief" wx:if="{{ type == 'list' && post.isBrief }}">
@@ -109,6 +109,6 @@
 
     <!-- 功能按钮 -->
     <view class="card-footer {{ (type == 'list') ? 'list-style' : '' }}">
-        <interaction type="{{ type }}" post="{{ post }}"></interaction>
+        <interaction id="interactionComponent" type="{{ type }}" post="{{ post }}"></interaction>
     </view>
 </view>

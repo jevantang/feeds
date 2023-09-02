@@ -22,6 +22,7 @@ Component({
     title: null,
 
     showCommentBox: false,
+    commentBoxBottom: 0,
     nickname: null,
 
     showShareActionSheet: false,
@@ -175,6 +176,19 @@ Component({
     onClickCreateComment() {
       this.setData({
         showCommentBox: true,
+      });
+    },
+
+    // 评论框高度
+    eventCommentBoxHeight: function (e) {
+      let height = e.detail.height;
+
+      if (e.detail.height) {
+        height = e.detail.height + 50;
+      }
+
+      this.setData({
+        commentBoxBottom: height,
       });
     },
 
