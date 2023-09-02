@@ -367,36 +367,9 @@ Component({
       const type = fileType + 's';
       const extensionsArray = fileConfig.extensions.split(',');
 
-      wx.chooseMessageFile({
-        count: fileConfig.uploadNumber,
-        type: 'file',
-        extension: extensionsArray,
-
-        success: async (res) => {
-          const tempFiles = res.tempFiles;
-          callPageFunction('onAddFiles', type, tempFiles);
-
-          const uploadPromises = tempFiles.map(async (tempFile) => {
-            // 上传
-            const response = await fresnsApi.common.commonUploadFile(tempFile.tempFilePath, {
-              usageType: usageType,
-              tableName: tableName,
-              tableColumn: 'id',
-              tableId: draftId,
-              type: fileType,
-              uploadMode: 'file',
-              file: tempFile.tempFilePath,
-            });
-
-            if (response.code === 0) {
-              callPageFunction('onRepFile', type, tempFile.tempFilePath, response.data);
-            }
-
-            return response;
-          });
-
-          console.log('uploadPromises', uploadPromises);
-        },
+      return wx.showToast({
+        title: '小程序里不支持上传，请到网站或 App 操作上传',
+        icon: 'none',
       });
     },
 
