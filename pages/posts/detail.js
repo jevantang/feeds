@@ -25,8 +25,6 @@ Page({
 
     // 评论框
     commentBtnName: null,
-    showCommentBox: false,
-    nickname: null,
 
     // 评论列表
     query: {},
@@ -69,7 +67,6 @@ Page({
       this.setData({
         post: post,
         title: nickname + ': ' + postTitle,
-        nickname: nickname,
         commentBtnName: await fresnsConfig('publish_comment_name'),
       });
 
@@ -105,9 +102,12 @@ Page({
     if (commentsRes.code === 0) {
       const { paginate, list } = commentsRes.data;
       const isReachBottom = paginate.currentPage === paginate.lastPage;
+
+      const listCount = list.length + this.data.comments.length;
+
       let tipType = 'none';
       if (isReachBottom) {
-        tipType = this.data.comments.length > 0 ? 'page' : 'empty';
+        tipType = listCount > 0 ? 'page' : 'empty';
       }
 
       this.setData({
@@ -144,9 +144,7 @@ Page({
   },
 
   // 评论
-  onClickCreateComment() {
-    this.setData({
-      showCommentBox: true,
-    });
+  onClickCreateComment: function () {
+    this.selectComponent('#postComponent').triggerComment();
   },
 });

@@ -12,7 +12,8 @@ Page({
 
   /** 页面的初始数据 **/
   data: {
-    version: '2.x',
+    fresnsVersion: '2.x',
+    clientVersion: '1.x',
   },
 
   /** 监听页面加载 **/
@@ -20,7 +21,8 @@ Page({
     const fresnsStatus = await fresnsApi.global.globalStatus();
 
     this.setData({
-      version: fresnsStatus.version || globalInfo.clientVersion,
+      fresnsVersion: fresnsStatus.version,
+      clientVersion: globalInfo.clientVersion,
     });
   },
 

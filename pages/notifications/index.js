@@ -5,6 +5,7 @@
  */
 import { fresnsApi } from '../../api/api';
 import { fresnsConfig } from '../../api/tool/function';
+import { callPrevPageFunction, callPrevPageComponentFunction } from '../../utils/fresnsUtilities';
 
 Page({
   /** 外部 mixin 引入 **/
@@ -65,9 +66,12 @@ Page({
     if (resultRes.code === 0) {
       const { paginate, list } = resultRes.data;
       const isReachBottom = paginate.currentPage === paginate.lastPage;
+
+      const listCount = list.length + this.data.notifications.length;
+
       let tipType = 'none';
       if (isReachBottom) {
-        tipType = this.data.notifications.length > 0 ? 'page' : 'empty';
+        tipType = listCount > 0 ? 'page' : 'empty';
       }
 
       this.setData({
@@ -110,7 +114,7 @@ Page({
       return;
     }
 
-    const idx = notifications.findIndex((value) => value.id === id);
+    const idx = notifications.findIndex((value) => value.id == id);
 
     if (idx == -1) {
       // 未找到记录
@@ -122,6 +126,10 @@ Page({
     this.setData({
       notifications: notifications,
     });
+
+    wx.removeStorageSync('fresnsUserPanels');
+    callPrevPageFunction('onChangeUnreadNotifications');
+    callPrevPageComponentFunction('#fresnsTabbar', 'onChangeUnreadNotifications');
   },
 
   // 切换类型

@@ -105,10 +105,6 @@
 
         <!-- 内容 -->
         <view class="weui-cells weui-cells_after-title">
-            <navigator url="/pages/editor/index?type=post" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">{{ fresnsConfig.publish_post_name }}</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-            </navigator>
             <navigator url="/pages/editor/draft-box?type=post" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__bd">{{ fresnsConfig.menu_editor_drafts }}</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">{{ fresnsUserPanel.draftCount.posts }}</view>
@@ -178,5 +174,5 @@
     </view>
 
     <!-- Tabbar -->
-    <tabbar activeLabel="account"></tabbar>
+    <tabbar id="fresnsTabbar" activeLabel="account"></tabbar>
 </view>

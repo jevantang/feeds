@@ -95,12 +95,12 @@ Page({
 
     wx.showNavigationBarLoading();
     this.setData({
-      loadingStatus: true
+      loadingStatus: true,
     });
 
     wx.removeStorageSync('fresnsAccount');
     wx.removeStorageSync('fresnsUser');
-    wx.removeStorageSync('fresnsUserPanel');
+    wx.removeStorageSync('fresnsUserPanels');
 
     this.setData({
       fresnsAccount: await fresnsAccount('detail'),
@@ -112,10 +112,10 @@ Page({
       complete: () => {
         wx.hideNavigationBarLoading();
         this.setData({
-          loadingStatus: false
+          loadingStatus: false,
         });
         console.log('reload data end');
-      }
+      },
     });
   },
 
@@ -123,6 +123,34 @@ Page({
   onClickExtcredits: function () {
     this.setData({
       userExtcredits: !this.data.userExtcredits,
+    });
+  },
+
+  // 修改通知消息数
+  onChangeUnreadNotifications: function () {
+    console.log('onChangeUnreadNotifications account');
+
+    const fresnsUserPanel = this.data.fresnsUserPanel;
+    const newCount = fresnsUserPanel.unreadNotifications.all - 1;
+
+    fresnsUserPanel.unreadNotifications.all = newCount;
+
+    this.setData({
+      fresnsUserPanel: fresnsUserPanel,
+    });
+  },
+
+  // 修改私信消息数
+  onChangeUnreadMessages: function (count = 1) {
+    console.log('onChangeUnreadMessages account', count);
+
+    const fresnsUserPanel = this.data.fresnsUserPanel;
+    const newCount = fresnsUserPanel.conversations.unreadMessages - count;
+
+    fresnsUserPanel.conversations.unreadMessages = newCount;
+
+    this.setData({
+      fresnsUserPanel: fresnsUserPanel,
     });
   },
 

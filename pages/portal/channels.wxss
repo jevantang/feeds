@@ -3,9 +3,9 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-.custom-image {
+.logo-image {
   height: 48rpx;
-  width: 204rpx;
+  width: 182rpx;
 }
 
 .t-cell-card {

@@ -5,5 +5,5 @@
  */
 .logo-image {
   height: 48rpx;
-  width: 204rpx;
+  width: 182rpx;
 }

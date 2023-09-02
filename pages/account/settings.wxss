@@ -27,6 +27,10 @@
   border-bottom: 1px solid var(--weui-FG-3);
 }
 
+.weui-cell__bd {
+  color: var(--weui-FG-0);
+}
+
 .weui-cell_vcode,
 .weui-cell_select {
   border-top: 1px solid var(--weui-FG-3);
@@ -38,4 +42,11 @@
 
 .btnLoading {
   margin: 10px 0;
+}
+
+.weui-cell__icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  margin-top: 7px;
 }

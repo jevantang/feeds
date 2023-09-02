@@ -6,7 +6,7 @@
 <view class="page" data-weui-theme="{{ theme }}">
     <t-navbar title="{{ title }}">
         <view slot="left">
-            <t-image t-class="custom-image" src="{{ logo }}" aria-label="Fresns" />
+            <t-image t-class="logo-image" src="{{ logo }}" aria-label="Fresns" />
         </view>
     </t-navbar>
 
@@ -36,5 +36,5 @@
         <text class="weui-loadmore__tips">Powered by Fresns</text>
     </view>
 
-    <tabbar activeLabel="channels"></tabbar>
+    <tabbar id="fresnsTabbar" activeLabel="channels"></tabbar>
 </view>

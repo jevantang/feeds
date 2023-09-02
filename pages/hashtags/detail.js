@@ -4,7 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../api/api';
-import { fresnsConfig } from '../../api/tool/function';
+import { fresnsConfig, fresnsLang } from '../../api/tool/function';
 import { callPrevPageFunction } from '../../utils/fresnsUtilities';
 
 Page({
@@ -19,6 +19,8 @@ Page({
   /** 页面的初始数据 **/
   data: {
     title: null,
+    fsConfig: {},
+    fsLang: {},
     // 详情
     hid: null,
     hashtag: null,
@@ -38,6 +40,15 @@ Page({
     this.setData({
       hid: options.hid,
       query: options,
+      fsConfig: {
+        post_name: await fresnsConfig('post_name'),
+        like_hashtag_name: await fresnsConfig('like_hashtag_name'),
+        follow_hashtag_name: await fresnsConfig('follow_hashtag_name'),
+      },
+      fsLang: {
+        contentDigest: await fresnsLang('contentDigest'),
+        contentNewList: await fresnsLang('contentNewList'),
+      },
     });
 
     const hashtagDetailRes = await fresnsApi.hashtag.hashtagDetail({
@@ -85,9 +96,12 @@ Page({
     if (postsRes.code === 0) {
       const { paginate, list } = postsRes.data;
       const isReachBottom = paginate.currentPage === paginate.lastPage;
+
+      const listCount = list.length + this.data.posts.length;
+
       let tipType = 'none';
       if (isReachBottom) {
-        tipType = this.data.posts.length > 0 ? 'page' : 'empty';
+        tipType = listCount > 0 ? 'page' : 'empty';
       }
 
       this.setData({
