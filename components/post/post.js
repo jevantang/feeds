@@ -58,45 +58,15 @@ Component({
           '<img src="$1" style="zoom: 0.5" alt="$2"/>'
         );
 
-        /**
-         * 以下处理自有链接
-         */
-        let matches = [];
-        let matchId = 0;
+        // 处理自有链接
+        const domainPattern = '(tangjie.me|fresns.cn|zhijieshequ.com)';
+        const pureURLPattern = new RegExp(`(^|\\s)(https?:\\/\\/[^ \\n<]*${domainPattern}[^ \\n<]*)`, 'gi');
+        const markdownURLPattern = new RegExp(`\\[([^\\]]+)\\]\\((https?:\\/\\/[^)]*${domainPattern}[^)]*)\\)`, 'gi');
+        const aTagURLPattern = new RegExp(`<a[^>]*href="((?!\\/pages)https?:\\/\\/[^"]+)"[^>]*>((?!\\/pages)https?:\\/\\/[^<]+)<\\/a>`, 'gi');
 
-        // 匹配 fresns.cn 和 zhijieshequ.com
-        let domainPattern = '(fresns.cn|zhijieshequ.com)';
-
-        // 提取所有链接并替换为占位符
-        newContent = newContent.replace(
-          new RegExp(
-            `(\\[([^\\]]+)\\]\\((https?:\\/\\/[^)]*${domainPattern}[^)]*)\\)|<a\\s+href="(https?:\\/\\/[^"]*${domainPattern}[^"]*)"[^>]*>([^<]+)<\\/a>|(^|[^"])(https?:\\/\\/[^ \\n<]*${domainPattern}[^ \\n<]*))`,
-            'gi'
-          ),
-          (match, p1, p2, p3, p4, p5, p6, p7) => {
-            let replacement;
-            if (p2 && p3) {
-              // 对于 Markdown 格式
-              replacement = `<a href="/pages/webview?url=${p3}">${p2}</a>`;
-            } else if (p4 && p5) {
-              // 对于 <a> 标签格式
-              replacement = `<a href="/pages/webview?url=${p4}">${p5}</a>`;
-            } else if (p7) {
-              // 对于纯 URL 格式
-              replacement = `<a href="/pages/webview?url=${p7}">${p7}</a>`;
-            }
-
-            matches.push(replacement);
-            return `PLACEHOLDER_${matchId++}`;
-          }
-        );
-
-        // 将占位符替换为原始的链接
-        matches.forEach((match, index) => {
-          const placeholder = `PLACEHOLDER_${index}`;
-          const regex = new RegExp(placeholder, 'g');
-          newContent = newContent.replace(regex, match);
-        });
+        newContent = newContent.replace(pureURLPattern, '$1<a href="/pages/webview?url=$2">$2</a>');
+        newContent = newContent.replace(markdownURLPattern, '<a href="/pages/webview?url=$2">$1</a>');
+        newContent = newContent.replace(aTagURLPattern, '<a href="/pages/webview?url=$1">$2</a>');
       }
 
       this.setData({
