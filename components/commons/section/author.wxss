@@ -78,17 +78,23 @@
 
 .content-time {
   font-size: 14px;
-  color: var(--weui-FG-1);
+  color: var(--weui-FG-2);
 }
 
 .content-location {
   font-size: 14px;
   margin-left: 15px;
-  color: var(--weui-FG-1);
+  color: var(--weui-FG-2);
 }
 
 .content-location image {
   height: 16px;
   width: 16px;
   margin-right: 0;
+}
+
+.content-ip-location {
+  font-size: 14px;
+  margin-left: 15px;
+  color: var(--weui-FG-2);
 }
