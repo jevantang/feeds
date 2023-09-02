@@ -66,22 +66,6 @@
             </view>
         </view>
 
-        <!-- 通知和私信 -->
-        <view class="weui-cells weui-cells_after-title">
-            <navigator url="/pages/notifications/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">{{ fresnsConfig.menu_notifications }}</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access">
-                    <text class="weui-badge" wx:if="{{ fresnsUserPanel.unreadNotifications.all > 0 }}">{{ fresnsUserPanel.unreadNotifications.all }}</text>
-                </view>
-            </navigator>
-            <navigator url="/pages/messages/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">{{ fresnsConfig.menu_conversations }}</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access">
-                    <text class="weui-badge" wx:if="{{ fresnsUserPanel.conversations.unreadMessages > 0 }}">{{ fresnsUserPanel.conversations.unreadMessages }}</text>
-                </view>
-            </navigator>
-        </view>
-
         <!-- 积分 -->
         <view class="weui-cells weui-cells_after-title {{ userExtcredits ? 'userExtcredits' : '' }}">
             <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onClickExtcredits">
@@ -103,6 +87,16 @@
             </t-cell-group>
         </view>
 
+        <!-- 通知和私信 -->
+        <view class="weui-cells weui-cells_after-title">
+            <navigator url="/pages/notifications/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">{{ fresnsConfig.menu_notifications }}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">
+                    <text class="weui-badge" wx:if="{{ fresnsUserPanel.unreadNotifications.all > 0 }}">{{ fresnsUserPanel.unreadNotifications.all }}</text>
+                </view>
+            </navigator>
+        </view>
+
         <!-- 内容 -->
         <view class="weui-cells weui-cells_after-title">
             <navigator url="/pages/editor/draft-box?type=post" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
@@ -113,7 +107,7 @@
                 <view class="weui-cell__bd">{{ fresnsConfig.menu_follow_posts }}</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access"></view>
             </navigator>
-            <navigator url="/pages/posts/blocking" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <navigator url="/pages/users/blocking" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__bd">{{ fresnsConfig.menu_block_users }}</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access"></view>
             </navigator>

@@ -6,6 +6,14 @@
 <view class="page" data-weui-theme="{{ theme }}">
     <view class="page__hd">
         <view class="page__logo">
+            <image src="https://cdn.fresns.cn/zhijie/logo.png" mode="widthFix" alt="Fresns"></image>
+        </view>
+        <view class="page__title">知结介绍</view>
+        <view class="page__desc">知结定位为互联网从业者的资讯社区，是基于 Fresns 开源程序搭建，聚合了职业、产品、行业等资讯，每天刷几分钟就能知道科技圈的大小事。</view>
+    </view>
+
+    <view class="page__hd">
+        <view class="page__logo">
             <image src="https://cdn.fresns.cn/images/logo.png" mode="widthFix" alt="Fresns"></image>
         </view>
         <view class="page__title">认识 Fresns</view>
