@@ -33,7 +33,7 @@ Component({
 
       if (newContent) {
         // 处理换行
-        newContent = newContent.replace(/(?<!\n)\n(?!\n)/g, '\n\n'); // 替换单独的换行
+        newContent = newContent.replace(/(?<!\n)(?<!```[^\n]*)\n(?!\n)/g, '\n\n'); // 替换单独的换行
         newContent = newContent.replace(/\n{3,}/g, '\n\n'); // 如果有3个或更多连续的换行，只保留两个
 
         // 匹配话题
@@ -61,12 +61,15 @@ Component({
         // 处理自有链接
         const domainPattern = '(tangjie.me|fresns.cn|zhijieshequ.com)';
         const pureURLPattern = new RegExp(`(^|\\s)(https?:\\/\\/[^ \\n<]*${domainPattern}[^ \\n<]*)`, 'gi');
-        const markdownURLPattern = new RegExp(`(?<!!)\\[([^\\]]+)\\]\\((https?:\\/\\/[^)]*${domainPattern}[^)]*)\\)`, 'gi');
-        const aTagURLPattern = new RegExp(`<a[^>]*href="((?!\\/pages)https?:\\/\\/[^"]+)"[^>]*>((?!\\/pages)https?:\\/\\/[^<]+)<\\/a>`, 'gi');
+        const markdownURLPattern = new RegExp(
+          `(?<!!)\\[([^\\]]+)\\]\\((https?:\\/\\/[^)]*${domainPattern}[^)]*)\\)`,
+          'gi'
+        );
+        const aTagHrefPattern = new RegExp(`(\\<a[^>]*?)href="((https?:\\/\\/[^"]*${domainPattern}[^"]*))"`, 'gi');
 
         newContent = newContent.replace(pureURLPattern, '$1<a href="/pages/webview?url=$2">$2</a>');
         newContent = newContent.replace(markdownURLPattern, '<a href="/pages/webview?url=$2">$1</a>');
-        newContent = newContent.replace(aTagURLPattern, '<a href="/pages/webview?url=$1">$2</a>');
+        newContent = newContent.replace(aTagHrefPattern, '$1href="/pages/webview?url=$2"');
       }
 
       this.setData({
