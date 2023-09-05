@@ -25,6 +25,11 @@ Page({
 
     // 扩展频道
     channels: [],
+
+    // fresns 赞助商配置
+    sponsor: true,
+    sponsorAsset: 'https://cdn.fresns.cn/sponsor/images/',
+    sponsorData: [],
   },
 
   /** 监听页面加载 **/
@@ -53,6 +58,21 @@ Page({
     let channels = [];
     if (resultChannels.code === 0) {
       channels = resultChannels.data;
+    }
+
+    if (this.data.sponsor) {
+      wx.request({
+        url: 'https://cdn.fresns.cn/sponsor/sponsors.json',
+        success: (res) => {
+          if (res.statusCode !== 200) {
+            return;
+          }
+
+          this.setData({
+            sponsorData: res.data,
+          });
+        },
+      });
     }
 
     this.setData({

@@ -16,7 +16,35 @@
         </block>
     </t-cell-group>
 
-    <t-cell-group>
+    <block wx:if="{{ sponsor }}">
+        <t-cell-group theme="card" style="margin-bottom:20px;">
+            <t-cell title="赞助我们" leftIcon="money" url="/pages/webview?url=https://docs.fresns.cn/community/sponsor.html" hover arrow/>
+        </t-cell-group>
+
+        <view class="sponsor">
+            <view class="sponsor-special">
+                <navigator wx:for="{{ sponsorData.special || [] }}" url="{{ item.mpUrl }}">
+                    <image src="{{ sponsorAsset + item.banner }}" mode="scaleToFill" show-menu-by-longpress="{{ true }}"/>
+                </navigator>
+            </view>
+            <t-row gutter="16" class="sponsor-platinum">
+                <t-col span="12" wx:for="{{ sponsorData.platinum || [] }}" t-class="sponsor-box">
+                    <navigator url="{{ item.mpUrl }}">
+                        <image src="{{ sponsorAsset + item.img }}" mode="scaleToFill" show-menu-by-longpress="{{ true }}"/>
+                    </navigator>
+                </t-col>
+            </t-row>
+            <t-row gutter="16" class="sponsor-gold">
+                <t-col span="8" wx:for="{{ sponsorData.gold || [] }}" t-class="sponsor-box">
+                    <navigator url="{{ item.mpUrl }}">
+                        <image src="{{ sponsorAsset + item.img }}" mode="scaleToFill" show-menu-by-longpress="{{ true }}"/>
+                    </navigator>
+                </t-col>
+            </t-row>
+        </view>
+    </block>
+
+    <t-cell-group theme="card">
         <t-cell wx:if="{{ fresnsConfig.menu_user_list_status }}" title="{{ fresnsConfig.menu_user_list_name }}" leftIcon="usergroup" url="/pages/users/list" hover arrow/>
         <t-cell wx:if="{{ fresnsConfig.menu_group_list_status }}" title="{{ fresnsConfig.menu_group_list_name }}" leftIcon="internet" url="/pages/groups/list" hover arrow/>
         <t-cell wx:if="{{ fresnsConfig.menu_hashtag_list_status }}" title="{{ fresnsConfig.menu_hashtag_list_name }}" leftIcon="flag" url="/pages/hashtags/list" hover arrow/>
