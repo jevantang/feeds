@@ -1,7 +1,5 @@
 {
   "pages": [
-    "pages/posts/index",
-
     "pages/portal/index",
     "pages/portal/about",
     "pages/portal/policies",
@@ -23,6 +21,7 @@
     "pages/hashtags/following",
     "pages/hashtags/detail",
 
+    "pages/posts/index",
     "pages/posts/list",
     "pages/posts/location",
     "pages/posts/following",
@@ -80,11 +79,12 @@
 
     "pages/webview"
   ],
+  "entryPagePath": "pages/posts/index",
   "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "backgroundTextStyle": "@bgTxtStyle",
+    "navigationBarBackgroundColor": "@navBgColor",
     "navigationBarTitleText": "知结社区",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "@navTxtStyle"
   },
   "darkmode": false,
   "themeLocation": "theme.json",
@@ -92,6 +92,9 @@
   "lazyCodeLoading": "requiredComponents",
   "useExtendedLib": {
     "weui": true
+  },
+  "miniApp": {
+    "useAuthorizePage": true
   },
   "__usePrivacyCheck__": true
 }

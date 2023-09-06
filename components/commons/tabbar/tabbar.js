@@ -87,6 +87,14 @@ Component({
         value: value,
       });
 
+      if (value == 'editor') {
+        wx.navigateTo({
+          url: item.pagePath,
+        });
+
+        return;
+      }
+
       wx.reLaunch({
         url: item.pagePath,
       });

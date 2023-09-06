@@ -41,7 +41,7 @@ page .round-image {
 .side-bar-wrapper .section {
   padding: 32rpx 0;
   box-sizing: border-box;
-  height: calc(100% - 88px);
+  height: calc(100vh - 88px);
 }
 
 .t-cell {

@@ -22,7 +22,8 @@ page {
 
 /* Tabbar */
 .tabbar-spacing {
-  margin-top: 5rem;
+  margin-top: 3rem;
+  padding-bottom: 6rem;
 }
 
 .weui-tabbar {

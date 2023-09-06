@@ -10,39 +10,37 @@
         </view>
     </t-navbar>
 
-    <t-cell-group theme="card" wx:if="{{ stickyPosts.length > 0 }}" style="margin-top:20px;margin-bottom:20px;">
+    <t-cell-group theme="card" style="margin-top:20px;margin-bottom:20px;">
+        <t-cell title="赞助我们" leftIcon="money" url="/pages/webview?url=https://docs.fresns.cn/community/sponsor.html" hover arrow/>
+    </t-cell-group>
+
+    <t-cell-group theme="card" wx:if="{{ stickyPosts.length > 0 }}" style="margin-bottom:20px;">
         <block wx:for="{{ stickyPosts }}" wx:for-item="post">
             <t-cell title="{{ post.title || post.shortContent }}" leftIcon="backtop-rectangle" url="/pages/posts/detail?pid={{ post.pid }}" hover/>
         </block>
     </t-cell-group>
 
-    <block wx:if="{{ sponsor }}">
-        <t-cell-group theme="card" style="margin-bottom:20px;">
-            <t-cell title="赞助我们" leftIcon="money" url="/pages/webview?url=https://docs.fresns.cn/community/sponsor.html" hover arrow/>
-        </t-cell-group>
-
-        <view class="sponsor">
-            <view class="sponsor-special">
-                <navigator wx:for="{{ sponsorData.special || [] }}" url="{{ item.mpUrl }}">
-                    <image src="{{ sponsorAsset + item.banner }}" mode="scaleToFill" show-menu-by-longpress="{{ true }}"/>
-                </navigator>
-            </view>
-            <t-row gutter="16" class="sponsor-platinum">
-                <t-col span="12" wx:for="{{ sponsorData.platinum || [] }}" t-class="sponsor-box">
-                    <navigator url="{{ item.mpUrl }}">
-                        <image src="{{ sponsorAsset + item.img }}" mode="scaleToFill" show-menu-by-longpress="{{ true }}"/>
-                    </navigator>
-                </t-col>
-            </t-row>
-            <t-row gutter="16" class="sponsor-gold">
-                <t-col span="8" wx:for="{{ sponsorData.gold || [] }}" t-class="sponsor-box">
-                    <navigator url="{{ item.mpUrl }}">
-                        <image src="{{ sponsorAsset + item.img }}" mode="scaleToFill" show-menu-by-longpress="{{ true }}"/>
-                    </navigator>
-                </t-col>
-            </t-row>
+    <view class="sponsor">
+        <view class="sponsor-special">
+            <navigator wx:for="{{ sponsorData.special || [] }}" url="{{ item.mpUrl }}">
+                <image src="{{ sponsorAsset + item.banner }}" mode="scaleToFill" show-menu-by-longpress="{{ true }}"/>
+            </navigator>
         </view>
-    </block>
+        <t-row gutter="16" class="sponsor-platinum">
+            <t-col span="12" wx:for="{{ sponsorData.platinum || [] }}" t-class="sponsor-box">
+                <navigator url="{{ item.mpUrl }}">
+                    <image src="{{ sponsorAsset + item.img }}" mode="scaleToFill" show-menu-by-longpress="{{ true }}"/>
+                </navigator>
+            </t-col>
+        </t-row>
+        <t-row gutter="16" class="sponsor-gold">
+            <t-col span="8" wx:for="{{ sponsorData.gold || [] }}" t-class="sponsor-box">
+                <navigator url="{{ item.mpUrl }}">
+                    <image src="{{ sponsorAsset + item.img }}" mode="scaleToFill" show-menu-by-longpress="{{ true }}"/>
+                </navigator>
+            </t-col>
+        </t-row>
+    </view>
 
     <t-cell-group theme="card">
         <t-cell wx:if="{{ fresnsConfig.menu_user_list_status }}" title="{{ fresnsConfig.menu_user_list_name }}" leftIcon="usergroup" url="/pages/users/list" hover arrow/>
