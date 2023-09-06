@@ -87,10 +87,6 @@ Component({
         return;
       }
 
-      if (e.target.dataset.isLink) {
-        return;
-      }
-
       wx.navigateTo({
         url: '/pages/comments/detail?cid=' + this.data.comment.cid,
       });
