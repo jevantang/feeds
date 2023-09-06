@@ -46,7 +46,7 @@
         </view>
 
         <!-- 评论预览 -->
-        <view wx:if="{{ comment.subComments.length > 0 }}">
+        <view wx:if="{{ comment.subComments.length > 0 }}" data-isLink="true">
             <navigator class="sub-comments" url="/pages/comments/detail?cid={{ comment.cid }}">
                 <view class="preview-list" wx:for="{{ comment.subComments }}" wx:for-item="subComment" wx:key="cid">
                     <view class="preview-list-nickname">

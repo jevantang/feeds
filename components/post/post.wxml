@@ -73,7 +73,7 @@
         </view>
 
         <!-- 附属信息 -->
-        <view class="content-append clearfix">
+        <view class="content-append clearfix" data-isLink="true">
             <!-- 小组信息 -->
             <navigator class="content-group float-left" url="/pages/groups/detail?gid={{ post.group.gid }}" wx:if="{{ post.group.gid }}">
                 <image wx:if="{{ post.group.cover }}" src="{{ post.group.cover }}" class="group-icon" mode="aspectFit"></image>

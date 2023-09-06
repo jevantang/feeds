@@ -96,6 +96,10 @@ Component({
         return;
       }
 
+      if (e.target.dataset.isLink) {
+        return;
+      }
+
       wx.navigateTo({
         url: '/pages/posts/detail?pid=' + this.data.post.pid,
       });
