@@ -5,7 +5,7 @@
  */
 import { fresnsApi } from '../../api/api';
 import { fresnsConfig, fresnsLang, fresnsCodeMessage } from '../../api/tool/function';
-import { callPrevPageFunction } from '../../utils/fresnsUtilities';
+import { callPrevPageFunction, callPageFunction } from '../../utils/fresnsUtilities';
 
 Page({
   /** 外部 mixin 引入 **/
@@ -29,9 +29,11 @@ Page({
     viewContentTip: '',
 
     // 置顶帖子
-    stickyPosts: [],
+    tabs: {},
+    value: 0,
 
     // 帖子
+    stickyPosts: [],
     query: {},
     posts: [],
     page: 1,
@@ -159,5 +161,38 @@ Page({
   /** 监听用户上拉触底 **/
   onReachBottom: async function () {
     await this.loadFresnsPageData();
+  },
+
+  // 关注
+  onClickGroupFollow: async function () {
+    const group = this.data.group;
+    const initialGroup = JSON.parse(JSON.stringify(this.data.group)); // 拷贝一个小组初始数据
+
+    if (group.interaction.followStatus) {
+      group.interaction.followStatus = false; // 取消关注
+      group.followCount = group.followCount ? group.followCount - 1 : group.followCount; // 计数减一
+    } else {
+      group.interaction.followStatus = true; // 关注
+      group.followCount = group.followCount + 1; // 计数加一
+
+      if (group.interaction.blockStatus) {
+        group.interaction.blockStatus = false; // 取消屏蔽
+        group.blockCount = group.blockCount ? group.blockCount - 1 : group.blockCount; // 计数减一
+      }
+    }
+
+    // mixins/fresnsInteraction.js
+    callPageFunction('onChangeGroup', group);
+
+    const resultRes = await fresnsApi.user.userMark({
+      interactionType: 'follow',
+      markType: 'group',
+      fsid: group.gid,
+    });
+
+    // 接口请求失败，数据还原
+    if (resultRes.code != 0) {
+      callPageFunction('onChangeGroup', initialGroup);
+    }
   },
 });

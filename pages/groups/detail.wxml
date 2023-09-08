@@ -10,21 +10,21 @@
         </view>
         <view class="weui-media-box__bd">
             <view class="weui-media-box__title">{{ group.gname }}</view>
-            <view class="weui-media-box__desc">{{ group.description }}</view>
+            <view class="weui-media-box__desc">{{ group.postCount }} {{ fsConfig.post_name }} <text style="margin: 0 5px;">|</text> {{ group.postDigestCount }} {{ fsLang.contentDigest }}</view>
+        </view>
+        <view class="weui-media-box__ft">
+            <t-button 
+                size="small" 
+                icon="{{ group.interaction.followStatus ? 'check' : '' }}" 
+                variant="{{ group.interaction.followStatus ? '' : 'outline' }}" 
+                content="{{ group.interaction.followName }}" 
+                bind:tap="onClickGroupFollow" 
+                data-gid="{{ group.gid }}"/>
         </view>
     </view>
 
-    <view class="interactive-group">
-        <view class="weui-media-box__info">
-            <view class="weui-media-box__info__meta">{{ group.likeCount }} {{ fsConfig.like_group_name }}</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ group.followCount }} {{ fsConfig.follow_group_name }}</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ group.postCount }} {{ fsConfig.post_name }}</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ group.postDigestCount }} {{ fsLang.contentDigest }}</view>
-        </view>
-
-        <view class="interactive-btn">
-            <interaction group="{{ group }}"></interaction>
-        </view>
+    <view class="group-description">
+        <text>{{ group.description }}</text>
     </view>
 
     <view class="group-extensions" wx:if="{{ extensions }}" wx:for="{{ extensions }}" wx:for-item="extension" wx:key="fskey">
@@ -44,7 +44,13 @@
         </view>
     </view>
 
-	<view class="weui-msg" wx:if="{{ !group.canViewContent }}">
+    <t-tabs default-value="{{ value }}" sticky space-evenly="{{ false }}" bind:change="onTabsChange" bind:click="onTabsClick" t-class="custom-tabs">
+        <t-tab-panel label="动态" value="0" />
+        <t-tab-panel label="热门" value="1" />
+        <t-tab-panel label="精选" value="2" />
+    </t-tabs>
+
+	<view wx:if="{{ !group.canViewContent }}" class="weui-msg">
 		<view class="weui-msg__icon-area"><text class="weui-icon-warn weui-icon_msg"></text></view>
 		<view class="weui-msg__text-area">
 			<view class="weui-msg__title">{{ fsLang.errorUnavailable }}</view>
@@ -53,7 +59,6 @@
 	</view>
 
     <view wx:else>
-        <view class="weui-cells__title">{{ fsLang.contentNewList }}</view>
         <!-- 帖子列表 -->
         <view class="post-list" wx:for="{{ posts }}" wx:for-item="post" wx:key="pid">
             <post post="{{ post }}" type="list"></post>

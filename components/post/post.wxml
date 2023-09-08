@@ -19,8 +19,8 @@
     <view class="card-body {{ (type == 'list') ? 'list-style' : '' }}">
         <!-- 内容 -->
         <view class="fresns-content" bind:tap="onClickToDetail">
-            <view class="content-title">
-                <text wx:if="{{ post.title }}">{{ post.title }}</text>
+            <view class="content-title" wx:if="{{ post.title }}">
+                <text>{{ post.title }}</text>
             </view>
 
             <view class="content-text">

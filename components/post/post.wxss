@@ -73,11 +73,12 @@
 .content-title {
   font-size: 18px;
   font-weight: bolder;
+  margin-bottom: 10px;
 }
 
 .content-text {
-  margin-top: -10px;
-  margin-bottom: -10px;
+  margin-top: -20px;
+  margin-bottom: -15px;
 }
 
 .list-style .content-title {
@@ -120,6 +121,7 @@
   width: 18px;
   height: 18px;
   vertical-align: middle;
+  border-radius: 9px;
 }
 
 .content-append navigator .weui-badge {
