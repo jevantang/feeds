@@ -3,6 +3,15 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+page {
+  --td-tab-item-height: 80rpx;
+}
+
+.custom-tabs .t-tabs__scroll--split::after {
+  background-color: none;
+  height: 0;
+}
+
 .logo-image {
   height: 44rpx;
   width: 154rpx;

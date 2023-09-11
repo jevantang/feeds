@@ -5,7 +5,7 @@
  */
 import { fresnsApi } from '../../api/api';
 import { fresnsConfig, fresnsLang } from '../../api/tool/function';
-import { truncateText, callPrevPageFunction } from '../../utils/fresnsUtilities';
+import { truncateText } from '../../utils/fresnsUtilities';
 
 Page({
   /** 外部 mixin 引入 **/

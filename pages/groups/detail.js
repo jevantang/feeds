@@ -5,7 +5,7 @@
  */
 import { fresnsApi } from '../../api/api';
 import { fresnsConfig, fresnsLang, fresnsCodeMessage } from '../../api/tool/function';
-import { callPrevPageFunction, callPageFunction } from '../../utils/fresnsUtilities';
+import { callPrevPageFunction } from '../../utils/fresnsUtilities';
 
 Page({
   /** 外部 mixin 引入 **/
@@ -110,17 +110,49 @@ Page({
       loadingStatus: true,
     });
 
-    const postsRes = await fresnsApi.post.postList(
-      Object.assign(this.data.query, {
-        gid: this.data.gid,
-        whitelistKeys:
-          'pid,url,title,content,contentLength,isBrief,isMarkdown,isAnonymous,stickyState,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,readConfig,affiliatedUserConfig,moreJson,location,operations,files,group.gid,group.gname,group.cover,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,manages,editControls,interaction',
-        page: this.data.page,
-      })
-    );
+    const type = this.data.value;
 
-    if (postsRes.code === 0) {
-      const { paginate, list } = postsRes.data;
+    const whitelistKeys = 'pid,url,title,content,contentLength,isBrief,isMarkdown,isAnonymous,stickyState,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,readConfig,affiliatedUserConfig,moreJson,location,operations,files,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,quotedPost.pid,quotedPost.title,quotedPost.content,quotedPost.author.nickname,quotedPost.author.avatar,quotedPost.author.status,previewComments,manages,editControls,interaction';
+
+    let resultRes = {};
+
+    switch (type) {
+      case '1':
+        console.log('热门');
+
+        resultRes = await fresnsApi.post.postList({
+          gid: this.data.gid,
+          createdDays: 2,
+          orderType: 'comment',
+          whitelistKeys: whitelistKeys,
+          page: this.data.page,
+        });
+        break;
+
+      case '2':
+        console.log('精选');
+
+        resultRes = await fresnsApi.post.postList({
+          gid: this.data.gid,
+          allDigest: 1,
+          whitelistKeys: whitelistKeys,
+          page: this.data.page,
+        });
+        break;
+
+      default:
+        console.log('动态');
+
+        resultRes = await fresnsApi.post.postList({
+          gid: this.data.gid,
+          orderType: 'commentTime',
+          whitelistKeys: whitelistKeys,
+          page: this.data.page,
+        });
+    }
+
+    if (resultRes.code === 0) {
+      const { paginate, list } = resultRes.data;
       const isReachBottom = paginate.currentPage === paginate.lastPage;
 
       const listCount = list.length + this.data.posts.length;
@@ -182,7 +214,7 @@ Page({
     }
 
     // mixins/fresnsInteraction.js
-    callPageFunction('onChangeGroup', group);
+    this.onChangeGroup(group);
 
     const resultRes = await fresnsApi.user.userMark({
       interactionType: 'follow',
@@ -192,7 +224,24 @@ Page({
 
     // 接口请求失败，数据还原
     if (resultRes.code != 0) {
-      callPageFunction('onChangeGroup', initialGroup);
+      this.onChangeGroup(initialGroup);
     }
+  },
+
+  // 菜单切换
+  onTabsClick: async function (e) {
+    const value = e.detail.value;
+
+    console.log('onTabsClick', e, value);
+
+    this.setData({
+      value: value,
+      posts: [],
+      page: 1,
+      loadingTipType: 'none',
+      isReachBottom: false,
+    });
+
+    await this.loadFresnsPageData();
   },
 });

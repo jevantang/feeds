@@ -38,7 +38,7 @@ Page({
   },
 
   /** 监听页面加载 **/
-  onLoad: async function (options) {
+  onLoad: async function () {
     const tabs = {
       index: await fresnsConfig('menu_post_name'),
       follow: await fresnsConfig('menu_follow_all_posts'),

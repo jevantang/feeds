@@ -32,8 +32,6 @@
 
     "pages/notifications/index",
 
-    "pages/search/index",
-
     "pages/editor/draft-box",
     "pages/editor/index",
 
