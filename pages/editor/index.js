@@ -208,7 +208,7 @@ Page({
     // 是否有引用
     const quotedPid = this.data.options.quotedPid;
     if (quotedPid) {
-      //
+      this.onQuoteChange(quotedPid);
     }
 
     wx.hideNavigationBarLoading();
@@ -390,6 +390,20 @@ Page({
 
     this.apiUpdateDraft({
       isAnonymous: isAnonymous,
+    });
+  },
+
+  // 引用
+  onQuoteChange(pid = '') {
+    const draftDetail = this.data.draftDetail;
+    draftDetail.quotedPid = pid;
+
+    this.setData({
+      draftDetail: draftDetail,
+    });
+
+    this.apiUpdateDraft({
+      postQuotePid: pid,
     });
   },
 
