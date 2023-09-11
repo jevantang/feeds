@@ -13,7 +13,7 @@
     "pages/users/blocking",
 
     "pages/groups/index",
-    "pages/groups/following",
+    "pages/groups/list",
     "pages/groups/detail",
 
     "pages/hashtags/index",
@@ -27,6 +27,7 @@
     "pages/posts/following",
     "pages/posts/detail",
 
+    "pages/comments/list",
     "pages/comments/following",
     "pages/comments/detail",
 

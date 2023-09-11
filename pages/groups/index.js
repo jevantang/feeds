@@ -4,7 +4,8 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../api/api';
-import { fresnsConfig, fresnsLang } from '../../api/tool/function';
+import { fresnsConfig } from '../../api/tool/function';
+import { globalInfo } from '../../utils/fresnsGlobalInfo';
 
 Page({
   /** 外部 mixin 引入 **/
@@ -21,6 +22,7 @@ Page({
     logo: null,
     // 当前页面数据
     sideBarIndex: 0,
+    currentCategoryGid: null,
     categories: [],
     groups: [],
     // 下次请求时候的页码，初始值为 1
@@ -41,11 +43,42 @@ Page({
       const list = resultRes.data.list;
       categories = list;
       initialGid = list && list.length ? list[0].gid : '';
+
+      const hashtagCompany = {
+        gid: 'hashtag-company',
+        gname: '公司',
+        description: '',
+        cover: '',
+        banner: '',
+      };
+      const hashtagStar = {
+        gid: 'hashtag-star',
+        gname: '人物',
+        description: '',
+        cover: '',
+        banner: '',
+      };
+
+      categories.splice(2, 0, hashtagCompany, hashtagStar);
+    }
+
+    if (globalInfo.userLogin) {
+      const myGroups = {
+        gid: 'fresns-my-groups',
+        gname: '我的圈子',
+        description: '',
+        cover: '',
+        banner: '',
+      };
+
+      categories.unshift(myGroups);
+      initialGid = 'fresns-my-groups';
     }
 
     this.setData({
       title: await fresnsConfig('menu_group_title'),
       logo: await fresnsConfig('site_logo'),
+      currentCategoryGid: initialGid,
       categories: categories,
     });
 
@@ -66,6 +99,7 @@ Page({
 
     this.setData({
       loadingStatus: true,
+      currentCategoryGid: gid,
     });
 
     if (this.data.isReachBottom) {
@@ -76,11 +110,28 @@ Page({
       return;
     }
 
-    const resultRes = await fresnsApi.group.groupList({
-      gid: gid,
-      whitelistKeys: 'gid,url,type,gname,description,cover,postCount,postDigestCount,followCount,interaction',
-      page: this.data.page,
-    });
+    const whitelistKeys = 'gid,url,type,gname,description,cover,postCount,postDigestCount,followCount,interaction';
+
+    let resultRes = {};
+
+    switch (gid) {
+      case 'fresns-my-groups':
+        resultRes = await fresnsApi.user.userMarkList({
+          uidOrUsername: globalInfo.uid,
+          markType: 'follow',
+          listType: 'groups',
+          whitelistKeys: whitelistKeys,
+          page: this.data.page,
+        });
+        break;
+
+      default:
+        resultRes = await fresnsApi.group.groupList({
+          gid: gid,
+          whitelistKeys: whitelistKeys,
+          page: this.data.page,
+        });
+    }
 
     if (resultRes.code === 0) {
       const { paginate, list } = resultRes.data;

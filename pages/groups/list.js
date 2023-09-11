@@ -5,14 +5,13 @@
  */
 import { fresnsApi } from '../../api/api';
 import { fresnsConfig } from '../../api/tool/function';
-import { globalInfo } from '../../utils/fresnsGlobalInfo';
+import { parseUrlParams } from '../../utils/fresnsUtilities';
 
 Page({
   /** 外部 mixin 引入 **/
   mixins: [
     require('../../mixins/globalConfig'),
     require('../../mixins/checkSiteMode'),
-    require('../../mixins/loginInterceptor'),
     require('../../mixins/fresnsInteraction'),
     require('../../mixins/fresnsExtensions'),
   ],
@@ -20,6 +19,11 @@ Page({
   /** 页面的初始数据 **/
   data: {
     title: null,
+    // 默认查询条件
+    requestState: null,
+    requestQuery: null,
+    // 父级小组
+    gid: null,
     // 当前页面数据
     groups: [],
     // 下次请求时候的页码，初始值为 1
@@ -31,13 +35,23 @@ Page({
   },
 
   /** 监听页面加载 **/
-  onLoad: async function () {
-    wx.setNavigationBarTitle({
-      title: await fresnsConfig('menu_follow_groups'),
-    });
+  onLoad: async function (options) {
+    let requestState = await fresnsConfig('menu_group_list_query_state');
+    let requestQuery = parseUrlParams(await fresnsConfig('menu_group_list_query_config'));
+
+    if (requestState === 3) {
+      requestQuery = Object.assign(requestQuery, options);
+    }
 
     this.setData({
-      title: await fresnsConfig('menu_follow_groups'),
+      title: await fresnsConfig('menu_group_list_title'),
+      gid: options.gid,
+      requestState: requestState,
+      requestQuery: requestQuery,
+    });
+
+    wx.setNavigationBarTitle({
+      title: await fresnsConfig('menu_group_list_title'),
     });
 
     await this.loadFresnsPageData();
@@ -55,14 +69,13 @@ Page({
       loadingStatus: true,
     });
 
-    const resultRes = await fresnsApi.user.userMarkList({
-      uidOrUsername: globalInfo.uid,
-      markType: 'follow',
-      listType: 'groups',
-      whitelistKeys:
-        'gid,url,type,gname,description,cover,followType,followUrl,likeCount,dislikeCount,followCount,blockCount,postCount,postDigestCount,interaction',
-      page: this.data.page,
-    });
+    const resultRes = await fresnsApi.group.groupList(
+      Object.assign(this.data.requestQuery, {
+        gid: this.data.gid,
+        whitelistKeys: 'gid,url,type,gname,description,cover,postCount',
+        page: this.data.page,
+      })
+    );
 
     if (resultRes.code === 0) {
       const { paginate, list } = resultRes.data;
@@ -105,6 +118,15 @@ Page({
 
   /** 监听用户上拉触底 **/
   onReachBottom: async function () {
+    // 不接受客户端传参，包括分页
+    if (this.data.requestState == 1) {
+      this.setData({
+        loadingTipType: this.data.groups.length > 0 ? 'page' : 'empty',
+        isReachBottom: true,
+      });
+      return;
+    }
+
     await this.loadFresnsPageData();
   },
 });

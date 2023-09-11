@@ -9,26 +9,30 @@
             <image class="weui-media-box__thumb" src="{{ hashtag.cover }}"></image>
         </view>
         <view class="weui-media-box__bd">
-            <view class="weui-media-box__title" wx:if="{{ hashtagFormat == 1 }}">#{{ hashtag.hname }}</view>
-            <view class="weui-media-box__title" wx:if="{{ hashtagFormat == 2 }}">#{{ hashtag.hname }}#</view>
-            <view class="weui-media-box__desc" wx:if="{{ hashtag.description }}">{{ hashtag.description }}</view>
+            <view class="weui-media-box__title">{{ hashtag.hname }}</view>
+            <view class="weui-media-box__desc">{{ hashtag.postCount }} {{ fsConfig.post_name }} <text style="margin: 0 5px;">|</text> {{ hashtag.postDigestCount }} {{ fsLang.contentDigest }}</view>
+        </view>
+        <view class="weui-media-box__ft">
+            <t-button 
+                size="small" 
+                icon="{{ hashtag.interaction.followStatus ? 'check' : '' }}" 
+                variant="{{ hashtag.interaction.followStatus ? '' : 'outline' }}" 
+                content="{{ hashtag.interaction.followName }}" 
+                bind:tap="onClickHashtagFollow" 
+                data-hid="{{ hashtag.hid }}"/>
         </view>
     </view>
 
-    <view class="interactive-hashtag">
-        <view class="weui-media-box__info">
-            <view class="weui-media-box__info__meta">{{ hashtag.likeCount }} {{ fsConfig.like_hashtag_name }}</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ hashtag.followCount }} {{ fsConfig.follow_hashtag_name }}</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ hashtag.postCount }} {{ fsConfig.post_name }}</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ hashtag.postDigestCount }} {{ fsLang.contentDigest }}</view>
-        </view>
-
-        <view class="interactive-btn">
-            <interaction hashtag="{{ hashtag }}"></interaction>
-        </view>
+    <view class="hashtag-description" wx:if="{{ hashtag.description }}">
+        <text>{{ hashtag.description }}</text>
     </view>
 
-    <view class="weui-cells__title">{{ fsLang.contentNewList }}</view>
+    <t-tabs default-value="{{ value }}" sticky space-evenly="{{ false }}" bind:change="onTabsChange" bind:click="onTabsClick" t-class="custom-tabs">
+        <t-tab-panel label="{{ fsLang.contentNewList }}" value="0" />
+        <t-tab-panel label="{{ fsLang.contentHotList }}" value="1" />
+        <t-tab-panel label="{{ fsLang.contentDigest }}" value="2" />
+    </t-tabs>
+
     <!-- 帖子列表 -->
     <view class="post-list" wx:for="{{ posts }}" wx:for-item="post" wx:key="pid">
         <post post="{{ post }}" type="list"></post>

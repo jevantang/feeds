@@ -44,10 +44,10 @@
 
     <t-cell-group theme="card">
         <t-cell wx:if="{{ fresnsConfig.menu_user_list_status }}" title="{{ fresnsConfig.menu_user_list_name }}" leftIcon="usergroup" url="/pages/users/list" hover arrow/>
-        <t-cell wx:if="{{ fresnsConfig.menu_group_list_status }}" title="{{ fresnsConfig.menu_group_list_name }}" leftIcon="internet" url="/pages/groups/list" hover arrow/>
+        <t-cell wx:if="{{ fresnsConfig.menu_group_list_status }}" title="{{ fresnsConfig.menu_group_list_name }}" leftIcon="animation-1" url="/pages/groups/list" hover arrow/>
         <t-cell wx:if="{{ fresnsConfig.menu_hashtag_list_status }}" title="{{ fresnsConfig.menu_hashtag_list_name }}" leftIcon="flag" url="/pages/hashtags/list" hover arrow/>
-        <t-cell wx:if="{{ fresnsConfig.menu_post_list_status }}" title="{{ fresnsConfig.menu_post_list_name }}" leftIcon="view-module" url="/pages/posts/list" hover arrow/>
-        <t-cell wx:if="{{ fresnsConfig.menu_comment_list_status }}" title="{{ fresnsConfig.menu_comment_list_name }}" leftIcon="chat" url="/pages/comments/list" hover arrow/>
+        <t-cell wx:if="{{ fresnsConfig.menu_post_list_status }}" title="{{ fresnsConfig.menu_post_list_name }}" leftIcon="chat-bubble-1" url="/pages/posts/list" hover arrow/>
+        <t-cell wx:if="{{ fresnsConfig.menu_comment_list_status }}" title="{{ fresnsConfig.menu_comment_list_name }}" leftIcon="chat-poll" url="/pages/comments/list" hover arrow/>
     </t-cell-group>
 
     <t-cell-group wx:if="{{ channels.length > 0 }}" style="margin-top:20px;">

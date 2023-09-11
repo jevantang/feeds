@@ -48,6 +48,8 @@ Page({
       fsLang: {
         contentDigest: await fresnsLang('contentDigest'),
         contentNewList: await fresnsLang('contentNewList'),
+        contentHotList: await fresnsLang('contentHotList'),
+        contentDigest: await fresnsLang('contentDigest'),
       },
     });
 

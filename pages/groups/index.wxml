@@ -17,7 +17,7 @@
         <view class="content">
             <scroll-view class="section" scroll-y scroll-with-animation show-scrollbar="{{ false }}">
                 <t-cell-group>
-                    <group wx:for="{{ groups }}" wx:for-item="group" group="{{ group }}" wx:key="gid"></group>
+                    <group wx:for="{{ groups }}" wx:for-item="group" group="{{ group }}" currentCategoryGid="{{ currentCategoryGid }}" wx:key="gid"></group>
                 </t-cell-group>
 
                 <!-- 加载动效 -->

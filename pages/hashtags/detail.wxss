@@ -3,21 +3,17 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-.weui-media-box,
-.interactive-hashtag {
+.weui-media-box {
   background-color: var(--weui-BG-2);
 }
 
-.interactive-hashtag {
-  overflow: hidden;
-  padding: 0 20px 15px 20px;
+.weui-media-box__thumb {
+  border-radius: 12rpx;
 }
 
-.interactive-hashtag .weui-media-box__info {
-  margin-top: 0;
-  padding-bottom: 0;
-}
-
-.interactive-btn {
-  margin-top: 15px;
+.hashtag-description {
+  background-color: var(--weui-BG-2);
+  padding: 0 20px;
+  font-size: 14px;
+  color: var(--weui-FG-1);
 }

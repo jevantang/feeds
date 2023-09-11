@@ -11,6 +11,7 @@ Component({
   /** 组件的属性列表 **/
   properties: {
     group: Object,
+    currentCategoryGid: String,
   },
 
   /** 组件的初始数据 **/
@@ -39,6 +40,29 @@ Component({
     onClickGroupFollow: async function () {
       const group = this.data.group;
       const initialGroup = JSON.parse(JSON.stringify(this.data.group)); // 拷贝一个小组初始数据
+
+      const titleText = await fresnsLang('leave') + ': ' + group.gname;
+      const cancelText = await fresnsLang('cancel');
+      const confirmText = await fresnsLang('confirm');
+
+      const userResponse = await new Promise((resolve) => {
+        if (group.interaction.followStatus) {
+          wx.showModal({
+            title: titleText,
+            cancelText: cancelText,
+            confirmText: confirmText,
+            success: (res) => {
+              resolve(res.cancel); // 返回用户的选择
+            },
+          });
+        } else {
+          resolve(false); // 如果不需要显示模态框，返回 false
+        }
+      });
+
+      if (userResponse) {
+        return; // 如果用户选择了取消，结束函数执行
+      }
 
       if (group.interaction.followStatus) {
         group.interaction.followStatus = false; // 取消关注

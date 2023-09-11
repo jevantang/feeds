@@ -13,13 +13,7 @@
             <view class="weui-media-box__desc">{{ group.postCount }} {{ fsConfig.post_name }} <text style="margin: 0 5px;">|</text> {{ group.postDigestCount }} {{ fsLang.contentDigest }}</view>
         </view>
         <view class="weui-media-box__ft">
-            <t-button 
-                size="small" 
-                icon="{{ group.interaction.followStatus ? 'check' : '' }}" 
-                variant="{{ group.interaction.followStatus ? '' : 'outline' }}" 
-                content="{{ group.interaction.followName }}" 
-                bind:tap="onClickGroupFollow" 
-                data-gid="{{ group.gid }}"/>
+            <t-button size="small" variant="{{ group.interaction.followStatus ? '' : 'outline' }}" content="{{ group.interaction.followStatus ? '已' : '' }}{{ group.interaction.followName }}" bind:tap="onClickGroupFollow" data-gid="{{ group.gid }}"/>
         </view>
     </view>
 
@@ -45,9 +39,9 @@
     </view>
 
     <t-tabs default-value="{{ value }}" sticky space-evenly="{{ false }}" bind:change="onTabsChange" bind:click="onTabsClick" t-class="custom-tabs">
-        <t-tab-panel label="动态" value="0" />
-        <t-tab-panel label="热门" value="1" />
-        <t-tab-panel label="精选" value="2" />
+        <t-tab-panel label="{{ fsLang.contentNewList }}" value="0" />
+        <t-tab-panel label="{{ fsLang.contentHotList }}" value="1" />
+        <t-tab-panel label="{{ fsLang.contentDigest }}" value="2" />
     </t-tabs>
 
 	<view wx:if="{{ !group.canViewContent }}" class="weui-msg">
