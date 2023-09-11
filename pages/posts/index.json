@@ -1,7 +1,11 @@
 {
+  "navigationBarTitleText": "首页",
+  "navigationStyle": "custom",
   "enablePullDownRefresh": true,
   "component": true,
   "usingComponents": {
+    "t-navbar": "tdesign-miniprogram/navbar/navbar",
+    "t-image": "tdesign-miniprogram/image/image",
     "t-tabs": "tdesign-miniprogram/tabs/tabs",
     "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
     "tabbar": "/components/commons/tabbar/tabbar",

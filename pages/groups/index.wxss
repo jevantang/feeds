@@ -20,7 +20,7 @@ page {
 
 .logo-image {
   height: 48rpx;
-  width: 168rpx;
+  width: 166rpx;
 }
 
 page .round-image {

@@ -5,7 +5,7 @@
  */
 .logo-image {
   height: 48rpx;
-  width: 182rpx;
+  width: 166rpx;
 }
 
 .weui-cell__bd {

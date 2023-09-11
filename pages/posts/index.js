@@ -20,6 +20,7 @@ Page({
   /** 页面的初始数据 **/
   data: {
     title: null,
+    logo: null,
     userLogin: false,
     tabs: {},
     value: 0,
@@ -41,7 +42,6 @@ Page({
     const tabs = {
       index: await fresnsConfig('menu_post_name'),
       follow: await fresnsConfig('menu_follow_all_posts'),
-      new: await fresnsConfig('menu_post_list_name'),
     };
 
     const requestQuery = parseUrlParams(await fresnsConfig('menu_post_query_config'));
@@ -49,6 +49,7 @@ Page({
 
     this.setData({
       title: await fresnsConfig('site_name'),
+      logo: await fresnsConfig('site_logo'),
       userLogin: globalInfo.userLogin,
       loginTip: await fresnsLang('contentLoginError'),
       loginBtn: await fresnsLang('accountLogin'),
@@ -95,15 +96,6 @@ Page({
           whitelistKeys: whitelistKeys,
           page: this.data.page,
         });
-        break;
-
-      case '2':
-        resultRes = await fresnsApi.post.postList(
-          Object.assign(this.data.listRequestQuery, {
-            whitelistKeys: whitelistKeys,
-            page: this.data.page,
-          })
-        );
         break;
 
       default:

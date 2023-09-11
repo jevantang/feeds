@@ -4,11 +4,17 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
-    <t-tabs default-value="{{ value }}" sticky bind:change="onTabsChange" bind:click="onTabsClick" t-class="custom-tabs">
-        <t-tab-panel label="{{ tabs.index }}" value="0" />
-        <t-tab-panel label="{{ tabs.follow }}" value="1" />
-        <t-tab-panel label="{{ tabs.new }}" value="2" />
-    </t-tabs>
+    <t-navbar>
+        <view slot="left">
+            <t-tabs default-value="{{ value }}" bind:change="onTabsChange" bind:click="onTabsClick" t-class="custom-tabs">
+                <t-tab-panel label="{{ tabs.index }}" value="0" />
+                <t-tab-panel label="{{ tabs.follow }}" value="1" />
+            </t-tabs>
+        </view>
+        <view slot="title">
+            <t-image t-class="logo-image" src="{{ logo }}" aria-label="Fresns" />
+        </view>
+    </t-navbar>
 
     <!-- 关注页未登录提示 -->
     <view class="weui-msg" wx:if="{{ value == 1 && !userLogin }}">
