@@ -19,8 +19,9 @@ page {
 }
 
 .logo-image {
-  height: 48rpx;
-  width: 166rpx;
+  height: 44rpx;
+  width: 154rpx;
+  margin-top: 4rpx;
 }
 
 page .round-image {
