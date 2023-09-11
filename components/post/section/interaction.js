@@ -230,6 +230,15 @@ Component({
       });
     },
 
+    // 转发动态
+    onQuote() {
+      const post = this.data.post;
+  
+      wx.navigateTo({
+        url: '/pages/editor/index?type=post' + '&quotedPid=' + post.pid,
+      });
+    },
+
     // 更多菜单
     onClickContentMore() {
       this.setData({

@@ -27,6 +27,7 @@ Page({
     group: null,
     extensions: [],
     viewContentTip: '',
+    showPublishBtn: false,
 
     // 置顶帖子
     tabs: {},
@@ -53,6 +54,7 @@ Page({
         title: groupDetailRes.data.detail.gname,
         group: groupDetailRes.data.detail,
         extensions: groupDetailRes.data.items.extensions,
+        showPublishBtn: groupDetailRes.data.detail.publishRule.allowPost,
       });
 
       wx.setNavigationBarTitle({
