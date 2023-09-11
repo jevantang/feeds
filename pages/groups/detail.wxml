@@ -68,6 +68,9 @@
     <!-- 加载动效 -->
     <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
 
+    <!-- 发表 -->
+    <t-fab icon="add" bind:click="onClickPublish" aria-label="发表"/>
+
     <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
         <text class="weui-loadmore__tips">Powered by Fresns</text>
     </view>

@@ -244,4 +244,13 @@ Page({
 
     await this.loadFresnsPageData();
   },
+
+  // 发表
+  onClickPublish() {
+    const group = this.data.group;
+
+    wx.navigateTo({
+      url: '/pages/editor/index?type=post' + '&postGid=' + group.gid,
+    });
+  },
 });

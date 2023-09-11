@@ -70,6 +70,7 @@ Page({
 
     // 编辑器参数
     const type = options.type || 'post'; // 内容类型，帖子或评论
+    const gid = options.postGid; // 有值表示发表到指定小组
     const fsid = options.fsid; // 有值表示编辑已发表的内容
     const draftId = options.draftId; // 有值表示编辑指定草稿
 
@@ -128,6 +129,7 @@ Page({
         type: 'editor',
         scene: scene,
         postMessageKey: 'fresnsEditor',
+        gid: gid,
         pid: pid,
         cid: cid,
         plid: draftId,
@@ -171,9 +173,8 @@ Page({
   onLoadDraft: async function (draftData) {
     wx.showNavigationBarLoading();
 
-    const titleConfig = this.data.editorConfig.editor.toolbar.title;
-
     // 标题配置
+    const titleConfig = this.data.editorConfig.editor.toolbar.title;
     let showTitleInput = false;
     if (titleConfig.status && titleConfig.view == 1) {
       showTitleInput = true;
@@ -190,6 +191,25 @@ Page({
       showTitleInput: showTitleInput, // 标题输入框是否显示
       contentCursorPosition: draftData.detail.contentLength ? draftData.detail.content.length : 0, // 获取内容光标位置
     });
+
+    // 是否指定小组
+    const postGid = this.data.options.postGid;
+    if (postGid) {
+      const groupRes = await fresnsApi.group.groupDetail({
+        gid: postGid,
+        whitelistKeys: 'gid,gname,cover',
+      });
+
+      if (groupRes.code === 0) {
+        this.onGroupChange(groupRes.data.detail);
+      }
+    }
+
+    // 是否有引用
+    const quotedPid = this.data.options.quotedPid;
+    if (quotedPid) {
+      //
+    }
 
     wx.hideNavigationBarLoading();
   },
