@@ -38,10 +38,10 @@
                     <text class="weui-cell__ft">FresnsCN</text>
                 </view>
             </view>
-            <view class="weui-panel__ft">
+            <view class="weui-panel__ft" wx:if="{{ appInfo.isWechat }}">
                 <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link" target="miniProgram" 	app-id="wxcdaa14554bd22f64">
                     <view class="weui-cell__bd">小程序</view>
-                    <text class="weui-cell__ft">官方社区</text>
+                    <text class="weui-cell__ft">交流社区</text>
                 </navigator>
             </view>
             <view class="weui-panel__ft">
