@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "interaction": "/components/hashtag/section/interaction"
+    "t-cell": "tdesign-miniprogram/cell/cell",
+    "t-button": "tdesign-miniprogram/button/button"
   }
 }

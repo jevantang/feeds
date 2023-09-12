@@ -45,16 +45,20 @@ page .round-image {
   height: calc(100vh - 88px);
 }
 
-.t-cell {
+.group-list .t-cell {
   position: initial !important;
   margin-top: -22rpx;
 }
 
-.t-cell__note {
+.group-list .t-cell__note {
   display: block !important;
   text-align: right !important;
 }
 
-.t-cell__title-text {
+.group-list .t-cell__title-text {
   font-weight: 500 !important;
+}
+
+.hashtag-list .t-cell__description-text {
+  line-height: 1.5;
 }

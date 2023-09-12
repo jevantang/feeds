@@ -3,21 +3,8 @@
     Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<view class="hashtag-box">
-    <navigator url="/pages/hashtags/detail?hid={{ hashtag.hid }}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__hd" wx:if="{{ hashtag.cover }}">
-            <image src="{{ hashtag.cover }}"></image>
-        </view>
-        <view class="weui-cell__bd" aria-hidden="true">
-            <view>{{ hashtag.hname }}</view>
-            <view class="weui-cell__desc" wx:if="{{ hashtag.description }}">{{ hashtag.description }}</view>
-            <view class="interactive-box"></view>
-        </view>
-        <view class="weui-cell__ft weui-cell__ft_in-access" aria-hidden="true">{{ hashtag.postCount }}</view>
-    </navigator>
-
-    <!-- 互动操作 -->
-    <view class="interactive-btn">
-        <interaction hashtag="{{ hashtag }}"></interaction>
+<t-cell title="{{ hashtag.hname }}" description="{{ hashtag.description }}" align="top" image="{{ hashtag.cover }}" url="/pages/hashtags/detail?hid={{ hashtag.hid }}" hover>
+    <view slot="note">
+        <t-button size="extra-small" variant="{{ hashtag.interaction.followStatus ? '' : 'outline' }}" content="{{ hashtag.interaction.followStatus ? '已' : '' }}{{ hashtag.interaction.followName }}" bind:tap="onClickHashtagFollow" data-hid="{{ hashtag.hid }}"/>
     </view>
-</view>
+</t-cell>

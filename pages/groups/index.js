@@ -23,8 +23,10 @@ Page({
     // 当前页面数据
     sideBarIndex: 0,
     currentCategoryGid: null,
+    currentCategoryIsGroup: true,
     categories: [],
     groups: [],
+    hashtags: [],
     // 下次请求时候的页码，初始值为 1
     page: 1,
     // 加载状态
@@ -45,14 +47,14 @@ Page({
       initialGid = list && list.length ? list[0].gid : '';
 
       const hashtagCompany = {
-        gid: 'hashtag-company',
+        gid: 'fresns-hashtag-company',
         gname: '公司',
         description: '',
         cover: '',
         banner: '',
       };
       const hashtagStar = {
-        gid: 'hashtag-star',
+        gid: 'fresns-hashtag-star',
         gname: '人物',
         description: '',
         cover: '',
@@ -110,8 +112,9 @@ Page({
       return;
     }
 
-    const whitelistKeys = 'gid,url,type,gname,description,cover,postCount,postDigestCount,followCount,interaction';
+    const whitelistKeys = 'gid,type,gname,description,cover,postCount,postDigestCount,followCount,interaction';
 
+    let currentCategoryIsGroup = true;
     let resultRes = {};
 
     switch (gid) {
@@ -123,6 +126,26 @@ Page({
           whitelistKeys: whitelistKeys,
           page: this.data.page,
         });
+        break;
+
+      case 'fresns-hashtag-company':
+        resultRes = await fresnsApi.hashtag.hashtagList({
+          type: 2,
+          whitelistKeys: 'hid,hname,description,cover,postCount,postDigestCount,followCount,interaction',
+          page: this.data.page,
+        });
+
+        currentCategoryIsGroup = false;
+        break;
+
+      case 'fresns-hashtag-star':
+        resultRes = await fresnsApi.hashtag.hashtagList({
+          type: 3,
+          whitelistKeys: 'hid,hname,description,cover,postCount,postDigestCount,followCount,interaction',
+          page: this.data.page,
+        });
+
+        currentCategoryIsGroup = false;
         break;
 
       default:
@@ -138,7 +161,9 @@ Page({
       const isReachBottom = paginate.currentPage === paginate.lastPage;
 
       this.setData({
-        groups: this.data.groups.concat(list),
+        currentCategoryIsGroup: currentCategoryIsGroup,
+        groups: currentCategoryIsGroup ? this.data.groups.concat(list) : [],
+        hashtags: currentCategoryIsGroup ? [] : this.data.hashtags.concat(list),
         page: this.data.page + 1,
         isReachBottom: isReachBottom,
       });
@@ -169,6 +194,7 @@ Page({
     this.setData({
       sideBarIndex: value,
       groups: [],
+      hashtags: [],
       page: 1,
       loadingTipType: 'none',
       isReachBottom: false,

@@ -8,18 +8,15 @@
         <view class="weui-media-box__hd" wx:if="{{ hashtag.cover }}">
             <image class="weui-media-box__thumb" src="{{ hashtag.cover }}"></image>
         </view>
+        <view class="weui-media-box__hd" wx:else>
+            <t-icon name="hashtag" size="56"/>
+        </view>
         <view class="weui-media-box__bd">
             <view class="weui-media-box__title">{{ hashtag.hname }}</view>
             <view class="weui-media-box__desc">{{ hashtag.postCount }} {{ fsConfig.post_name }} <text style="margin: 0 5px;">|</text> {{ hashtag.postDigestCount }} {{ fsLang.contentDigest }}</view>
         </view>
         <view class="weui-media-box__ft">
-            <t-button 
-                size="small" 
-                icon="{{ hashtag.interaction.followStatus ? 'check' : '' }}" 
-                variant="{{ hashtag.interaction.followStatus ? '' : 'outline' }}" 
-                content="{{ hashtag.interaction.followName }}" 
-                bind:tap="onClickHashtagFollow" 
-                data-hid="{{ hashtag.hid }}"/>
+            <t-button size="small" variant="{{ hashtag.interaction.followStatus ? '' : 'outline' }}" content="{{ hashtag.interaction.followStatus ? '已' : '' }}{{ hashtag.interaction.followName }}" bind:tap="onClickGroupFollow" data-hid="{{ hashtag.hid }}"/>
         </view>
     </view>
 

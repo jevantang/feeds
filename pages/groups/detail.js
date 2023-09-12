@@ -126,7 +126,7 @@ Page({
 
         resultRes = await fresnsApi.post.postList({
           gid: this.data.gid,
-          createdDays: 2,
+          createdDays: 3,
           orderType: 'comment',
           whitelistKeys: whitelistKeys,
           page: this.data.page,

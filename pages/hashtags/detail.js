@@ -88,15 +88,49 @@ Page({
       loadingStatus: true,
     });
 
-    const postsRes = await fresnsApi.post.postList(
-      Object.assign(this.data.query, {
-        hid: decodeURI(this.data.hid),
-        page: this.data.page,
-      })
-    );
+    const type = this.data.value;
 
-    if (postsRes.code === 0) {
-      const { paginate, list } = postsRes.data;
+    const whitelistKeys = 'pid,url,title,content,contentLength,isBrief,isMarkdown,isAnonymous,stickyState,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,readConfig,affiliatedUserConfig,moreJson,location,operations,files,group.gid,group.gname,group.cover,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,quotedPost.pid,quotedPost.title,quotedPost.content,quotedPost.author.nickname,quotedPost.author.avatar,quotedPost.author.status,previewComments,manages,editControls,interaction';
+
+    let resultRes = {};
+
+    switch (type) {
+      case '1':
+        console.log('热门');
+
+        resultRes = await fresnsApi.post.postList({
+          hid: decodeURI(this.data.hid),
+          createdDate: 'year',
+          orderType: 'comment',
+          whitelistKeys: whitelistKeys,
+          page: this.data.page,
+        });
+        break;
+
+      case '2':
+        console.log('精选');
+
+        resultRes = await fresnsApi.post.postList({
+          hid: decodeURI(this.data.hid),
+          allDigest: 1,
+          whitelistKeys: whitelistKeys,
+          page: this.data.page,
+        });
+        break;
+
+      default:
+        console.log('动态');
+
+        resultRes = await fresnsApi.post.postList({
+          hid: decodeURI(this.data.hid),
+          orderType: 'commentTime',
+          whitelistKeys: whitelistKeys,
+          page: this.data.page,
+        });
+    }
+
+    if (resultRes.code === 0) {
+      const { paginate, list } = resultRes.data;
       const isReachBottom = paginate.currentPage === paginate.lastPage;
 
       const listCount = list.length + this.data.posts.length;
@@ -137,5 +171,78 @@ Page({
   /** 监听用户上拉触底 **/
   onReachBottom: async function () {
     await this.loadFresnsPageData();
+  },
+
+  // 菜单切换
+  onTabsClick: async function (e) {
+    const value = e.detail.value;
+
+    console.log('onTabsClick', e, value);
+
+    this.setData({
+      value: value,
+      posts: [],
+      page: 1,
+      loadingTipType: 'none',
+      isReachBottom: false,
+    });
+
+    await this.loadFresnsPageData();
+  },
+
+  // 关注
+  onClickHashtagFollow: async function () {
+    const hashtag = this.data.hashtag;
+    const initialHashtag = JSON.parse(JSON.stringify(this.data.hashtag)); // 拷贝一个小组初始数据
+
+    const titleText = await fresnsLang('leave') + ': ' + hashtag.hname;
+    const cancelText = await fresnsLang('cancel');
+    const confirmText = await fresnsLang('confirm');
+
+    const userResponse = await new Promise((resolve) => {
+      if (hashtag.interaction.followStatus) {
+        wx.showModal({
+          title: titleText,
+          cancelText: cancelText,
+          confirmText: confirmText,
+          success: (res) => {
+            resolve(res.cancel); // 返回用户的选择
+          },
+        });
+      } else {
+        resolve(false); // 如果不需要显示模态框，返回 false
+      }
+    });
+
+    if (userResponse) {
+      return; // 如果用户选择了取消，结束函数执行
+    }
+
+    if (hashtag.interaction.followStatus) {
+      hashtag.interaction.followStatus = false; // 取消关注
+      hashtag.followCount = hashtag.followCount ? hashtag.followCount - 1 : hashtag.followCount; // 计数减一
+    } else {
+      hashtag.interaction.followStatus = true; // 关注
+      hashtag.followCount = hashtag.followCount + 1; // 计数加一
+
+      if (hashtag.interaction.blockStatus) {
+        hashtag.interaction.blockStatus = false; // 取消屏蔽
+        hashtag.blockCount = hashtag.blockCount ? hashtag.blockCount - 1 : hashtag.blockCount; // 计数减一
+      }
+    }
+
+    // mixins/fresnsInteraction.js
+    callPageFunction('onChangeHashtag', hashtag);
+
+    const resultRes = await fresnsApi.user.userMark({
+      interactionType: 'follow',
+      markType: 'hashtag',
+      fsid: hashtag.hid,
+    });
+
+    // 接口请求失败，数据还原
+    if (resultRes.code != 0) {
+      callPageFunction('onChangeHashtag', initialHashtag);
+    }
   },
 });

@@ -8,6 +8,7 @@
     "t-side-bar": "tdesign-miniprogram/side-bar/side-bar",
     "t-side-bar-item": "tdesign-miniprogram/side-bar-item/side-bar-item",
     "group": "/components/group/group",
+    "hashtag": "/components/hashtag/hashtag",
     "loading": "/components/commons/loading/loading",
     "tabbar": "/components/commons/tabbar/tabbar"
   }
