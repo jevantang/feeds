@@ -88,12 +88,12 @@ export class GlobalInfo {
     // system info
     const systemInfo = wx.getSystemInfoSync();
 
-    // is app
-    let isApp = false;
-    if (systemInfo.host.env == 'SAAASDK') {
-      isApp = true;
-    }
-    wx.setStorageSync('isApp', isApp);
+    // app info
+    const appInfo = {
+      isApp: systemInfo.host.env == 'SAAASDK',
+      platform: systemInfo.platform,
+    };
+    wx.setStorageSync('appInfo', appInfo);
 
     // device info
     const getIpInfo = await fresnsApi.common.commonIpInfo();
