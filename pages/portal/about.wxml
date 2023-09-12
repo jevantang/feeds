@@ -12,6 +12,8 @@
         <view class="page__desc">知结定位为互联网从业者的资讯社区，是基于 Fresns 开源程序搭建，聚合了职业、产品、行业等资讯，每天刷几分钟就能知道科技圈的大小事。</view>
     </view>
 
+    <t-divider dashed />
+
     <view class="page__hd">
         <view class="page__logo">
             <image src="https://cdn.fresns.cn/images/logo.png" mode="widthFix" alt="Fresns"></image>
@@ -35,6 +37,12 @@
                     <view class="weui-cell__bd">公众号</view>
                     <text class="weui-cell__ft">FresnsCN</text>
                 </view>
+            </view>
+            <view class="weui-panel__ft">
+                <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link" target="miniProgram" 	app-id="wxcdaa14554bd22f64">
+                    <view class="weui-cell__bd">小程序</view>
+                    <text class="weui-cell__ft">官方社区</text>
+                </navigator>
             </view>
             <view class="weui-panel__ft">
                 <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link" url="/pages/webview?url=https://docs.fresns.cn/guide/changelog.html">

@@ -70,9 +70,6 @@
 
         <!-- 登录密码 -->
         <mp-cell value="{{ fresnsLang.accountPassword }}" footer="{{ fresnsAccount.hasPassword ? fresnsLang.settingAlready : fresnsLang.settingNot }}" hover="{{ true }}" link="{{ true }}" bind:tap="showModifyDialog" data-value="{{ fresnsAccount.hasPassword }}" data-event="editPassword" data-title="{{ fresnsLang.accountPassword }}"/>
-
-        <!-- 钱包交易密码 -->
-        <mp-cell value="{{ fresnsLang.walletPassword }}" footer="{{ fresnsAccount.wallet.hasPassword ? fresnsLang.settingAlready : fresnsLang.settingNot }}" hover="{{ true }}" link="{{ true }}" bind:tap="showModifyDialog" data-value="{{ fresnsAccount.wallet.hasPassword }}" data-event="editWalletPassword" data-title="{{ fresnsLang.walletPassword }}"/>
     </mp-cells>
 
     <!-- 互联信息 -->

@@ -17,6 +17,10 @@
   padding: 20px 0;
 }
 
+.page__logo image {
+  width: 200px;
+}
+
 .page__title {
   font-size: 20px;
   margin-bottom: 10px;

@@ -62,3 +62,7 @@ page .round-image {
 .hashtag-list .t-cell__description-text {
   line-height: 1.5;
 }
+
+.hashtag-list .t-cell__title-text {
+  font-weight: 500 !important;
+}

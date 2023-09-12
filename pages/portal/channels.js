@@ -26,8 +26,7 @@ Page({
     // 扩展频道
     channels: [],
 
-    // fresns 赞助商配置
-    sponsorAsset: 'https://cdn.fresns.cn/sponsor/images/',
+    // 知结赞助商配置
     sponsorData: [],
   },
 
@@ -59,20 +58,19 @@ Page({
       channels = resultChannels.data;
     }
 
-    if (this.data.sponsor) {
-      wx.request({
-        url: 'https://cdn.fresns.cn/sponsor/sponsors.json',
-        success: (res) => {
-          if (res.statusCode !== 200) {
-            return;
-          }
+    // 获取赞助商
+    wx.request({
+      url: 'https://cdn.fresns.cn/sponsor/zhijie.json',
+      success: (res) => {
+        if (res.statusCode !== 200) {
+          return;
+        }
 
-          this.setData({
-            sponsorData: res.data,
-          });
-        },
-      });
-    }
+        this.setData({
+          sponsorData: res.data,
+        });
+      },
+    });
 
     this.setData({
       title: await fresnsLang('discover'),
@@ -102,5 +100,24 @@ Page({
     return {
       title: this.data.title,
     };
+  },
+
+  // 赞助
+  onSponsor() {
+    wx.showModal({
+      title: '赞助我们',
+      content: 'tangjie@fresns.cn',
+      cancelText: '取消',
+      confirmText: '复制邮箱',
+      success (res) {
+        if (res.confirm) {
+          wx.showToast({
+            title: '复制成功',
+          });
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    });
   },
 });
