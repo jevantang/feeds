@@ -77,8 +77,8 @@ Page({
               hasWechatInstall: false,
             });
           }
-        }
-      })
+        },
+      });
     }
 
     // 判断隐私授权
