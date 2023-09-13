@@ -182,7 +182,11 @@ Page({
       btnLoading: true,
     });
 
-    await fresnsLogin.wechatLogin();
+    await fresnsLogin.wechatLogin(false, () => {
+      this.setData({
+        btnLoading: false,
+      });
+    });
   },
 
   // App 微信登录
@@ -191,7 +195,11 @@ Page({
       btnLoading: true,
     });
 
-    await fresnsLogin.appWechatLogin();
+    await fresnsLogin.appWechatLogin(false, () => {
+      this.setData({
+        btnLoading: false,
+      });
+    });
   },
 
   // 苹果账号登录
@@ -200,7 +208,11 @@ Page({
       appleBtnLoading: true,
     });
 
-    await fresnsLogin.appleLogin();
+    await fresnsLogin.appleLogin(false, () => {
+      this.setData({
+        btnLoading: false,
+      });
+    });
   },
 
   // 发送验证码
