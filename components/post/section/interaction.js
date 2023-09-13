@@ -18,6 +18,7 @@ Component({
 
   /** 组件的初始数据 **/
   data: {
+    appInfo: {},
     fresnsLang: {},
     title: null,
 
@@ -51,7 +52,10 @@ Component({
   /** 组件生命周期声明对象 **/
   lifetimes: {
     attached: async function () {
+      const appInfo = wx.getStorageSync('appInfo');
+
       this.setData({
+        appInfo: appInfo,
         fresnsLang: await fresnsLang(),
       });
     },

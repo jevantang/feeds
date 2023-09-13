@@ -26,7 +26,6 @@ Page({
     value: 0,
     // 默认查询条件
     requestQuery: null,
-    listRequestQuery: null,
     // 当前页面数据
     posts: [],
     // 下次请求时候的页码，初始值为 1
@@ -45,7 +44,6 @@ Page({
     };
 
     const requestQuery = parseUrlParams(await fresnsConfig('menu_post_query_config'));
-    const listRequestQuery = parseUrlParams(await fresnsConfig('menu_post_list_query_config'));
 
     this.setData({
       title: await fresnsConfig('site_name'),
@@ -55,7 +53,6 @@ Page({
       loginBtn: await fresnsLang('accountLogin'),
       tabs: tabs,
       requestQuery: requestQuery,
-      listRequestQuery: listRequestQuery,
     });
 
     await this.loadFresnsPageData();
