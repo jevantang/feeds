@@ -6,12 +6,10 @@
 <view class="page" data-weui-theme="{{ theme }}">
     <profile-user user="{{ profile.detail }}" items="{{ profile.items }}" followersYouKnow="{{ profile.followersYouKnow }}"/>
 
-    <profile-switch user="{{ profile.detail }}" defaultValue="posts"/>
-
     <!-- 列表 -->
     <view class="profile-list">
         <view class="post-list" wx:for="{{ posts }}" wx:for-item="post" wx:key="pid">
-            <post post="{{ post }}" type="list"></post>
+            <post post="{{ post }}" type="userList"></post>
         </view>
     </view>
 
