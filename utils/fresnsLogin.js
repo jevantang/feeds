@@ -109,6 +109,7 @@ export class FresnsLogin {
           title: '[' + res.errCode + '] ' + res.errMsg,
           icon: 'none',
         });
+        console.log('wechatLogin', res);
       },
       complete() {
         if (callback && typeof callback === 'function') {
@@ -139,6 +140,7 @@ export class FresnsLogin {
           title: '[' + res.errCode + '] ' + res.errMsg,
           icon: 'none',
         });
+        console.log('appWechatLogin', res);
       },
       complete() {
         if (callback && typeof callback === 'function') {
@@ -169,6 +171,7 @@ export class FresnsLogin {
           title: '[' + res.errCode + '] ' + res.errMsg,
           icon: 'none',
         });
+        console.log('appleLogin', res);
       },
       complete() {
         if (callback && typeof callback === 'function') {

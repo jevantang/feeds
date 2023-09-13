@@ -55,6 +55,9 @@
 
     "pages/webview"
   ],
+  "requiredPrivateInfos": [ 
+    "chooseLocation"
+  ],
   "entryPagePath": "pages/posts/index",
   "window": {
     "backgroundTextStyle": "@bgTxtStyle",
