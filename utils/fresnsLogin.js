@@ -124,7 +124,7 @@ export class FresnsLogin {
             duration: 2000,
           });
         }
-      }
+      },
     });
   }
 
