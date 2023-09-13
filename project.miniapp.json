@@ -23,7 +23,7 @@
       "xhdpi": "miniapp/android/splashscreen/android-720x1620.png",
       "xxhdpi": "miniapp/android/splashscreen/android-1080x2430.png"
     },
-    "enableVConsole": "open",
+    "enableVConsole": "close",
     "privacy": {
       "enable": true,
       "template": "miniapp/policies.json"
@@ -41,7 +41,7 @@
       "WeAppOthers": false,
       "WeAppIdaas": true
     },
-    "enableVConsole": "open",
+    "enableVConsole": "close",
     "icons": {
       "mainIcon120": "miniapp/ios/icons/zhijie-icon-120.png",
       "mainIcon180": "miniapp/ios/icons/zhijie-icon-180.png",
