@@ -83,6 +83,17 @@ page {
   background-color: var(--weui-BG-2);
 }
 
+.post-list .md-p {
+  margin-block-start: 0.1em !important;
+  margin-block-end: 0.1em !important;
+}
+
+.comment-list .md-p {
+  margin-block-start: 0.1em !important;
+  margin-block-end: 0.1em !important;
+}
+
+
 /* tabs */
 .weui-tabs-bar__title {
   margin: 0px 10px;
