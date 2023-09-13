@@ -89,6 +89,10 @@
   font-size: 15px;
 }
 
+.list-content {
+  padding: 12px 0 !important;
+}
+
 .content-brief {
   margin-top: 8px;
 }

@@ -51,6 +51,10 @@
   zoom: 0.5;
 }
 
+.list-content {
+  padding: 12px 0 !important;
+}
+
 .content-text {
   margin-top: -10px;
   margin-bottom: -10px;
