@@ -3,6 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+import appConfig from '../../../fresns';
 import { fresnsApi } from '../../../api/api';
 import { fresnsLang } from '../../../api/tool/function';
 import { callPageFunction, truncateText } from '../../../utils/fresnsUtilities';
@@ -56,7 +57,12 @@ Component({
 
       this.setData({
         appInfo: appInfo,
-        fresnsLang: await fresnsLang(),
+        fresnsLang: {
+          copyLink: await fresnsLang('copyLink'),
+          shareMessage: await fresnsLang('shareMessage'),
+          quote: await fresnsLang('quote'),
+          cancel: await fresnsLang('cancel'),
+        },
       });
     },
   },
@@ -232,6 +238,34 @@ Component({
       this.setData({
         showShareActionSheet: true,
       });
+    },
+
+    // 多端应用分享给好友
+    onShareMiniAppMessage() {
+      const post = this.data.post;
+      const title = this.data.title;
+
+      wx.miniapp.shareMiniProgramMessage({
+        userName: appConfig?.mpId,
+        path: '/pages/posts/detail?pid=' + post.pid,
+        title: title,
+        imagePath: '/miniapp/ios/icons/zhijie-icon-1024.png',
+        webpageUrl: post.url,
+        withShareTicket: true,
+        miniprogramType: 0,
+        scene: 0,
+        success(res) {
+          wx.showToast({
+              title: '成功：分享小程序',
+          })
+          console.log(res)
+          },
+        fail() {
+          wx.showToast({
+              title: '失败：分享小程序',
+          })
+        }
+      })
     },
 
     // 转发动态
