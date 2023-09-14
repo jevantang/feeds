@@ -4,7 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../api/api';
-import { fresnsConfig } from '../../api/tool/function';
+import { fresnsConfig, fresnsLang } from '../../api/tool/function';
 import { globalInfo } from '../../utils/fresnsGlobalInfo';
 
 Page({
@@ -48,14 +48,14 @@ Page({
 
       const hashtagCompany = {
         gid: 'fresns-hashtag-company',
-        gname: '公司',
+        gname: await fresnsLang('hashtagType2'),
         description: '',
         cover: '',
         banner: '',
       };
       const hashtagStar = {
         gid: 'fresns-hashtag-star',
-        gname: '人物',
+        gname: await fresnsLang('hashtagType3'),
         description: '',
         cover: '',
         banner: '',
@@ -67,7 +67,7 @@ Page({
     if (globalInfo.userLogin) {
       const myGroups = {
         gid: 'fresns-my-groups',
-        gname: '我的圈子',
+        gname: await fresnsLang('myGroups'),
         description: '',
         cover: '',
         banner: '',

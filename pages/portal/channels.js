@@ -27,6 +27,7 @@ Page({
     channels: [],
 
     // 知结赞助商配置
+    sponsor: true,
     sponsorData: [],
   },
 
@@ -59,18 +60,20 @@ Page({
     }
 
     // 获取赞助商
-    wx.request({
-      url: 'https://cdn.fresns.cn/sponsor/zhijie.json',
-      success: (res) => {
-        if (res.statusCode !== 200) {
-          return;
-        }
+    if (this.data.sponsor) {
+      wx.request({
+        url: 'https://cdn.fresns.cn/sponsor/zhijie.json',
+        success: (res) => {
+          if (res.statusCode !== 200) {
+            return;
+          }
 
-        this.setData({
-          sponsorData: res.data,
-        });
-      },
-    });
+          this.setData({
+            sponsorData: res.data,
+          });
+        },
+      });
+    }
 
     this.setData({
       title: await fresnsLang('discover'),

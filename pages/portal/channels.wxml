@@ -10,7 +10,7 @@
         </view>
     </t-navbar>
 
-    <t-cell-group theme="card" style="margin-top:20px;margin-bottom:20px;">
+    <t-cell-group theme="card" style="margin-top:20px;margin-bottom:20px;" wx:if="{{ sponsor }}">
         <t-cell title="赞助我们" leftIcon="money" hover arrow bind:tap="onSponsor"/>
     </t-cell-group>
 
@@ -20,7 +20,7 @@
         </block>
     </t-cell-group>
 
-    <view class="sponsor">
+    <view class="sponsor" wx:if="{{ sponsor }}">
         <view class="sponsor-special">
             <navigator wx:for="{{ sponsorData.special || [] }}" url="{{ item.mpUrl }}">
                 <image src="{{ item.banner }}" mode="scaleToFill" show-menu-by-longpress="{{ true }}"/>
