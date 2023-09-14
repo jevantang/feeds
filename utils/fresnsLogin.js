@@ -93,7 +93,6 @@ export class FresnsLogin {
     wx.login({
       success: async (res) => {
         const wechatCode = res.code;
-        console.log('WeChat Code', wechatCode);
 
         if (wechatCode) {
           await this.connectLoginHandle('wechat', wechatCode, autoRegister);
@@ -109,7 +108,6 @@ export class FresnsLogin {
           title: '[' + res.errCode + '] ' + res.errMsg,
           icon: 'none',
         });
-        console.log('wechatLogin', res);
         if (callback && typeof callback === 'function') {
           callback();
         }
@@ -129,7 +127,6 @@ export class FresnsLogin {
     wx.miniapp.login({
       success: async (res) => {
         const wechatCode = res.code;
-        console.log('App WeChat Code', wechatCode);
 
         if (wechatCode) {
           await this.connectLoginHandle('app', wechatCode, autoRegister);
@@ -145,7 +142,6 @@ export class FresnsLogin {
           title: '[' + res.errCode + '] ' + res.errMsg,
           icon: 'none',
         });
-        console.log('appWechatLogin', res);
         if (callback && typeof callback === 'function') {
           callback();
         }
@@ -165,7 +161,6 @@ export class FresnsLogin {
     wx.appleLogin({
       success: async (res) => {
         const appleCode = res.code;
-        console.log('Apple Code', appleCode);
 
         if (appleCode) {
           await this.connectLoginHandle('apple', appleCode, autoRegister);
@@ -181,7 +176,6 @@ export class FresnsLogin {
           title: '[' + res.errCode + '] ' + res.errMsg,
           icon: 'none',
         });
-        console.log('appleLogin', res);
         if (callback && typeof callback === 'function') {
           callback();
         }
