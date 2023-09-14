@@ -110,6 +110,9 @@ export class FresnsLogin {
           icon: 'none',
         });
         console.log('wechatLogin', res);
+        if (callback && typeof callback === 'function') {
+          callback();
+        }
       },
       complete() {
         if (callback && typeof callback === 'function') {
@@ -121,7 +124,7 @@ export class FresnsLogin {
 
   // App 微信登录
   async appWechatLogin(autoRegister = false, callback) {
-    wx.weixinAppLogin({
+    wx.miniapp.login({
       success: async (res) => {
         const wechatCode = res.code;
         console.log('App WeChat Code', wechatCode);
@@ -141,6 +144,9 @@ export class FresnsLogin {
           icon: 'none',
         });
         console.log('appWechatLogin', res);
+        if (callback && typeof callback === 'function') {
+          callback();
+        }
       },
       complete() {
         if (callback && typeof callback === 'function') {
@@ -172,6 +178,9 @@ export class FresnsLogin {
           icon: 'none',
         });
         console.log('appleLogin', res);
+        if (callback && typeof callback === 'function') {
+          callback();
+        }
       },
       complete() {
         if (callback && typeof callback === 'function') {
