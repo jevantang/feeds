@@ -249,20 +249,15 @@ Component({
         userName: appConfig?.mpId,
         path: '/pages/posts/detail?pid=' + post.pid,
         title: title,
-        imagePath: '/miniapp/ios/icons/zhijie-icon-1024.png',
+        imagePath: '/assets/images/share.png',
         webpageUrl: post.url,
         withShareTicket: true,
         miniprogramType: 0,
         scene: 0,
-        success(res) {
+        fail(res) {
           wx.showToast({
-              title: '成功：分享小程序',
-          })
-          console.log(res)
-          },
-        fail() {
-          wx.showToast({
-              title: '失败：分享小程序',
+            title: res.errMsg,
+            icon: 'none',
           })
         }
       })
