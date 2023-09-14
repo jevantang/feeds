@@ -7,6 +7,7 @@ import appConfig from '../../fresns';
 import { fresnsLogin } from '../../utils/fresnsLogin';
 import { fresnsConfig, fresnsLang, fresnsAccount, fresnsUser, fresnsUserPanel } from '../../api/tool/function';
 import { globalInfo } from '../../utils/fresnsGlobalInfo';
+import { cachePut, cacheGet } from '../../utils/fresnsUtilities';
 
 Page({
   /** 外部 mixin 引入 **/
@@ -37,6 +38,12 @@ Page({
 
     userHomePath: '',
     userExtcredits: false,
+
+    // 多端应用 Android 升级
+    downloadApk: false,
+    downloadProgress: 0, // 下载进度
+    downloadTotalWritten: '', // 已经下载的数据长度
+    downloadTotalExpectedToWrite: '', // 预期需要下载的数据总长度
   },
 
   /** 监听页面加载 **/
@@ -110,12 +117,11 @@ Page({
           return;
         }
 
-        const versionInfo = res.data;
-        const version = versionInfo[appInfo.platform]?.version;
+        const versionInfo = res.data[appInfo.platform];
 
-        console.log('Auto Check Version', version, globalInfo.clientVersion);
+        console.log('Auto Check Version', versionInfo?.version, globalInfo.clientVersion);
 
-        if (version == globalInfo.clientVersion) {
+        if (versionInfo?.version == globalInfo.clientVersion) {
           appInfo.hasNewVersion = false;
           this.setData({
             appInfo: appInfo,
@@ -238,12 +244,11 @@ Page({
         }
 
         const appInfo = this.data.appInfo;
-        const versionInfo = res.data;
-        const version = versionInfo[appInfo.platform]?.version;
+        const versionInfo = res.data[appInfo.platform];
 
-        console.log('onCheckVersion', version, globalInfo.clientVersion);
+        console.log('onCheckVersion', versionInfo?.version, globalInfo.clientVersion);
 
-        if (version == globalInfo.clientVersion) {
+        if (versionInfo?.version == globalInfo.clientVersion) {
           wx.showToast({
             title: await fresnsLang('isLatestVersion'),
             icon: 'none',
@@ -264,51 +269,121 @@ Page({
 
   /** 升级 **/
   onUpdateApp: async function (e) {
+    const updateAppFilePath = cacheGet('updateAppFilePath');
+    console.log('updateAppFilePath', updateAppFilePath);
+    if (updateAppFilePath) {
+      // 安装升级包
+      wx.miniapp.installApp({
+        filePath: updateAppFilePath,
+        success: (res) => {
+          console.log('install app success', res);
+
+          this.setData({
+            downloadApk: false,
+          });
+        },
+        fail: (res) => {
+          wx.showToast({
+            title: '[' + res.errCode + '] ' + res.errMsg,
+            icon: 'none',
+          });
+          console.log('install app fail', res);
+
+          this.setData({
+            downloadApk: false,
+          });
+        },
+      });
+
+      return;
+    }
+
+    const downloadApk = this.data.downloadApk;
+    console.log('downloadApk', downloadApk);
+    if (downloadApk) {
+      return;
+    }
+
     const appInfo = this.data.appInfo;
 
     switch (appInfo.platform) {
       case 'ios':
         wx.miniapp.jumpToAppStore({
           success: (res) => {
-            console.log('jumpToAppStore success:', res)
+            console.log('jumpToAppStore success:', res);
           },
           fail: (res) => {
             wx.showToast({
-              title: res,
+              title: '[' + res.errCode + '] ' + res.errMsg,
               icon: 'none',
             });
-            console.log('jumpToAppStore fail:', res)
+            console.log('jumpToAppStore fail:', res);
           },
         });
         break;
 
       case 'android':
-        wx.downloadFile({
+        console.log(appInfo.apkUrl);
+
+        const downloadTask = wx.downloadFile({
           url: appInfo.apkUrl,
-          success(res) {
-            console.log('download apk success', res)
+          timeout: 600000,
+          success: (res) => {
+            console.log('download apk success', res);
+
+            this.setData({
+              downloadApk: false,
+            });
+            cachePut('updateAppFilePath', res.tempFilePath, 1);
+
+            // 安装升级包
             wx.miniapp.installApp({
               filePath: res.tempFilePath,
-              success(res) {
-                console.log('install app success', res)
+              success: (res) => {
+                console.log('install app success', res);
+
+                this.setData({
+                  downloadApk: false,
+                });
               },
-              fail(res) {
+              fail: (res) => {
                 wx.showToast({
-                  title: res,
+                  title: '[' + res.errCode + '] ' + res.errMsg,
                   icon: 'none',
                 });
-                console.log('install app fail', res)
-              }
-            })
+                console.log('install app fail', res);
+
+                this.setData({
+                  downloadApk: false,
+                });
+              },
+            });
           },
-          fail(res) {
+          fail: (res) => {
             wx.showToast({
-              title: res,
+              title: '[' + res.errCode + '] ' + res.errMsg,
               icon: 'none',
             });
-            console.log('download apk fail', res)
-          }
-        })
+            console.log('download apk fail', res);
+
+            this.setData({
+              downloadApk: false,
+            });
+            wx.removeStorageSync('updateAppFilePath');
+          },
+        });
+
+        downloadTask.onProgressUpdate((res) => {
+          let totalWritten = res.totalBytesWritten / 1024 / 1024;
+          let totalExpectedToWrite = res.totalBytesExpectedToWrite / 1024 / 1024;
+
+          this.setData({
+            downloadApk: true,
+            downloadProgress: res.progress, // 下载进度
+            downloadTotalWritten: parseFloat(totalWritten.toFixed(2)), // 已经下载的数据长度
+            downloadTotalExpectedToWrite: parseFloat(totalExpectedToWrite.toFixed(2)), // 预期需要下载的数据总长度
+          });
+        });
         break;
 
       case 'devtools':
