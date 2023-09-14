@@ -23,7 +23,7 @@
                 <text>{{ post.title }}</text>
             </view>
 
-            <view class="content-text {{ (type == 'list') ? 'list-content' : '' }}">
+            <view class="content-text {{ (type != 'detail') ? 'list-content' : '' }}">
                 <mp-html content="{{ postContent }}" markdown="{{ true }}" lazy-load="{{ true }}" selectable="{{ true }}" bind:linktap="onClickContentLink"/>
             </view>
 

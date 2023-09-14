@@ -19,6 +19,11 @@
 
                 <text class="profile-username">@{{ user.fsid }}</text>
 
+                <view class="profile-gender" wx:if="{{ user.gender != 1 }}">
+                    <t-icon name="gender-male" size="16" class="profile-gender-male" wx:if="{{ user.gender == 2 }}"/>
+                    <t-icon name="gender-female" size="16" class="profile-gender-female" wx:if="{{ user.gender == 3 }}"/>
+                </view>
+
                 <view wx:if="{{ user.roleIconDisplay }}" class="profile-role-icon">
                     <image src="{{ user.roleIcon }}" mode="heightFix"/>
                 </view>

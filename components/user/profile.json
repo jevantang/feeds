@@ -4,6 +4,7 @@
     "mp-html": "mp-html",
     "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet",
     "t-tag": "tdesign-miniprogram/tag/tag",
+    "t-icon": "tdesign-miniprogram/icon/icon",
     "interaction": "/components/user/section/interaction"
   }
 }

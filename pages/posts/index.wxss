@@ -15,5 +15,5 @@ page {
 .logo-image {
   height: 44rpx;
   width: 154rpx;
-  margin-top: 10rpx;
+  margin-top: 20rpx;
 }
