@@ -116,7 +116,9 @@ export class FresnsLogin {
       },
       complete() {
         if (callback && typeof callback === 'function') {
-          callback();
+          setTimeout(() => {
+            callback();
+          }, 2000); // 延迟 2 秒
         }
       },
     });
@@ -150,7 +152,9 @@ export class FresnsLogin {
       },
       complete() {
         if (callback && typeof callback === 'function') {
-          callback();
+          setTimeout(() => {
+            callback();
+          }, 2000); // 延迟 2 秒
         }
       },
     });
@@ -184,7 +188,9 @@ export class FresnsLogin {
       },
       complete() {
         if (callback && typeof callback === 'function') {
-          callback();
+          setTimeout(() => {
+            callback();
+          }, 2000); // 延迟 2 秒
         }
       },
     });
