@@ -256,7 +256,7 @@ Component({
         scene: 0,
         fail(res) {
           wx.showToast({
-            title: res.errMsg,
+            title: '[' + res.errCode + '] ' + res.errMsg,
             icon: 'none',
           })
         }
