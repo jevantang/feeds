@@ -9,4 +9,6 @@ module.exports = {
   apiHost: '',
   appId: 'App ID',
   appSecret: 'App Secret',
+  deactivateWeChatLogin: 0, // 是否停用微信登录功能，停用后只支持账号密码或验证码登录
+  mpId: '', // 「多端应用」使用，小程序无需配置
 };
