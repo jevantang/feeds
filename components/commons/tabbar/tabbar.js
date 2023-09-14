@@ -59,21 +59,27 @@ Component({
         publishPostName: await fresnsConfig('publish_post_name'),
       });
 
+      const list = this.data.list;
+      const idx = list.findIndex((value) => value.value == 'account');
+      let count = 0;
+
       if (globalInfo.userLogin) {
         const unreadNotifications = await fresnsUserPanel('unreadNotifications.all');
         const unreadMessages = await fresnsUserPanel('conversations.unreadMessages');
 
-        const count = unreadNotifications + unreadMessages;
-
-        const list = this.data.list;
-        const idx = list.findIndex((value) => value.value == 'account');
-
-        list[idx].count = count;
-
-        this.setData({
-          list: list,
-        });
+        count = unreadNotifications + unreadMessages;
       }
+
+      const appInfo = wx.getStorageSync('appInfo');
+      if (appInfo.hasNewVersion) {
+        count = count + 1;
+      }
+
+      list[idx].count = count;
+
+      this.setData({
+        list: list,
+      });
     },
   },
 

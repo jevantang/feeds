@@ -141,6 +141,20 @@
             <view class="weui-cell__bd">{{ fresnsLang.optionLanguage }}</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
+        <block wx:if="{{ appInfo.hasNewVersion }}">
+            <view class="weui-cell weui-cell_access" wx:if="{{ appInfo.isApp }}" bind:tap="onUpdateApp">
+                <view class="weui-cell__bd">{{ fresnsLang.checkVersion }}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">
+                    <text class="weui-badge">{{ fresnsLang.update }}</text>
+                </view>
+            </view>
+        </block>
+        <block wx:else>
+            <view class="weui-cell weui-cell_access" wx:if="{{ appInfo.isApp }}" bind:tap="onCheckVersion">
+                <view class="weui-cell__bd">{{ fresnsLang.checkVersion }}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </view>
+        </block>
         <navigator url="/pages/portal/about" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__bd">{{ fresnsLang.about }}</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>

@@ -93,6 +93,8 @@ export class GlobalInfo {
       isApp: systemInfo.host.env == 'SAAASDK',
       isWechat: systemInfo.host.env == 'WeChat',
       platform: systemInfo.platform,
+      hasNewVersion: false,
+      apkUrl: '',
     };
     wx.setStorageSync('appInfo', appInfo);
 

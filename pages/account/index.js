@@ -3,6 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+import appConfig from '../../fresns';
 import { fresnsLogin } from '../../utils/fresnsLogin';
 import { fresnsConfig, fresnsLang, fresnsAccount, fresnsUser, fresnsUserPanel } from '../../api/tool/function';
 import { globalInfo } from '../../utils/fresnsGlobalInfo';
@@ -15,6 +16,7 @@ Page({
   data: {
     title: null,
     logo: null,
+    appInfo: {},
 
     loadingStatus: false,
 
@@ -68,6 +70,7 @@ Page({
     this.setData({
       title: await fresnsConfig('menu_account'),
       logo: await fresnsConfig('site_logo'),
+      appInfo: wx.getStorageSync('appInfo'),
       accountLogin: globalInfo.accountLogin,
       userLogin: globalInfo.userLogin,
       fresnsConfig: await fresnsConfig(),
@@ -86,6 +89,49 @@ Page({
         },
       ],
       userHomePath: await globalInfo.userHomePath(),
+    });
+  },
+
+  /** 监听页面渲染完成 **/
+  onReady: async function () {
+    const appInfo = this.data.appInfo;
+
+    if (appInfo.isWechat) {
+      return;
+    }
+
+    const timestamp = Date.now();
+
+    wx.request({
+      url: appConfig.apiHost + '/app/version.json?time=' + timestamp,
+      enableHttp2: true,
+      success: async (res) => {
+        if (res.statusCode !== 200) {
+          return;
+        }
+
+        const versionInfo = res.data;
+        const version = versionInfo[appInfo.platform]?.version;
+
+        console.log('Auto Check Version', version, globalInfo.clientVersion);
+
+        if (version == globalInfo.clientVersion) {
+          appInfo.hasNewVersion = false;
+          this.setData({
+            appInfo: appInfo,
+          });
+          wx.setStorageSync('appInfo', appInfo);
+
+          return;
+        }
+
+        appInfo.hasNewVersion = true;
+        appInfo.apkUrl = versionInfo?.apkUrl;
+        this.setData({
+          appInfo: appInfo,
+        });
+        wx.setStorageSync('appInfo', appInfo);
+      },
     });
   },
 
@@ -172,6 +218,109 @@ Page({
     wx.redirectTo({
       url: '/pages/account/index',
     });
+  },
+
+  /** 检测版本 **/
+  onCheckVersion: async function (e) {
+    wx.showToast({
+      title: await fresnsLang('inProgress'),
+      icon: 'none',
+    });
+
+    const timestamp = Date.now();
+
+    wx.request({
+      url: appConfig.apiHost + '/app/version.json?time=' + timestamp,
+      enableHttp2: true,
+      success: async (res) => {
+        if (res.statusCode !== 200) {
+          return;
+        }
+
+        const appInfo = this.data.appInfo;
+        const versionInfo = res.data;
+        const version = versionInfo[appInfo.platform]?.version;
+
+        console.log('onCheckVersion', version, globalInfo.clientVersion);
+
+        if (version == globalInfo.clientVersion) {
+          wx.showToast({
+            title: await fresnsLang('isLatestVersion'),
+            icon: 'none',
+          });
+
+          return;
+        }
+
+        appInfo.hasNewVersion = true;
+        appInfo.apkUrl = versionInfo?.apkUrl;
+        this.setData({
+          appInfo: appInfo,
+        });
+        wx.setStorageSync('appInfo', appInfo);
+      },
+    });
+  },
+
+  /** 升级 **/
+  onUpdateApp: async function (e) {
+    const appInfo = this.data.appInfo;
+
+    switch (appInfo.platform) {
+      case 'ios':
+        wx.miniapp.jumpToAppStore({
+          success: (res) => {
+            console.log('jumpToAppStore success:', res)
+          },
+          fail: (res) => {
+            wx.showToast({
+              title: res,
+              icon: 'none',
+            });
+            console.log('jumpToAppStore fail:', res)
+          },
+        });
+        break;
+
+      case 'android':
+        wx.downloadFile({
+          url: appInfo.apkUrl,
+          success(res) {
+            console.log('download apk success', res)
+            wx.miniapp.installApp({
+              filePath: res.tempFilePath,
+              success(res) {
+                console.log('install app success', res)
+              },
+              fail(res) {
+                wx.showToast({
+                  title: res,
+                  icon: 'none',
+                });
+                console.log('install app fail', res)
+              }
+            })
+          },
+          fail(res) {
+            wx.showToast({
+              title: res,
+              icon: 'none',
+            });
+            console.log('download apk fail', res)
+          }
+        })
+        break;
+
+      case 'devtools':
+        wx.showToast({
+          title: 'devtools',
+          icon: 'none',
+        });
+        break;
+
+      default:
+        return;
+    }
   },
 
   /** 退出登录 **/
