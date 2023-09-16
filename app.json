@@ -7,10 +7,7 @@
 
     "pages/users/index",
     "pages/users/list",
-    "pages/users/likes",
-    "pages/users/dislikes",
     "pages/users/following",
-    "pages/users/blocking",
 
     "pages/groups/index",
     "pages/groups/list",
@@ -42,7 +39,6 @@
     "pages/account/wechat-login/check-sign",
     "pages/account/wechat-login/website-oauth",
     "pages/account/reset-password",
-    "pages/account/wallet",
     "pages/account/users",
     "pages/account/user-extcredits",
     "pages/account/settings",
