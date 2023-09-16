@@ -9,6 +9,8 @@ import { fresnsConfig, fresnsLang, fresnsAccount, fresnsUser, fresnsUserPanel } 
 import { globalInfo } from '../../utils/fresnsGlobalInfo';
 import { cachePut, cacheGet } from '../../utils/fresnsUtilities';
 
+let isRefreshing = false;
+
 Page({
   /** 外部 mixin 引入 **/
   mixins: [require('../../mixins/globalConfig'), require('../../mixins/fresnsExtensions')],
@@ -143,7 +145,13 @@ Page({
 
   /** 监听用户下拉动作 **/
   onPullDownRefresh: async function () {
-    console.log('reload data start');
+    // 防抖判断
+    if (isRefreshing) {
+      wx.stopPullDownRefresh();
+      return;
+    }
+
+    isRefreshing = true;
 
     wx.showNavigationBarLoading();
     this.setData({
@@ -166,9 +174,12 @@ Page({
         this.setData({
           loadingStatus: false,
         });
-        console.log('reload data end');
       },
     });
+
+    setTimeout(() => {
+      isRefreshing = false;
+    }, 5000); // 防抖时间 5 秒
   },
 
   // 展开用户积分
