@@ -24,6 +24,7 @@ Component({
     title: null,
 
     showCommentBox: false,
+    commentDialogFullScreen: false,
     commentBoxBottom: 0,
     nickname: null,
 
@@ -199,6 +200,15 @@ Component({
 
       this.setData({
         commentBoxBottom: height,
+      });
+    },
+
+    // 评论 Dialog 全屏
+    eventCommentDialogFullScreen: function (e) {
+      const status = e.detail.status;
+
+      this.setData({
+        commentDialogFullScreen: status,
       });
     },
 
