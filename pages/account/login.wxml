@@ -39,21 +39,21 @@
         <view class="we-login-agree" wx:if="{{ appInfo.isWechat }}">
             <button class="weui-btn weui-btn_primary weui-btn_loading" type="primary" bind:tap="onWeChatLogin" style="width: 250px;">
                 <mp-loading type="dot-gray" show="{{ btnLoading }}" extClass="btnLoading"/>
-                {{ wechatLoginBtnName }}
+                <t-icon name="logo-wechat-stroke" size="24"/> {{ wechatLoginBtnName }}
             </button>
         </view>
 
         <view class="we-login-agree" wx:if="{{ appInfo.isApp }}">
             <button class="weui-btn weui-btn_primary weui-btn_loading" type="primary" bind:tap="onAppWeChatLogin" style="width: 250px;">
                 <mp-loading type="dot-gray" show="{{ btnLoading }}" extClass="btnLoading"/>
-                {{ wechatLoginBtnName }}
+                <t-icon name="logo-wechat-stroke" size="24"/> {{ wechatLoginBtnName }}
             </button>
         </view>
 
         <view class="we-login-agree" wx:if="{{ appInfo.isApp && appInfo.platform == 'ios' }}">
             <button class="weui-btn weui-btn_primary weui-btn_loading" type="primary" bind:tap="onAppleLogin" style="width: 250px;">
                 <mp-loading type="dot-gray" show="{{ appleBtnLoading }}" extClass="btnLoading"/>
-                {{ appleLoginBtnName }}
+                <t-icon name="logo-apple" size="24"/> {{ appleLoginBtnName }}
             </button>
         </view>
     </block>
