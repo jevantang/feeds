@@ -3,7 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import appConfig from '../../fresns';
+import { fresnsApi } from '../../api/api';
 import { fresnsLogin } from '../../utils/fresnsLogin';
 import { fresnsConfig, fresnsLang, fresnsAccount, fresnsUser, fresnsUserPanel } from '../../api/tool/function';
 import { globalInfo } from '../../utils/fresnsGlobalInfo';
@@ -109,38 +109,27 @@ Page({
       return;
     }
 
-    const timestamp = Date.now();
+    const fresnsStatus = await fresnsApi.global.globalStatus();
+    const clientInfo = fresnsStatus?.client?.mobile[appInfo.platform];
 
-    wx.request({
-      url: appConfig.apiHost + '/app/version.json?time=' + timestamp,
-      enableHttp2: true,
-      success: async (res) => {
-        if (res.statusCode !== 200) {
-          return;
-        }
+    console.log('Auto Check Version', clientInfo?.version, globalInfo.clientVersion);
 
-        const versionInfo = res.data[appInfo.platform];
+    if (clientInfo?.version == globalInfo.clientVersion) {
+      appInfo.hasNewVersion = false;
+      this.setData({
+        appInfo: appInfo,
+      });
+      wx.setStorageSync('appInfo', appInfo);
 
-        console.log('Auto Check Version', versionInfo?.version, globalInfo.clientVersion);
+      return;
+    }
 
-        if (versionInfo?.version == globalInfo.clientVersion) {
-          appInfo.hasNewVersion = false;
-          this.setData({
-            appInfo: appInfo,
-          });
-          wx.setStorageSync('appInfo', appInfo);
-
-          return;
-        }
-
-        appInfo.hasNewVersion = true;
-        appInfo.apkUrl = versionInfo?.apkUrl;
-        this.setData({
-          appInfo: appInfo,
-        });
-        wx.setStorageSync('appInfo', appInfo);
-      },
+    appInfo.hasNewVersion = true;
+    appInfo.apkUrl = clientInfo?.packages?.apk;
+    this.setData({
+      appInfo: appInfo,
     });
+    wx.setStorageSync('appInfo', appInfo);
   },
 
   /** 监听用户下拉动作 **/
@@ -244,38 +233,27 @@ Page({
       icon: 'none',
     });
 
-    const timestamp = Date.now();
+    const appInfo = wx.getStorageSync('appInfo');
+    const fresnsStatus = await fresnsApi.global.globalStatus();
+    const clientInfo = fresnsStatus?.client?.mobile[appInfo.platform];
 
-    wx.request({
-      url: appConfig.apiHost + '/app/version.json?time=' + timestamp,
-      enableHttp2: true,
-      success: async (res) => {
-        if (res.statusCode !== 200) {
-          return;
-        }
+    console.log('onCheckVersion', clientInfo?.version, globalInfo.clientVersion);
 
-        const appInfo = this.data.appInfo;
-        const versionInfo = res.data[appInfo.platform];
+    if (clientInfo?.version == globalInfo.clientVersion) {
+      wx.showToast({
+        title: await fresnsLang('isLatestVersion'),
+        icon: 'none',
+      });
 
-        console.log('onCheckVersion', versionInfo?.version, globalInfo.clientVersion);
+      return;
+    }
 
-        if (versionInfo?.version == globalInfo.clientVersion) {
-          wx.showToast({
-            title: await fresnsLang('isLatestVersion'),
-            icon: 'none',
-          });
-
-          return;
-        }
-
-        appInfo.hasNewVersion = true;
-        appInfo.apkUrl = versionInfo?.apkUrl;
-        this.setData({
-          appInfo: appInfo,
-        });
-        wx.setStorageSync('appInfo', appInfo);
-      },
+    appInfo.hasNewVersion = true;
+    appInfo.apkUrl = clientInfo?.packages?.apk;
+    this.setData({
+      appInfo: appInfo,
     });
+    wx.setStorageSync('appInfo', appInfo);
   },
 
   /** 升级 **/
