@@ -722,31 +722,33 @@ module.exports = {
       }
 
       const currentPagePath = getCurrentPagePath();
-      if (currentPagePath != 'pages/posts/detail') {
-        // 发表成功，插入新评论
-        const commentDetailRes = await fresnsApi.comment.commentDetail({
-          cid: newCid,
+      if (currentPagePath == 'pages/posts/detail' && commentCid) {
+        // 重置评论列表
+        this.setData({
+          comments: comments,
         });
-  
-        if (commentDetailRes.code === 0) {
-          let detail = commentDetailRes.data.detail;
-          detail.replyToPost = {
-            pid: detail.replyToPost.pid,
-          };
-  
-          comments.unshift(detail);
-        }
+
+        return;
       }
 
-      // 隐藏评论框
+      // 发表成功，插入新评论
+      const commentDetailRes = await fresnsApi.comment.commentDetail({
+        cid: newCid,
+      });
+
+      if (commentDetailRes.code === 0) {
+        let detail = commentDetailRes.data.detail;
+        detail.replyToPost = {
+          pid: detail.replyToPost.pid,
+        };
+
+        comments.unshift(detail);
+      }
+
+      // 重置评论列表
       this.setData({
         comments: comments,
       });
     }
-
-    // 隐藏评论框
-    this.setData({
-      showCommentBox: false,
-    });
   },
 };
