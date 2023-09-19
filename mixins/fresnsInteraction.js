@@ -712,26 +712,29 @@ module.exports = {
 
     const comments = this.data.comments;
     if (comments) {
-      // 发表成功，插入新评论
-      const commentDetailRes = await fresnsApi.comment.commentDetail({
-        cid: newCid,
-      });
-
-      if (commentDetailRes.code === 0) {
-        let detail = commentDetailRes.data.detail;
-        detail.replyToPost = {
-          pid: detail.replyToPost.pid,
-        };
-
-        comments.unshift(detail);
-      }
-
       // 涉及父级评论，父级评论总数 +1
       if (commentCid) {
         const commentIdx = comments.findIndex((value) => value.cid == commentCid);
 
         if (commentIdx >= 0) {
           comments[commentIdx].commentCount = comments[commentIdx].commentCount + 1;
+        }
+      }
+
+      const currentPagePath = getCurrentPagePath();
+      if (currentPagePath != 'pages/posts/detail') {
+        // 发表成功，插入新评论
+        const commentDetailRes = await fresnsApi.comment.commentDetail({
+          cid: newCid,
+        });
+  
+        if (commentDetailRes.code === 0) {
+          let detail = commentDetailRes.data.detail;
+          detail.replyToPost = {
+            pid: detail.replyToPost.pid,
+          };
+  
+          comments.unshift(detail);
         }
       }
 
