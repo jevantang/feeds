@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/posts/index",
+
     "pages/portal/index",
     "pages/portal/about",
     "pages/portal/policies",
@@ -18,7 +20,6 @@
     "pages/hashtags/following",
     "pages/hashtags/detail",
 
-    "pages/posts/index",
     "pages/posts/list",
     "pages/posts/location",
     "pages/posts/following",
