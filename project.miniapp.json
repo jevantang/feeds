@@ -30,7 +30,7 @@
     }
   },
   "mini-ios": {
-    "sdkVersion": "1.0.230920",
+    "sdkVersion": "1.0.30",
     "toolkitVersion": "0.0.9",
     "useExtendedSdk": {
       "WeAppOpenFuns": true,
@@ -62,6 +62,9 @@
     },
     "splashscreen": {
       "customImage": "miniapp/ios/splashscreen/ios-1242x2688.png"
+    },
+    "infoPlist": {
+      "DisableAppUsesNonExemptEncryption": true
     }
   },
   "versionCode": 100
