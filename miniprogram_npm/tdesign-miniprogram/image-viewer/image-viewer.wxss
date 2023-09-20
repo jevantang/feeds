@@ -52,6 +52,9 @@
   transform: translateY(-50%);
   z-index: 1005;
 }
+.t-image-viewer .swiper {
+  outline: 0;
+}
 .t-image-viewer__image {
   width: 100%;
   display: inline-block;

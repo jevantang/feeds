@@ -63,7 +63,8 @@
   box-shadow: var(--td-tab-bar-round-shadow, var(--td-shadow-3, 0 6px 30px 5px rgba(0, 0, 0, 0.05), 0 16px 24px 2px rgba(0, 0, 0, 0.04), 0 8px 10px -5px rgba(0, 0, 0, 0.08)));
 }
 .t-tab-bar--fixed.t-tab-bar--round.t-tab-bar--safe {
-  bottom: 20px;
+  bottom: constant(safe-area-inset-bottom);
+  bottom: env(safe-area-inset-bottom);
 }
 .t-tab-bar--fixed.t-tab-bar--round.t-tab-bar--safe {
   bottom: constant(safe-area-inset-bottom);
