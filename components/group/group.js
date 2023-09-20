@@ -29,7 +29,7 @@ Component({
       }
 
       this.setData({
-        description: truncateText(group.description, 56, true),
+        description: truncateText(group.description, 52, true),
       });
     },
   },
