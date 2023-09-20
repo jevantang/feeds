@@ -67,7 +67,7 @@ Page({
     if (globalInfo.userLogin) {
       const myGroups = {
         gid: 'fresns-my-groups',
-        gname: await fresnsLang('myGroups'),
+        gname: await fresnsConfig('menu_follow_groups'),
         description: '',
         cover: '',
         banner: '',
