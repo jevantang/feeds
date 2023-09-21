@@ -34,8 +34,9 @@ Component({
 
       if (newContent) {
         // 处理换行
-        newContent = newContent.replace(/\n/g, '\n\n'); // 替换单独的换行
-        newContent = newContent.replace(/\n{3,}/g, '\n\n'); // 如果有 3 个或更多连续的换行，只保留 2 个
+        newContent = newContent.replace(/\n{2,}/g, '<TMP_NEWLINE>'); // 2 个及以上，替换为占位符
+        newContent = newContent.replace(/\n/g, '\n\n'); // 替换单独的换行，1 个变 2 个
+        newContent = newContent.replace(/<TMP_NEWLINE>/g, '\n\n'); // 复原换行占位符
 
         // 匹配话题
         newContent = newContent.replace(
@@ -62,10 +63,7 @@ Component({
         // 处理自有链接
         const domainPattern = '(tangjie.me|fresns.cn|zhijieshequ.com)';
         const pureURLPattern = new RegExp(`(^|\\s)(https?:\\/\\/[^ \\n<]*${domainPattern}[^ \\n<]*)`, 'gi');
-        const markdownURLPattern = new RegExp(
-          `\\[([^\\]]+)\\]\\((https?:\\/\\/[^)]*${domainPattern}[^)]*)\\)`,
-          'gi'
-        );
+        const markdownURLPattern = new RegExp(`\\[([^\\]]+)\\]\\((https?:\\/\\/[^)]*${domainPattern}[^)]*)\\)`, 'gi');
         const aTagHrefPattern = new RegExp(`(\\<a[^>]*?)href="((https?:\\/\\/[^"]*${domainPattern}[^"]*))"`, 'gi');
 
         newContent = newContent.replace(pureURLPattern, '$1<a href="/pages/webview?url=$2">$2</a>');
