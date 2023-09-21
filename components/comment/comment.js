@@ -34,7 +34,7 @@ Component({
 
       if (newContent) {
         // 处理换行
-        newContent = newContent.replace(/(?<!\n)(?<!```[^\n]*)\n(?!\n)/g, '\n\n'); // 替换单独的换行
+        newContent = newContent.replace(/\n/g, '\n\n'); // 替换单独的换行
         newContent = newContent.replace(/\n{3,}/g, '\n\n'); // 如果有 3 个或更多连续的换行，只保留 2 个
 
         // 匹配话题
@@ -63,7 +63,7 @@ Component({
         const domainPattern = '(tangjie.me|fresns.cn|zhijieshequ.com)';
         const pureURLPattern = new RegExp(`(^|\\s)(https?:\\/\\/[^ \\n<]*${domainPattern}[^ \\n<]*)`, 'gi');
         const markdownURLPattern = new RegExp(
-          `(?<!!)\\[([^\\]]+)\\]\\((https?:\\/\\/[^)]*${domainPattern}[^)]*)\\)`,
+          `\\[([^\\]]+)\\]\\((https?:\\/\\/[^)]*${domainPattern}[^)]*)\\)`,
           'gi'
         );
         const aTagHrefPattern = new RegExp(`(\\<a[^>]*?)href="((https?:\\/\\/[^"]*${domainPattern}[^"]*))"`, 'gi');
