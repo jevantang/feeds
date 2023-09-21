@@ -8,7 +8,7 @@
     "useExtendedSdk": {
       "media": true,
       "bluetooth": false,
-      "network": false,
+      "network": true,
       "scanner": false,
       "xweb": false
     },
@@ -27,6 +27,18 @@
     "privacy": {
       "enable": true,
       "template": "miniapp/policies.json"
+    },
+    "usePluginSdk": {
+      "map": "1.0.0"
+    },
+    "privateDescriptions": {
+      "ACCESS_COARSE_LOCATION": "用于发表带有位置的帖子或评论",
+      "ACCESS_FINE_LOCATION": "用于发表带有位置的帖子或评论",
+      "CAMERA": "拍摄照片，发表附带图片或视频的内容",
+      "RECORD_AUDIO": ""
+    },
+    "map": {
+      "qmapAPIKey": "6G2BZ-AQJO4-5MBUQ-X44DS-XNDNZ-P6FA4"
     }
   },
   "mini-ios": {
@@ -34,10 +46,10 @@
     "toolkitVersion": "0.0.9",
     "useExtendedSdk": {
       "WeAppOpenFuns": true,
-      "WeAppNetwork": false,
+      "WeAppNetwork": true,
       "WeAppBluetooth": false,
       "WeAppMedia": true,
-      "WeAppLBS": false,
+      "WeAppLBS": true,
       "WeAppOthers": false,
       "WeAppIdaas": true
     },
@@ -75,7 +87,8 @@
       "NSLocationWhenInUseUsageDescription": "为了提供完整的功能，我们的应用程序需要访问位置信息。这将用于提供定位服务和相关功能。我们承诺保护用户隐私和数据安全。",
       "NSLocationAlwaysAndWhenInUseUsageDescription": "为了提供完整的功能，我们的应用程序需要在使用时访问位置信息。这将用于提供定位服务和相关功能。我们承诺保护用户隐私和数据安全。",
       "NSBluetoothAlwaysUsageDescription": "为了提供完整的功能，我们的应用程序需要始终访问蓝牙外设。这将用于与其他设备进行通信和数据交换。我们承诺保护用户隐私和数据安全。"
-    }
+    },
+    "qmapAPIKey": "6G2BZ-AQJO4-5MBUQ-X44DS-XNDNZ-P6FA4"
   },
   "versionCode": 100
 }
