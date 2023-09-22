@@ -29,13 +29,12 @@
       "template": "miniapp/policies.json"
     },
     "usePluginSdk": {
-      "map": "1.0.0"
+      "map": "1.0.1"
     },
     "privateDescriptions": {
       "ACCESS_COARSE_LOCATION": "用于发表带有位置的帖子或评论",
       "ACCESS_FINE_LOCATION": "用于发表带有位置的帖子或评论",
-      "CAMERA": "拍摄照片，发表附带图片或视频的内容",
-      "RECORD_AUDIO": ""
+      "CAMERA": "拍摄照片，发表附带图片或视频的内容"
     },
     "map": {
       "qmapAPIKey": "6G2BZ-AQJO4-5MBUQ-X44DS-XNDNZ-P6FA4"
