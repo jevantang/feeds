@@ -98,18 +98,18 @@ Page({
 
     const storageLangTag = wx.getStorageSync('langTag');
     const btnNameMap = {
-      en: 'Continue with WeChat',
-      'zh-Hans': '使用微信登录',
-      'zh-Hant': '使用 WeChat 登錄',
+      en: 'Sign in with WeChat',
+      'zh-Hans': '通过微信登录',
+      'zh-Hant': '透過 WeChat 登入',
     };
-    const wechatLoginBtnName = btnNameMap[storageLangTag] || 'Continue with WeChat';
+    const wechatLoginBtnName = btnNameMap[storageLangTag] || 'Sign in with WeChat';
 
     const appleBtnNameMap = {
-      en: 'Continue with Apple ID',
-      'zh-Hans': '使用 Apple 账号登录',
-      'zh-Hant': '使用 Apple 賬號登錄',
+      en: 'Sign in with Apple',
+      'zh-Hans': '通过 Apple 登录',
+      'zh-Hant': '透過 Apple 登入',
     };
-    const appleLoginBtnName = appleBtnNameMap[storageLangTag] || 'Continue with Apple ID';
+    const appleLoginBtnName = appleBtnNameMap[storageLangTag] || 'Sign in with Apple';
 
     this.setData({
       deactivateWeChatLogin: appConfig?.deactivateWeChatLogin,

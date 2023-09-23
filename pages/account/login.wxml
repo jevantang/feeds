@@ -37,23 +37,32 @@
     <!-- 微信登录 -->
     <block wx:if="{{ loginType === '0' }}">
         <view class="we-login-agree" wx:if="{{ appInfo.isWechat }}">
-            <button class="weui-btn weui-btn_primary weui-btn_loading" type="primary" bind:tap="onWeChatLogin" style="width: 250px;">
+            <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onWeChatLogin">
                 <mp-loading type="dot-gray" show="{{ btnLoading }}" extClass="btnLoading"/>
-                <t-icon name="logo-wechat-stroke" size="24"/> {{ wechatLoginBtnName }}
+                <view class="btn-flex">
+                    <view><image src="/assets/images/wechat.png" mode="heightFix"/></view>
+                    <text>{{ wechatLoginBtnName }}</text>
+                </view>
             </button>
         </view>
 
         <view class="we-login-agree" wx:if="{{ appInfo.isApp }}">
-            <button class="weui-btn weui-btn_primary weui-btn_loading" type="primary" bind:tap="onAppWeChatLogin" style="width: 250px;">
+            <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onAppWeChatLogin">
                 <mp-loading type="dot-gray" show="{{ btnLoading }}" extClass="btnLoading"/>
-                <t-icon name="logo-wechat-stroke" size="24"/> {{ wechatLoginBtnName }}
+                <view class="btn-flex">
+                    <view><image src="/assets/images/wechat.png" mode="heightFix"/></view>
+                    <text>{{ wechatLoginBtnName }}</text>
+                </view>
             </button>
         </view>
 
         <view class="we-login-agree" wx:if="{{ appInfo.isApp && appInfo.platform == 'ios' }}">
-            <button class="weui-btn weui-btn_primary weui-btn_loading" type="primary" bind:tap="onAppleLogin" style="width: 250px;">
-                <mp-loading type="dot-gray" show="{{ appleBtnLoading }}" extClass="btnLoading"/>
-                <t-icon name="logo-apple" size="24"/> {{ appleLoginBtnName }}
+            <button class="weui-btn apple-btn" type="primary" bind:tap="onAppleLogin">
+                <mp-loading type="dot-white" show="{{ appleBtnLoading }}" extClass="btnLoading"/>
+                <view class="btn-flex">
+                    <view><image src="/assets/images/apple.png" mode="heightFix"/></view>
+                    <text>{{ appleLoginBtnName }}</text>
+                </view>
             </button>
         </view>
     </block>
