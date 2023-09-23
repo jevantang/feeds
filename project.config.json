@@ -36,7 +36,6 @@
     "condition": true
   },
   "compileType": "miniprogram",
-  "appid": "wxbc94bda125907f11",
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
@@ -45,7 +44,6 @@
   "simulatorPluginLibVersion": {
     "wxext14566970e7e9f62": "2.27.3"
   },
-  "libVersion": "3.0.1",
   "packOptions": {
     "ignore": [
       {
@@ -59,6 +57,6 @@
     ],
     "include": []
   },
-  "projectArchitecture": "multiPlatform",
-  "projectname": "%E7%9F%A5%E7%BB%93"
+  "appid": "wxbc94bda125907f11",
+  "projectArchitecture": "multiPlatform"
 }

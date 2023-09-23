@@ -1,7 +1,6 @@
 {
   "navigationBarTitleText": "登录",
   "usingComponents": {
-    "t-icon": "tdesign-miniprogram/icon/icon",
     "mp-loading": "weui-miniprogram/loading/loading",
     "privacy": "/components/commons/privacy/privacy"
   }
