@@ -133,8 +133,8 @@ Page({
           this.setData({
             hasWechatInstall: res.hasWechatInstall,
           });
-        }
-      })
+        },
+      });
     }
 
     if (options.showToast === 'true') {
