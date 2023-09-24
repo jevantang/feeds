@@ -38,6 +38,9 @@
     },
     "map": {
       "qmapAPIKey": "6G2BZ-AQJO4-5MBUQ-X44DS-XNDNZ-P6FA4"
+    },
+    "schemes": {
+      "scheme": "zhijie"
     }
   },
   "mini-ios": {
@@ -75,7 +78,12 @@
       "customImage": "miniapp/ios/splashscreen/ios-1242x2688.png"
     },
     "infoPlist": {
-      "DisableAppUsesNonExemptEncryption": true
+      "DisableAppUsesNonExemptEncryption": true,
+      "CFBundleURLTypes": {
+        "CFBundleURLName": "com.fresns.zhijie",
+        "CFBundleURLSchemes": "zhijie",
+        "CFBundleTypeRole": "Viewer"
+      }
     },
     "privateDescriptions": {
       "NSCalendarsUsageDescription": "为了提供完整的功能，我们的应用程序需要访问日历。这将用于提醒和日程管理。我们承诺保护用户隐私和数据安全。",
