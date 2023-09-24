@@ -268,15 +268,15 @@ Component({
           wx.showToast({
             title: '[' + res.errCode + '] ' + res.errMsg,
             icon: 'none',
-          })
-        }
-      })
+          });
+        },
+      });
     },
 
     // 转发动态
     onQuote() {
       const post = this.data.post;
-  
+
       wx.navigateTo({
         url: '/pages/editor/index?type=post' + '&quotedPid=' + post.pid,
       });

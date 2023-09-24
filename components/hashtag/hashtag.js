@@ -23,7 +23,7 @@ Component({
       const hashtag = this.data.hashtag;
       const initialHashtag = JSON.parse(JSON.stringify(this.data.hashtag)); // 拷贝一个小组初始数据
 
-      const titleText = await fresnsLang('leave') + ': ' + hashtag.hname;
+      const titleText = (await fresnsLang('leave')) + ': ' + hashtag.hname;
       const cancelText = await fresnsLang('cancel');
       const confirmText = await fresnsLang('confirm');
 

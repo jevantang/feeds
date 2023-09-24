@@ -41,7 +41,7 @@ Component({
       const group = this.data.group;
       const initialGroup = JSON.parse(JSON.stringify(this.data.group)); // 拷贝一个小组初始数据
 
-      const titleText = await fresnsLang('leave') + ': ' + group.gname;
+      const titleText = (await fresnsLang('leave')) + ': ' + group.gname;
       const cancelText = await fresnsLang('cancel');
       const confirmText = await fresnsLang('confirm');
 
@@ -95,11 +95,11 @@ Component({
     // onClickToDetail
     onClickToDetail: function (e) {
       const gid = e.currentTarget.dataset.gid;
-  
+
       if (!gid) {
         return;
       }
-  
+
       wx.navigateTo({
         url: '/pages/groups/detail?gid=' + gid,
       });

@@ -112,15 +112,15 @@ Page({
       content: 'tangjie@fresns.cn',
       cancelText: '取消',
       confirmText: '复制邮箱',
-      success (res) {
+      success(res) {
         if (res.confirm) {
           wx.showToast({
             title: '复制成功',
           });
         } else if (res.cancel) {
-          console.log('用户点击取消')
+          console.log('用户点击取消');
         }
-      }
+      },
     });
   },
 });

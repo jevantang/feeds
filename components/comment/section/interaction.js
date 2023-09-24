@@ -268,9 +268,9 @@ Component({
           wx.showToast({
             title: '[' + res.errCode + '] ' + res.errMsg,
             icon: 'none',
-          })
-        }
-      })
+          });
+        },
+      });
     },
 
     // 更多菜单

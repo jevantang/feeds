@@ -93,7 +93,6 @@ page {
   margin-block-end: 0.1em !important;
 }
 
-
 /* tabs */
 .weui-tabs-bar__title {
   margin: 0px 10px;
