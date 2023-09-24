@@ -41,7 +41,7 @@ Page({
   /** 监听页面加载 **/
   onLoad: async function (options) {
     wx.setNavigationBarTitle({
-      title: await fresnsConfig('comment_name'),
+      title: await fresnsLang('commentDetailTitle'),
     });
 
     this.setData({

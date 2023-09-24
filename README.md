@@ -36,5 +36,7 @@
 - 新增
     - `hashtagType2` 公司
     - `hashtagType3` 人物
+    - `postDetailTitle` 知结动态
+    - `commentDetailTitle` 知结评论
     - `tipConnectWeChatMiniProgram` 请在微信小程序里或网站上操作绑定
     - `tipConnectWeChatMiniApp` 请在「知结」App 里操作关联绑定
