@@ -37,7 +37,8 @@ Page({
     switchLogin: false,
 
     deactivateWeChatLogin: false,
-    loginType: LoginType.WeChat,
+    hasWechatInstall: true,
+    loginTabType: LoginType.WeChat,
     type: Type.Phone,
 
     btnLoading: false,
@@ -113,7 +114,7 @@ Page({
 
     this.setData({
       deactivateWeChatLogin: appConfig?.deactivateWeChatLogin,
-      loginType: appConfig?.deactivateWeChatLogin ? LoginType.Password : LoginType.WeChat,
+      loginTabType: appConfig?.deactivateWeChatLogin ? LoginType.Password : LoginType.WeChat,
       codeLogin: Boolean((await fresnsConfig('send_email_service')) || (await fresnsConfig('send_sms_service'))),
       switchLogin: Boolean(emailLogin && phoneLogin),
       type: loginType,
@@ -125,6 +126,17 @@ Page({
       appleLoginBtnName: appleLoginBtnName,
     });
 
+    const appInfo = wx.getStorageSync('appInfo');
+    if (appInfo.isApp && appInfo.platform == 'ios') {
+      wx.miniapp.hasWechatInstall({
+        success: (res) => {
+          this.setData({
+            hasWechatInstall: res.hasWechatInstall,
+          });
+        }
+      })
+    }
+
     if (options.showToast === 'true') {
       wx.showToast({
         title: (await fresnsCodeMessage('31501')) || '请先登录账号再操作',
@@ -134,12 +146,12 @@ Page({
   },
 
   // 交互操作
-  onLoginTypeChange: function (e) {
+  onLoginTabChange: function (e) {
     this.setData({
-      loginType: e.detail.value,
+      loginTabType: e.detail.value,
     });
   },
-  onTypeChange: function (e) {
+  onAccountTypeChange: function (e) {
     this.setData({
       type: e.detail.value,
       password: '',
