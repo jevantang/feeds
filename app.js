@@ -117,10 +117,10 @@ App({
             break;
 
           default:
-            console.log('registOpenURL', param)
+            console.log('registOpenURL', param);
             return;
         }
-      })
+      });
     }
   },
 
