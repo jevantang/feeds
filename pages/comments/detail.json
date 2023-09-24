@@ -1,8 +1,11 @@
 {
   "navigationBarTitleText": "评论",
+  "navigationStyle": "custom",
   "enablePullDownRefresh": true,
   "usingComponents": {
     "mp-icon": "weui-miniprogram/icon/icon",
+    "t-navbar": "tdesign-miniprogram/navbar/navbar",
+    "t-icon": "tdesign-miniprogram/icon/icon",
     "loading": "/components/commons/loading/loading",
     "comment": "/components/comment/comment",
     "comment-box": "/components/editor/comment-box/comment-box"

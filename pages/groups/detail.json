@@ -1,7 +1,10 @@
 {
   "navigationBarTitleText": "小组",
+  "navigationStyle": "custom",
   "enablePullDownRefresh": true,
   "usingComponents": {
+    "t-navbar": "tdesign-miniprogram/navbar/navbar",
+    "t-icon": "tdesign-miniprogram/icon/icon",
     "t-button": "tdesign-miniprogram/button/button",
     "t-tabs": "tdesign-miniprogram/tabs/tabs",
     "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",

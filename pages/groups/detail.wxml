@@ -4,6 +4,13 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
+    <t-navbar title="{{ group.gname }}">
+        <view slot="capsule" class="custom-capsule">
+            <t-icon size="20" bind:tap="onFresnsBack" aria-role="button" aria-label="返回" name="chevron-left" class="custom-capsule__icon"/>
+            <t-icon size="20" bind:tap="onFresnsGoHome" aria-role="button" aria-label="首页" name="home" class="custom-capsule__icon"/>
+        </view>
+    </t-navbar>
+
     <view class="weui-media-box weui-media-box_appmsg">
         <view class="weui-media-box__hd" wx:if="{{ group.cover }}">
             <image class="weui-media-box__thumb" src="{{ group.cover }}"></image>

@@ -21,6 +21,7 @@ Page({
   /** 页面的初始数据 **/
   data: {
     // 详情
+    postDetailTitle: null,
     title: null,
     post: null,
     loadingDetailStatus: true,
@@ -68,6 +69,7 @@ Page({
       }
 
       this.setData({
+        postDetailTitle: await fresnsLang('postDetailTitle'),
         post: post,
         loadingDetailStatus: false,
         title: nickname + ': ' + postTitle,

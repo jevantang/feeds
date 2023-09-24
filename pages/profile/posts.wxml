@@ -4,6 +4,13 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
+    <t-navbar title="{{ profile.detail.nickname }}">
+        <view slot="capsule" class="custom-capsule">
+            <t-icon size="20" bind:tap="onFresnsBack" aria-role="button" aria-label="返回" name="chevron-left" class="custom-capsule__icon"/>
+            <t-icon size="20" bind:tap="onFresnsGoHome" aria-role="button" aria-label="首页" name="home" class="custom-capsule__icon"/>
+        </view>
+    </t-navbar>
+
     <profile-user user="{{ profile.detail }}" items="{{ profile.items }}" followersYouKnow="{{ profile.followersYouKnow }}"/>
 
     <!-- 列表 -->
