@@ -27,6 +27,7 @@ Component({
       more: '/assets/interaction/content-more.png',
       moreActive: '/assets/interaction/content-more.png',
     },
+    modifierCompleted: '已',
   },
 
   /** 组件数据字段监听器 **/

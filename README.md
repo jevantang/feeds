@@ -29,6 +29,7 @@
 ### 语言标识名
 
 - 修改
+    - `openApp` 在 App 中打开
     - `quote` 转发动态
     - `editorNoGroup` 不发到任何圈子
     - `contentNewList` 动态

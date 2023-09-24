@@ -22,7 +22,7 @@
     <view wx:if="{{ user.interaction.followSetting }}" class="weui-btn weui-btn_mini {{ user.interaction.followStatus ? 'weui-btn_primary' : 'weui-btn_default' }}" bind:tap="onClickUserFollow">
         <image wx:if="{{ !user.interaction.followStatus }}" class="weui-btn_cell__icon" src="{{ buttonIcons.follow }}"/>
         <image wx:if="{{ user.interaction.followStatus }}" class="weui-btn_cell__icon" src="{{ buttonIcons.followActive }}"/>
-        {{ user.interaction.followStatus ? '已' : '' }}{{ user.interaction.followName }}
+        {{ user.interaction.followStatus ? modifierCompleted : '' }}{{ user.interaction.followName }}
     </view>
 
     <!-- 屏蔽 -->

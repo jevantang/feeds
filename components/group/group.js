@@ -18,6 +18,7 @@ Component({
   data: {
     postName: '帖子',
     digestName: '精华',
+    modifierCompleted: '已',
     description: '',
   },
 
@@ -112,6 +113,7 @@ Component({
       this.setData({
         postName: await fresnsConfig('post_name'),
         digestName: await fresnsLang('contentDigest'),
+        modifierCompleted: await fresnsLang('modifierCompleted'),
       });
     },
   },

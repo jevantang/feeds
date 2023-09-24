@@ -14,7 +14,9 @@ Component({
   },
 
   /** 组件的初始数据 **/
-  data: {},
+  data: {
+    modifierCompleted: '已',
+  },
 
   /** 组件功能 **/
   methods: {
@@ -72,6 +74,15 @@ Component({
       if (resultRes.code != 0) {
         callPageFunction('onChangeHashtag', initialHashtag);
       }
+    },
+  },
+
+  /** 组件生命周期声明对象 **/
+  lifetimes: {
+    attached: async function () {
+      this.setData({
+        modifierCompleted: await fresnsLang('modifierCompleted'),
+      });
     },
   },
 });
