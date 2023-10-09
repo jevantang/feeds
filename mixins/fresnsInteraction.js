@@ -185,10 +185,20 @@ module.exports = {
       return;
     }
 
+    const appInfo = wx.getStorageSync('appInfo');
+
     wx.downloadFile({
       url: resultRes.data.url,
       success: function (res) {
         wx.hideLoading();
+
+        if (appInfo.isApp) {
+          wx.previewImage({
+            urls: [res.tempFilePath],
+          });
+
+          return;
+        }
 
         wx.showShareImageMenu({
           path: res.tempFilePath
