@@ -10,6 +10,17 @@
         </view>
     </t-navbar>
 
+    <view class="fresns-search">
+        <t-search value="{{ searchValue }}" center placeholder="找人" action="{{ searchActionText }}" bind:focus="focusHandle" bind:action-click="cancelHandle" bind:change="changeHandle" bind:submit="searchHandle"/>
+    </view>
+
+    <!-- 加载动效 -->
+    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+
+    <t-cell-group wx:if="{{ searchData.length > 0 }}">
+        <t-cell wx:for="{{ searchData }}" wx:for-item="user" title="{{ user.name }}" image="{{ user.image }}" url="{{ userHomePath + user.fsid }}" hover arrow/>
+    </t-cell-group>
+
     <t-cell-group theme="card" style="margin-top:20px;margin-bottom:20px;" wx:if="{{ sponsor }}">
         <t-cell title="赞助我们" leftIcon="money" hover arrow bind:tap="onSponsor"/>
     </t-cell-group>

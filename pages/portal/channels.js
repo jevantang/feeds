@@ -4,6 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../api/api';
+import { globalInfo } from '../../utils/fresnsGlobalInfo';
 import { fresnsConfig, fresnsLang } from '../../api/tool/function';
 
 Page({
@@ -19,6 +20,15 @@ Page({
     title: null,
     logo: null,
     fresnsConfig: null,
+    userHomePath: '',
+
+    // 搜索
+    searchValue: '',
+    searchActionText: '',
+    searchData: [],
+    // 加载状态
+    loadingStatus: false,
+    loadingTipType: 'none',
 
     // 置顶帖子
     stickyPosts: [],
@@ -79,6 +89,7 @@ Page({
       title: await fresnsLang('discover'),
       logo: await fresnsConfig('site_logo'),
       fresnsConfig: await fresnsConfig(),
+      userHomePath: await globalInfo.userHomePath(),
       stickyPosts: stickyPosts,
       channels: channels,
     });
@@ -103,6 +114,59 @@ Page({
     return {
       title: this.data.title,
     };
+  },
+
+  // 搜索
+  changeHandle(e) {
+    const { value } = e.detail;
+    this.setData({
+      searchValue: value,
+    });
+  },
+
+  focusHandle: async function () {
+    this.setData({
+      searchActionText: await fresnsLang('cancel'),
+    });
+  },
+
+  cancelHandle() {
+    this.setData({
+      searchValue: '',
+      searchActionText: '',
+      searchData: [],
+      loadingStatus: false,
+      loadingTipType: 'none',
+    });
+  },
+
+  searchHandle: async function () {
+    const searchValue = this.data.searchValue;
+
+    if (!searchValue) {
+      return;
+    }
+
+    this.setData({
+      loadingStatus: true,
+    });
+
+    const resultRes = await fresnsApi.common.commonInputTips({
+      type: 'user',
+      key: searchValue,
+    });
+
+    if (resultRes.code != 0) {
+      return;
+    }
+
+    const searchData = resultRes.data;
+
+    this.setData({
+      searchData: searchData,
+      loadingStatus: false,
+      loadingTipType: searchData ? 'none' : 'empty',
+    });
   },
 
   // 赞助

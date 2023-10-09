@@ -9,6 +9,18 @@
   margin-top: 4rpx;
 }
 
+.fresns-search {
+  background-color: #fff;
+  padding: 16rpx 32rpx;
+}
+
+.avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
 .t-cell-card {
   margin-top: 20px;
   margin-bottom: 20px;

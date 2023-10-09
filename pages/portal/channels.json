@@ -5,11 +5,13 @@
   "usingComponents": {
     "t-navbar": "tdesign-miniprogram/navbar/navbar",
     "t-image": "tdesign-miniprogram/image/image",
+    "t-search": "tdesign-miniprogram/search/search",
     "t-col": "tdesign-miniprogram/col/col",
     "t-row": "tdesign-miniprogram/row/row",
     "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",
     "t-cell": "tdesign-miniprogram/cell/cell",
     "t-badge": "tdesign-miniprogram/badge/badge",
+    "loading": "/components/commons/loading/loading",
     "tabbar": "/components/commons/tabbar/tabbar"
   }
 }
