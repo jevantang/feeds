@@ -174,6 +174,7 @@ Component({
         fresnsLang: {
           copyLink: await fresnsLang('copyLink'),
           shareMessage: await fresnsLang('shareMessage'),
+          sharePoster: await fresnsLang('sharePoster'),
           cancel: await fresnsLang('cancel'),
           contentAuthorLiked: await fresnsLang('contentAuthorLiked'),
         },
@@ -271,6 +272,34 @@ Component({
           });
         },
       });
+    },
+
+    // 生成分享海报
+    onSharePoster: async function () {
+      const comment = this.data.comment;
+
+      wx.showLoading();
+
+      const resultRes = await fresnsApi.plugins.sharePoster.generate({
+        type: 'comment',
+        fsid: comment.cid,
+      });
+
+      if (resultRes.code != 0) {
+        wx.hideLoading();
+
+        return;
+      }
+
+      wx.downloadFile({
+        url: resultRes.data.url,
+        success: function (res) {
+          wx.hideLoading();
+          wx.showShareImageMenu({
+            path: res.tempFilePath
+          })
+        }
+      })
     },
 
     // 更多菜单
