@@ -54,32 +54,44 @@ Page({
       pid: options.pid,
     });
 
-    if (postDetailRes.code === 0) {
-      const userDeactivate = await fresnsLang('userDeactivate');
-      const authorAnonymous = await fresnsLang('contentAuthorAnonymous');
-      const post = postDetailRes.data.detail;
-
-      let postTitle = post.title || truncateText(post.content, 20);
-      let nickname = post.author.nickname;
-
-      if (!post.author.status) {
-        nickname = userDeactivate;
-      } else if (post.isAnonymous) {
-        nickname = authorAnonymous;
-      }
-
+    if (postDetailRes.code != 0) {
       this.setData({
-        postDetailTitle: await fresnsLang('postDetailTitle'),
-        post: post,
         loadingDetailStatus: false,
-        title: nickname + ': ' + postTitle,
-        commentBtnName: await fresnsConfig('publish_comment_name'),
       });
 
-      // 替换上一页数据
-      // mixins/fresnsInteraction.js
-      // callPrevPageFunction('onChangePost', post);
+      wx.showModal({
+        title: postDetailRes.code,
+        content: postDetailRes.message,
+        confirmText: await fresnsLang('know'), // 知道了
+      });
+
+      return;
     }
+
+    const userDeactivate = await fresnsLang('userDeactivate');
+    const authorAnonymous = await fresnsLang('contentAuthorAnonymous');
+    const post = postDetailRes.data.detail;
+
+    let postTitle = post.title || truncateText(post.content, 20);
+    let nickname = post.author.nickname;
+
+    if (!post.author.status) {
+      nickname = userDeactivate;
+    } else if (post.isAnonymous) {
+      nickname = authorAnonymous;
+    }
+
+    this.setData({
+      postDetailTitle: await fresnsLang('postDetailTitle'),
+      post: post,
+      loadingDetailStatus: false,
+      title: nickname + ': ' + postTitle,
+      commentBtnName: await fresnsConfig('publish_comment_name'),
+    });
+
+    // 替换上一页数据
+    // mixins/fresnsInteraction.js
+    // callPrevPageFunction('onChangePost', post);
 
     await this.loadFresnsPageData();
   },
