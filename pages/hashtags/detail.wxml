@@ -24,6 +24,7 @@
         </view>
         <view class="weui-media-box__ft">
             <t-button size="small" variant="{{ hashtag.interaction.followStatus ? '' : 'outline' }}" content="{{ hashtag.interaction.followStatus ? '已' : '' }}{{ hashtag.interaction.followName }}" bind:tap="onClickGroupFollow" data-hid="{{ hashtag.hid }}"/>
+            <t-button size="small" variant="outline" content="{{ fsLang.share }}" bind:tap="onClickSharePoster" style="margin-left: 15px;"/>
         </view>
     </view>
 

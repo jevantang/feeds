@@ -51,7 +51,7 @@ Page({
         contentDigest: await fresnsLang('contentDigest'),
         contentNewList: await fresnsLang('contentNewList'),
         contentHotList: await fresnsLang('contentHotList'),
-        contentDigest: await fresnsLang('contentDigest'),
+        share: await fresnsLang('share'),
       },
     });
 
@@ -186,6 +186,13 @@ Page({
   /** 监听用户上拉触底 **/
   onReachBottom: async function () {
     await this.loadFresnsPageData();
+  },
+
+  // 生成分享海报
+  onClickSharePoster: async function () {
+    const hashtag = this.data.hashtag;
+
+    this.onSharePoster('hashtag', hashtag.hid);
   },
 
   // 菜单切换

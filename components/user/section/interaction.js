@@ -28,6 +28,7 @@ Component({
       moreActive: '/assets/interaction/content-more.png',
     },
     modifierCompleted: '已',
+    shareBtnName: '分享',
   },
 
   /** 组件数据字段监听器 **/
@@ -65,6 +66,7 @@ Component({
 
       this.setData({
         buttonIcons: buttonIcons,
+        shareBtnName: await fresnsLang('share'),
       });
     },
   },
@@ -236,6 +238,14 @@ Component({
           }
         },
       });
+    },
+
+    // 生成分享海报
+    onClickSharePoster: async function () {
+      const user = this.data.user;
+
+      // mixins/fresnsInteraction.js
+      callPageFunction('onSharePoster', 'user', user.uid);
     },
   },
 });

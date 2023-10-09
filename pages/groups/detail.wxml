@@ -21,6 +21,7 @@
         </view>
         <view class="weui-media-box__ft">
             <t-button size="small" variant="{{ group.interaction.followStatus ? '' : 'outline' }}" content="{{ group.interaction.followStatus ? '已' : '' }}{{ group.interaction.followName }}" bind:tap="onClickGroupFollow" data-gid="{{ group.gid }}"/>
+            <t-button size="small" variant="outline" content="{{ fsLang.share }}" bind:tap="onClickSharePoster" style="margin-left: 15px;"/>
         </view>
     </view>
 

@@ -31,4 +31,7 @@
         <image wx:if="{{ user.interaction.blockStatus }}" class="weui-btn_cell__icon" src="{{ buttonIcons.blockActive }}"/>
         {{ user.stats.blockMeCount ? user.stats.blockMeCount : '' }}
     </view>
+
+    <!-- 分享 -->
+    <view class="weui-btn weui-btn_mini weui-btn_default" bind:tap="onClickSharePoster">{{ shareBtnName }}</view>
 </view>

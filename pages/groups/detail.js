@@ -96,7 +96,7 @@ Page({
         errorUnavailable: await fresnsLang('errorUnavailable'),
         contentNewList: await fresnsLang('contentNewList'),
         contentHotList: await fresnsLang('contentHotList'),
-        contentDigest: await fresnsLang('contentDigest'),
+        share: await fresnsLang('share'),
       },
       viewContentTip: await fresnsCodeMessage('37103'),
     });
@@ -268,6 +268,13 @@ Page({
     if (resultRes.code != 0) {
       this.onChangeGroup(initialGroup);
     }
+  },
+
+  // 生成分享海报
+  onClickSharePoster: async function () {
+    const group = this.data.group;
+
+    this.onSharePoster('group', group.gid);
   },
 
   // 菜单切换

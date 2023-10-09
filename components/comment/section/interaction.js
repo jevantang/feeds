@@ -275,31 +275,11 @@ Component({
     },
 
     // 生成分享海报
-    onSharePoster: async function () {
+    onClickSharePoster: async function () {
       const comment = this.data.comment;
 
-      wx.showLoading();
-
-      const resultRes = await fresnsApi.plugins.sharePoster.generate({
-        type: 'comment',
-        fsid: comment.cid,
-      });
-
-      if (resultRes.code != 0) {
-        wx.hideLoading();
-
-        return;
-      }
-
-      wx.downloadFile({
-        url: resultRes.data.url,
-        success: function (res) {
-          wx.hideLoading();
-          wx.showShareImageMenu({
-            path: res.tempFilePath
-          })
-        }
-      })
+      // mixins/fresnsInteraction.js
+      callPageFunction('onSharePoster', 'comment', comment.cid);
     },
 
     // 更多菜单
