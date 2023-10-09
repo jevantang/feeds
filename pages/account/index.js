@@ -137,7 +137,7 @@ Page({
     }
 
     appInfo.hasNewVersion = true;
-    appInfo.apkUrl = clientInfo?.packages?.apk;
+    appInfo.apkUrl = clientInfo?.downloads?.apk;
     this.setData({
       appInfo: appInfo,
     });
@@ -271,7 +271,7 @@ Page({
 
       case 'android':
         title = 'Android App';
-        content = clientInfo.packages.apk;
+        content = clientInfo.downloads.apk;
 
         // 处理 Google Play 选项
         if (clientInfo.googlePlay) {
@@ -362,7 +362,7 @@ Page({
     }
 
     appInfo.hasNewVersion = true;
-    appInfo.apkUrl = clientInfo?.packages?.apk;
+    appInfo.apkUrl = clientInfo?.downloads?.apk;
     this.setData({
       appInfo: appInfo,
     });
