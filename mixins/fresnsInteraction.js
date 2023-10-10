@@ -201,10 +201,10 @@ module.exports = {
         }
 
         wx.showShareImageMenu({
-          path: res.tempFilePath
-        })
-      }
-    })
+          path: res.tempFilePath,
+        });
+      },
+    });
   },
 
   /** 添加用户 **/
