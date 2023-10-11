@@ -11,7 +11,7 @@
     </t-navbar>
 
     <view class="fresns-search">
-        <t-search value="{{ searchValue }}" center placeholder="找人" action="{{ searchActionText }}" bind:focus="focusHandle" bind:action-click="cancelHandle" bind:change="changeHandle" bind:submit="searchHandle"/>
+        <t-search value="{{ searchValue }}" center placeholder="{{ searchName }}" action="{{ searchActionText }}" bind:focus="focusHandle" bind:action-click="cancelHandle" bind:change="changeHandle" bind:submit="searchHandle"/>
     </view>
 
     <!-- 加载动效 -->
@@ -21,17 +21,17 @@
         <t-cell wx:for="{{ searchData }}" wx:for-item="user" title="{{ user.name }}" image="{{ user.image }}" url="{{ userHomePath + user.fsid }}" hover arrow/>
     </t-cell-group>
 
-    <t-cell-group theme="card" style="margin-top:20px;margin-bottom:20px;" wx:if="{{ sponsor }}">
-        <t-cell title="赞助我们" leftIcon="money" hover arrow bind:tap="onSponsor"/>
+    <t-cell-group theme="card" style="margin-top:20px;" wx:if="{{ isZhijie }}">
+        <t-cell title="{{ sponsorContact }}" leftIcon="money" hover arrow bind:tap="onSponsor"/>
     </t-cell-group>
 
-    <t-cell-group theme="card" wx:if="{{ stickyPosts.length > 0 }}" style="margin-bottom:20px;">
+    <t-cell-group theme="card" wx:if="{{ stickyPosts.length > 0 }}" style="margin-top:20px;">
         <block wx:for="{{ stickyPosts }}" wx:for-item="post">
             <t-cell title="{{ post.title || post.shortContent }}" leftIcon="backtop-rectangle" url="/pages/posts/detail?pid={{ post.pid }}" hover/>
         </block>
     </t-cell-group>
 
-    <view class="sponsor" wx:if="{{ sponsor }}">
+    <view class="sponsor" wx:if="{{ isZhijie }}">
         <view class="sponsor-special">
             <navigator wx:for="{{ sponsorData.special || [] }}" url="{{ item.mpUrl }}">
                 <image src="{{ item.banner }}" mode="scaleToFill" show-menu-by-longpress="{{ true }}"/>
@@ -53,7 +53,7 @@
         </t-row>
     </view>
 
-    <t-cell-group theme="card">
+    <t-cell-group theme="card" style="margin-top:20px;">
         <t-cell wx:if="{{ fresnsConfig.menu_user_list_status }}" title="{{ fresnsConfig.menu_user_list_name }}" leftIcon="usergroup" url="/pages/users/list" hover arrow/>
         <t-cell wx:if="{{ fresnsConfig.menu_group_list_status }}" title="{{ fresnsConfig.menu_group_list_name }}" leftIcon="animation-1" url="/pages/groups/list" hover arrow/>
         <t-cell wx:if="{{ fresnsConfig.menu_hashtag_list_status }}" title="{{ fresnsConfig.menu_hashtag_list_name }}" leftIcon="flag" url="/pages/hashtags/list" hover arrow/>

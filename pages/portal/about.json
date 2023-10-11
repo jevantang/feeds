@@ -1,7 +1,7 @@
 {
   "navigationBarTitleText": "About",
   "usingComponents": {
-    "t-divider": "tdesign-miniprogram/divider/divider",
+    "mp-html": "mp-html",
     "privacy": "/components/commons/privacy/privacy"
   }
 }

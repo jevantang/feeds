@@ -15,8 +15,8 @@
 }
 
 .avatar {
-  width: 96rpx;
-  height: 96rpx;
+  width: 44rpx;
+  height: 44rpx;
   border-radius: 50%;
   overflow: hidden;
 }

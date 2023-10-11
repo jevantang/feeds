@@ -4,7 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../api/api';
-import { fresnsLang } from '../../api/tool/function';
+import { fresnsConfig, fresnsLang } from '../../api/tool/function';
 import { globalInfo } from '../../utils/fresnsGlobalInfo';
 
 Page({
@@ -14,6 +14,9 @@ Page({
   /** 页面的初始数据 **/
   data: {
     showPrivacy: false,
+
+    logo: null,
+    intro: null,
 
     fresnsVersion: '2.x',
     clientVersion: '1.x',
@@ -30,6 +33,8 @@ Page({
     const appInfo = wx.getStorageSync('appInfo');
 
     this.setData({
+      logo: await fresnsConfig('site_logo'),
+      intro: await fresnsConfig('site_intro'),
       fresnsVersion: fresnsStatus.version,
       clientVersion: globalInfo.clientVersion,
       appInfo: appInfo,

@@ -6,16 +6,18 @@
 <view class="page" data-weui-theme="{{ theme }}">
     <view class="page__hd">
         <view class="page__logo">
-            <image src="https://cdn.fresns.cn/zhijie/logo.png" mode="widthFix" alt="Fresns"></image>
+            <image src="{{ logo }}" mode="widthFix" alt="Fresns"></image>
         </view>
-        <view class="page__title">知结介绍</view>
-        <view class="page__desc">知结是一个互联网从业者的资讯社区，由开源程序 Fresns 驱动，有网站、微信小程序、iOS App 和 Android App 全端产品。</view>
-        <view class="page__desc">知结社区聚合了职业、产品、行业、公司和人物等互联网领域的各类资讯，通过圈子和话题将信息分门别类，用户可以关注用户、加入圈子、订阅话题等三种方式，将自己感兴趣的领域信息聚合到自己的时间线列表精选阅读（只有精选内容才会进入关注的信息流）。</view>
-        <view class="page__desc">知结的目标是信息降噪、高效阅读、主动式筛选，让我们每天刷几分钟就能知道科技圈的大小事。</view>
+        <view>
+            <mp-html content="{{ intro }}" markdown="{{ true }}" lazy-load="{{ true }}"/>
+        </view>
     </view>
 
-    <t-divider dashed />
+    <view class="weui-loadmore weui-loadmore_line weui-loadmore_dot" aria-role="option">
+        <text class="weui-loadmore__tips"></text>
+    </view>
 
+    <!-- Fresns 介绍开始 -->
     <view class="page__hd">
         <view class="page__logo">
             <image src="https://cdn.fresns.cn/images/logo.png" mode="widthFix" alt="Fresns"></image>
@@ -26,7 +28,6 @@
     </view>
 
     <view class="page__bd page__bd_spacing">
-        <!-- 介绍开始 -->
         <view class="weui-panel weui-panel_access">
             <view class="weui-panel__ft">
                 <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link weui_fs" url="/pages/webview?url=https://fresns.cn">
@@ -41,7 +42,7 @@
                 </view>
             </view>
             <view class="weui-panel__ft" wx:if="{{ appInfo.isWechat }}">
-                <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link" target="miniProgram" 	app-id="wxcdaa14554bd22f64">
+                <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link" target="miniProgram" app-id="wxcdaa14554bd22f64">
                     <view class="weui-cell__bd">小程序</view>
                     <text class="weui-cell__ft">交流社区</text>
                 </navigator>
@@ -53,8 +54,8 @@
                 </navigator>
             </view>
         </view>
-        <!-- 介绍结束 -->
     </view>
+    <!-- Fresns 介绍结束 -->
 
     <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
         <text class="weui-loadmore__tips">Powered by Fresns</text>

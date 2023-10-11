@@ -3,6 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+import appConfig from '../../fresns';
 import { fresnsApi } from '../../api/api';
 import { globalInfo } from '../../utils/fresnsGlobalInfo';
 import { fresnsConfig, fresnsLang } from '../../api/tool/function';
@@ -23,6 +24,7 @@ Page({
     userHomePath: '',
 
     // 搜索
+    searchName: '找人',
     searchValue: '',
     searchActionText: '',
     searchData: [],
@@ -37,7 +39,8 @@ Page({
     channels: [],
 
     // 知结赞助商配置
-    sponsor: true,
+    isZhijie: false,
+    sponsorContact: '商务合作',
     sponsorData: [],
   },
 
@@ -69,8 +72,10 @@ Page({
       channels = resultChannels.data;
     }
 
-    // 获取赞助商
-    if (this.data.sponsor) {
+    // 赞助商
+    const isZhijie = appConfig.isZhijie || false;
+
+    if (isZhijie) {
       wx.request({
         url: 'https://cdn.fresns.cn/sponsor/zhijie.json',
         success: (res) => {
@@ -90,8 +95,10 @@ Page({
       logo: await fresnsConfig('site_logo'),
       fresnsConfig: await fresnsConfig(),
       userHomePath: await globalInfo.userHomePath(),
+      searchName: await fresnsLang('search'),
       stickyPosts: stickyPosts,
       channels: channels,
+      isZhijie: isZhijie,
     });
   },
 
@@ -172,7 +179,7 @@ Page({
   // 赞助
   onSponsor() {
     wx.showModal({
-      title: '赞助我们',
+      title: this.data.sponsorContact,
       content: 'tangjie@fresns.cn',
       cancelText: '取消',
       confirmText: '复制邮箱',
