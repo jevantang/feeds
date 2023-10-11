@@ -10,7 +10,7 @@ import { cacheGet, cachePut } from './fresnsUtilities';
 import { base64_encode } from '../libs/base64/base64';
 
 export class GlobalInfo {
-  clientName = 'ZhiJie';
+  clientName = 'ZhijieApp';
   clientVersion = '1.0.0';
   theme = null;
 
