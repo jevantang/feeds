@@ -58,5 +58,6 @@
     "include": []
   },
   "appid": "wxbc94bda125907f11",
-  "projectArchitecture": "multiPlatform"
+  "projectArchitecture": "multiPlatform",
+  "libVersion": "3.1.2"
 }
