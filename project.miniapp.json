@@ -3,7 +3,7 @@
   "name": "知结",
   "version": "1.0.0",
   "mini-android": {
-    "sdkVersion": "1.0.20",
+    "sdkVersion": "1.0.21",
     "toolkitVersion": "0.8.0",
     "useExtendedSdk": {
       "media": true,
@@ -41,6 +41,10 @@
     },
     "schemes": {
       "scheme": "zhijie"
+    },
+    "abi": {
+      "armeabi-v7a": true,
+      "arm64-v8a": true
     }
   },
   "mini-ios": {
