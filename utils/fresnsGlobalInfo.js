@@ -3,6 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+import appConfig from '../fresns';
 import { fresnsApi } from '../api/api';
 import { fresnsConfig } from '../api/tool/function';
 import { fresnsLogin } from './fresnsLogin';
@@ -11,7 +12,7 @@ import { base64_encode } from '../libs/base64/base64';
 
 export class GlobalInfo {
   clientName = 'ZhijieApp';
-  clientVersion = '1.0.0';
+  clientVersion = appConfig.clientVersion || '1.0.1';
   theme = null;
 
   // 处理用户主页路径
