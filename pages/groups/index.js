@@ -46,22 +46,36 @@ Page({
       categories = list;
       initialGid = list && list.length ? list[0].gid : '';
 
-      const hashtagCompany = {
-        gid: 'fresns-hashtag-company',
-        gname: await fresnsLang('hashtagType2'),
-        description: '',
-        cover: '',
-        banner: '',
-      };
-      const hashtagStar = {
-        gid: 'fresns-hashtag-star',
-        gname: await fresnsLang('hashtagType3'),
-        description: '',
-        cover: '',
-        banner: '',
-      };
+      const hashtagType2Lang = await fresnsLang('hashtagType2');
+      const hashtagType3Lang = await fresnsLang('hashtagType3');
 
-      categories.splice(2, 0, hashtagCompany, hashtagStar);
+      const toInsert = [];
+
+      if (hashtagType2Lang) {
+        const hashtagCompany = {
+          gid: 'fresns-hashtag-company',
+          gname: hashtagType2Lang,
+          description: '',
+          cover: '',
+          banner: '',
+        };
+        toInsert.push(hashtagCompany);
+      }
+
+      if (hashtagType3Lang) {
+        const hashtagStar = {
+          gid: 'fresns-hashtag-star',
+          gname: hashtagType3Lang,
+          description: '',
+          cover: '',
+          banner: '',
+        };
+        toInsert.push(hashtagStar);
+      }
+
+      if (toInsert.length) {
+        categories.splice(2, 0, ...toInsert);
+      }
     }
 
     if (globalInfo.userLogin) {
