@@ -202,6 +202,20 @@
         </view>
     </block>
 
+    <!-- 条款 -->
+    <block wx:if="{{ appInfo.isApp && appInfo.platform == 'android' }}">
+        <label class="weui-agree" bind:tap="onCheckPolicies" style="margin: 50px 0">
+            <checkbox class="weui-agree__checkbox-check"/>
+            <i class="weui-agree__checkbox"></i>
+            <span class="weui-agree__text">
+                <text aria-hidden="true">{{ fresnsLang.accountPoliciesCheck }}</text>
+                <navigator url="/pages/portal/policies?active=terms">《{{ fresnsLang.accountPoliciesTerms }}》</navigator>
+                <navigator url="/pages/portal/policies?active=privacy">《{{ fresnsLang.accountPoliciesPrivacy }}》</navigator>
+                <navigator url="/pages/portal/policies?active=cookies">《{{ fresnsLang.accountPoliciesCookies }}》</navigator>
+            </span>
+        </label>
+    </block>
+
     <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
         <text class="weui-loadmore__tips">Powered by Fresns</text>
     </view>

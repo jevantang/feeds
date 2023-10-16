@@ -48,6 +48,9 @@ Page({
     appleLoginBtnName: null,
     appleBtnLoading: false,
 
+    // 阅读协议
+    checkPolicies: false,
+
     // 邮箱地址
     emailAddress: '',
 
@@ -191,8 +194,13 @@ Page({
     });
     return value;
   },
+  onCheckPolicies: function (e) {
+    this.setData({
+      checkPolicies: !this.data.checkPolicies,
+    });
+  },
 
-  // 微信登录
+  // 小程序微信登录
   onWeChatLogin: async function () {
     this.setData({
       btnLoading: true,
@@ -207,6 +215,21 @@ Page({
 
   // App 微信登录
   onAppWeChatLogin: async function () {
+    const {
+      appInfo,
+      fresnsLang,
+      checkPolicies,
+    } = this.data;
+
+    if (!checkPolicies && appInfo.isApp && appInfo.platform == 'android') {
+      wx.hideNavigationBarLoading();
+      wx.showToast({
+        title: fresnsLang.accountPoliciesError, // 请确认已经阅读并同意服务条款和隐私政策
+        icon: 'none',
+      });
+      return;
+    }
+
     this.setData({
       btnLoading: true,
     });
@@ -263,6 +286,9 @@ Page({
     wx.showNavigationBarLoading();
 
     const {
+      appInfo,
+      fresnsLang,
+      checkPolicies,
       loginTabType,
       accountType,
       emailAddress,
@@ -272,6 +298,15 @@ Page({
       password,
       verifyCode,
     } = this.data;
+
+    if (!checkPolicies && appInfo.isApp && appInfo.platform == 'android') {
+      wx.hideNavigationBarLoading();
+      wx.showToast({
+        title: fresnsLang.accountPoliciesError, // 请确认已经阅读并同意服务条款和隐私政策
+        icon: 'none',
+      });
+      return;
+    }
 
     let params = null;
 
