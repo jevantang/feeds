@@ -111,6 +111,10 @@
     - `tipConnectWeChatMiniProgram` 请在微信小程序里或网站上操作绑定
     - `tipConnectWeChatMiniApp` 请在「知结」App 里操作关联绑定
 
+> 圈子页分类切换有两个是话题分类，分别获取话题分类为 2 和 3 的话题列表。如果不创建 `hashtagType2` 和 `hashtagType3` 或者值为空时，分类切换则不显示。可以两个都配置，或者只配置其中一个。
+
+话题分类的管理请安装「[Fresns 简易管家](https://marketplace.fresns.cn/open-source/detail/EasyManager)」插件。
+
 ## 许可协议
 
 Fresns 是根据 [Apache-2.0](https://opensource.org/license/apache-2-0/) 授权的开源软件。
