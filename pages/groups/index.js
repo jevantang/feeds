@@ -145,6 +145,8 @@ Page({
       case 'fresns-hashtag-company':
         resultRes = await fresnsApi.hashtag.hashtagList({
           type: 2,
+          orderType: 'follow',
+          orderDirection: 'desc',
           whitelistKeys: 'hid,hname,description,cover,postCount,postDigestCount,followCount,interaction',
           page: this.data.page,
         });
@@ -155,6 +157,8 @@ Page({
       case 'fresns-hashtag-star':
         resultRes = await fresnsApi.hashtag.hashtagList({
           type: 3,
+          orderType: 'follow',
+          orderDirection: 'desc',
           whitelistKeys: 'hid,hname,description,cover,postCount,postDigestCount,followCount,interaction',
           page: this.data.page,
         });
