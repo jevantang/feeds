@@ -115,6 +115,11 @@
 
 话题分类的管理请安装「[Fresns 简易管家](https://marketplace.fresns.cn/open-source/detail/EasyManager)」插件。
 
+## App 配置
+
+- `miniapp/policies.json` 替换里面政策协议的链接。
+- `project.miniapp.json` 修改相应配置，其中 `qmapAPIKey` 地图密钥是演示，需要你自己申请腾讯地图的真实密钥。
+
 ## 许可协议
 
 Fresns 是根据 [Apache-2.0](https://opensource.org/license/apache-2-0/) 授权的开源软件。
