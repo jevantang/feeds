@@ -3,7 +3,7 @@
   "name": "知结",
   "version": "1.0.0",
   "mini-android": {
-    "sdkVersion": "1.0.21",
+    "sdkVersion": "1.1.0",
     "toolkitVersion": "0.8.0",
     "useExtendedSdk": {
       "media": true,
