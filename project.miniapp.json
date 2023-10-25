@@ -48,7 +48,7 @@
     }
   },
   "mini-ios": {
-    "sdkVersion": "1.1.1",
+    "sdkVersion": "1.1.2",
     "toolkitVersion": "0.0.9",
     "useExtendedSdk": {
       "WeAppOpenFuns": true,
@@ -90,13 +90,14 @@
       }
     },
     "privateDescriptions": {
-      "NSCalendarsUsageDescription": "为了提供完整的功能，我们的应用程序需要访问日历。这将用于提醒和日程管理。我们承诺保护用户隐私和数据安全。",
       "NSPhotoLibraryUsageDescription": "为了提供完整的功能，我们的应用程序需要读取相册。这将用于发表富文本内容。我们承诺保护用户隐私和数据安全。",
-      "NSBluetoothPeripheralUsageDescription": "为了提供完整的功能，我们的应用程序需要访问蓝牙外设。这将用手与其他设备进行通信和数据交换。我们承诺保护用户隐私和数据安全。",
-      "NSMicrophoneUsageDescription": "为了提供完整的功能，我们的应用程序需要访问麦克风。这将用于录制音频和进行语音交互。我们承诺保护用户隐私和数据安全。",
+      "NSPhotoLibraryAddUsageDescription": "为了提供完整的功能，我们的应用程序需要使用相册写入。这将用于用户保存图片到自己相册。我们承诺保护用户隐私和数据安全。",
       "NSCameraUsageDescription": "为了提供完整的功能，我们的应用程序需要使用摄像头。这将用于拍摄照片发表富文本内容。我们承诺保护用户隐私和数据安全。",
+      "NSMicrophoneUsageDescription": "为了提供完整的功能，我们的应用程序需要访问麦克风。这将用于录制音频和进行语音交互。我们承诺保护用户隐私和数据安全。",
       "NSLocationWhenInUseUsageDescription": "为了提供完整的功能，我们的应用程序需要访问位置信息。这将用于提供定位服务和相关功能。我们承诺保护用户隐私和数据安全。",
       "NSLocationAlwaysAndWhenInUseUsageDescription": "为了提供完整的功能，我们的应用程序需要在使用时访问位置信息。这将用于提供定位服务和相关功能。我们承诺保护用户隐私和数据安全。",
+      "NSCalendarsUsageDescription": "为了提供完整的功能，我们的应用程序需要访问日历。这将用于提醒和日程管理。我们承诺保护用户隐私和数据安全。",
+      "NSBluetoothPeripheralUsageDescription": "为了提供完整的功能，我们的应用程序需要访问蓝牙外设。这将用手与其他设备进行通信和数据交换。我们承诺保护用户隐私和数据安全。",
       "NSBluetoothAlwaysUsageDescription": "为了提供完整的功能，我们的应用程序需要始终访问蓝牙外设。这将用于与其他设备进行通信和数据交换。我们承诺保护用户隐私和数据安全。"
     },
     "qmapAPIKey": "6G2BZ-AQJO4-5MBUQ-X44DS-XNDNZ-P6FA4"
