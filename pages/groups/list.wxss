@@ -3,3 +3,11 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+
+.t-cell__title-text {
+    font-weight: 500 !important;
+}
+
+.t-cell__note {
+    font-size: 28rpx !important;
+}
