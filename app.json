@@ -71,6 +71,5 @@
   },
   "miniApp": {
     "useAuthorizePage": true
-  },
-  "__usePrivacyCheck__": true
+  }
 }
