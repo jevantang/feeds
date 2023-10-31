@@ -12,7 +12,7 @@ import { base64_encode } from '../libs/base64/base64';
 
 export class GlobalInfo {
   clientName = 'ZhijieApp';
-  clientVersion = appConfig.clientVersion || '1.1.0';
+  clientVersion = appConfig.clientVersion || '1.2.0';
   theme = null;
 
   // 处理用户主页路径
