@@ -42,7 +42,7 @@
     "tabSize": 2
   },
   "simulatorPluginLibVersion": {
-    "wxext14566970e7e9f62": "2.27.3"
+    "wxext14566970e7e9f62": "2.27.3-4"
   },
   "packOptions": {
     "ignore": [
@@ -58,6 +58,7 @@
     "include": []
   },
   "appid": "wxbc94bda125907f11",
+  "projectname": "%E7%9F%A5%E7%BB%93%E7%A4%BE%E5%8C%BA",
   "projectArchitecture": "multiPlatform",
-  "libVersion": "3.1.2"
+  "libVersion": "3.2.0"
 }
