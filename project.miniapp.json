@@ -3,7 +3,7 @@
   "name": "知结",
   "version": "1.0.0",
   "mini-android": {
-    "sdkVersion": "1.1.1",
+    "sdkVersion": "1.1.2",
     "toolkitVersion": "0.8.0",
     "useExtendedSdk": {
       "media": true,
@@ -48,7 +48,7 @@
     }
   },
   "mini-ios": {
-    "sdkVersion": "1.1.3",
+    "sdkVersion": "1.1.4",
     "toolkitVersion": "0.0.9",
     "useExtendedSdk": {
       "WeAppOpenFuns": true,
