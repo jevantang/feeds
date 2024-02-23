@@ -3,7 +3,7 @@
   "name": "知结",
   "version": "1.0.0",
   "mini-android": {
-    "sdkVersion": "1.1.5",
+    "sdkVersion": "1.2.16",
     "toolkitVersion": "0.8.0",
     "useExtendedSdk": {
       "media": true,
@@ -26,10 +26,11 @@
     "enableVConsole": "close",
     "privacy": {
       "enable": true,
-      "template": "miniapp/policies.json"
+      "template": "miniapp/policies.json",
+      "enableViewOnly": true
     },
     "usePluginSdk": {
-      "map": "1.0.1"
+      "map": "1.2.0"
     },
     "privateDescriptions": {
       "ACCESS_COARSE_LOCATION": "用于发表带有位置的帖子或评论",
@@ -48,7 +49,7 @@
     }
   },
   "mini-ios": {
-    "sdkVersion": "1.1.14",
+    "sdkVersion": "1.2.16",
     "toolkitVersion": "0.0.9",
     "useExtendedSdk": {
       "WeAppOpenFuns": true,
@@ -100,7 +101,11 @@
       "NSBluetoothPeripheralUsageDescription": "为了提供完整的功能，我们的应用程序需要访问蓝牙外设。这将用手与其他设备进行通信和数据交换。我们承诺保护用户隐私和数据安全。",
       "NSBluetoothAlwaysUsageDescription": "为了提供完整的功能，我们的应用程序需要始终访问蓝牙外设。这将用于与其他设备进行通信和数据交换。我们承诺保护用户隐私和数据安全。"
     },
-    "qmapAPIKey": "6G2BZ-AQJO4-5MBUQ-X44DS-XNDNZ-P6FA4"
+    "qmapAPIKey": "6G2BZ-AQJO4-5MBUQ-X44DS-XNDNZ-P6FA4",
+    "gdt": {
+      "splashAd_defaultEnable": false
+    },
+    "enableOpenUrlNavigate": true
   },
   "versionCode": 100
 }
