@@ -1,4 +1,4 @@
-<p align="center"><a href="https://fresns.cn" target="_blank"><img src="https://cdn.fresns.cn/images/logo.png" width="300"></a></p>
+<p align="center"><a href="https://fresns.cn" target="_blank"><img src="https://assets.fresns.cn/logos/fresns.png" width="300"></a></p>
 
 <p align="center">
 <img src="https://img.shields.io/badge/WeChat-Mini%20Program-blueviolet" alt="WeChat">
@@ -34,14 +34,14 @@
     - iOS App: [https://apps.apple.com/cn/app/知结/id6462404756](https://apps.apple.com/cn/app/%E7%9F%A5%E7%BB%93/id6462404756)
     - Android App: [https://zhijieshequ.com/app/latest.apk](https://zhijieshequ.com/app/latest.apk)
 
-![知结社区 App](https://cdn.fresns.cn/zhijie/app-qrcode.png)
+![知结社区 App](https://assets.fresns.cn/zhijie/app-qrcode.png)
 
 ### 微信小程序
 
 - 源码: [https://marketplace.fresns.cn/open-source/detail/ZhijieApp](https://marketplace.fresns.cn/open-source/detail/ZhijieApp)
 - 体验: 使用微信扫描下方小程序码
 
-![知结社区小程序](https://cdn.fresns.cn/zhijie/miniprogram.png)
+![知结社区小程序](https://assets.fresns.cn/zhijie/miniprogram.png)
 
 ## 使用说明
 
