@@ -1,0 +1,23 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
+ * Licensed under the Apache-2.0 license
+ */
+.editor-form {
+  padding-bottom: calc(160rpx + env(safe-area-inset-bottom));
+}
+
+.editor-items {
+  background-color: var(--weui-BG-2);
+  padding-bottom: 30rpx;
+}
+
+.editor-label {
+  padding: 0 32rpx;
+  display: flex;
+  margin-top: -50rpx;
+}
+
+.publish-btn {
+  margin: 60rpx 0;
+}

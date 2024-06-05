@@ -1,0 +1,69 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="editor">
+  <!-- 编辑器提示 -->
+  <view class="editor-tip">
+    <tip-publish-perm wx:if="{{!publishPerm.draft || !publishPerm.publish}}" publishPerm="{{publishPerm}}"/>
+    <tip-publish-limit wx:if="{{publishLimit.status && publishLimit.isInTime}}" publishLimit="{{publishLimit}}"/>
+    <tip-edit-controls wx:if="{{controls.isEditDraft}}" controls="{{controls}}"/>
+  </view>
+
+  <!-- 草稿选择器 -->
+  <view class="editor-drafts" wx:if="{{draftSelector}}">
+    <draft-selector type="{{type}}" did="{{did}}" fsid="{{fsid}}" options="{{options}}" bind:eventDraftChoose="eventDraftChoose"/>
+  </view>
+
+  <!-- 编辑器 -->
+  <view class="editor-form" wx:if="{{editorForm}}">
+    <view class="editor-items">
+      <!-- 小组 -->
+      <group type="{{type}}" did="{{did}}" group="{{draftDetail.group}}" wx:if="{{editorConfig.group.status}}" bind:eventGroupChange="eventGroupChange"/>
+
+      <!-- 标题 -->
+      <title type="{{type}}" did="{{did}}" title="{{draftDetail.title}}" wx:if="{{titleInputShow}}"/>
+
+      <!-- 内容 -->
+      <content type="{{type}}" did="{{did}}" content="{{draftDetail.content}}" id="content" bind:eventDialogShow="eventDialogShow"/>
+
+      <!-- 匿名和位置 -->
+      <view class="editor-label" wx:if="{{editorConfig.anonymous || editorConfig.location.status}}">
+        <anonymous type="{{type}}" did="{{did}}" wx:if="{{editorConfig.anonymous}}" isAnonymous="{{draftDetail.isAnonymous}}"/>
+        <location type="{{type}}" did="{{did}}" wx:if="{{editorConfig.location.status}}" locationInfo="{{draftDetail.locationInfo}}" geotag="{{draftDetail.geotag}}"/>
+      </view>
+
+      <!-- 引用 -->
+      <quoted-post type="{{type}}" did="{{did}}" quotedPid="{{draftDetail.quotedPid}}" wx:if="{{draftDetail.quotedPid}}"/>
+
+      <!-- 文件 -->
+      <files type="{{type}}" did="{{did}}" files="{{draftDetail.files}}"/>
+
+      <!-- 扩展内容 -->
+      <text-box type="{{type}}" did="{{did}}" texts="{{draftDetail.extends.texts}}" wx:if="{{draftDetail.extends.texts.length > 0}}"/>
+      <info-box type="{{type}}" did="{{did}}" infos="{{draftDetail.extends.infos}}" wx:if="{{draftDetail.extends.infos.length > 0}}"/>
+    </view>
+
+    <!-- 扩展资料 -->
+    <archives type="{{type}}" did="{{did}}" archives="{{draftDetail.archives}}" archiveGroupConfigs="{{archiveGroupConfigs}}"/>
+
+    <!-- 扩展功能 -->
+    <block wx:if="{{type == 'post'}}">
+      <read-config type="{{type}}" did="{{did}}" readConfig="{{draftDetail.permissions.readConfig}}" wx:if="{{draftDetail.permissions.readConfig.isReadLocked}}"/>
+    </block>
+
+    <!-- 发表按钮 -->
+    <view class="publish-btn">
+      <button size="default" type="primary" bind:tap="onSubmitPublish">{{publishBtnName}}</button>
+    </view>
+
+    <!-- @ 艾特 -->
+    <mention wx:if="{{mentionDialogShow}}" bind:eventDialogShow="eventDialogShow" bind:eventInsertContent="eventInsertContent"/>
+    <!-- # 话题 -->
+    <hashtag wx:if="{{hashtagDialogShow}}" bind:eventDialogShow="eventDialogShow" bind:eventInsertContent="eventInsertContent"/>
+
+    <!-- 工具条 -->
+    <toolbar type="{{type}}" did="{{did}}" bind:eventInsertContent="eventInsertContent" bind:eventAddFiles="eventAddFiles" bind:eventUpdateFile="eventUpdateFile" bind:eventDialogShow="eventDialogShow"/>
+  </view>
+</view>
