@@ -18,9 +18,17 @@ const props = {
     keys: {
         type: Object,
     },
+    popupProps: {
+        type: Object,
+        value: {},
+    },
     title: {
         type: String,
         value: '',
+    },
+    usePopup: {
+        type: Boolean,
+        value: true,
     },
     value: {
         type: Array,
@@ -32,10 +40,6 @@ const props = {
     visible: {
         type: Boolean,
         value: false,
-    },
-    popupProps: {
-        type: Object,
-        value: {},
     },
 };
 export default props;

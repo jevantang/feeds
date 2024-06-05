@@ -15,6 +15,10 @@ const props = {
         type: null,
         value: false,
     },
+    clearTrigger: {
+        type: String,
+        value: 'always',
+    },
     disabled: {
         type: Boolean,
         value: false,

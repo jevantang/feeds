@@ -67,9 +67,8 @@ export const styles = function (styleObj) {
         .join('; ');
 };
 export const getAnimationFrame = function (context, cb) {
-    return wx
+    return context
         .createSelectorQuery()
-        .in(context)
         .selectViewport()
         .boundingClientRect()
         .exec(() => {
@@ -78,8 +77,8 @@ export const getAnimationFrame = function (context, cb) {
 };
 export const getRect = function (context, selector, needAll = false) {
     return new Promise((resolve, reject) => {
-        wx.createSelectorQuery()
-            .in(context)[needAll ? 'selectAll' : 'select'](selector)
+        context
+            .createSelectorQuery()[needAll ? 'selectAll' : 'select'](selector)
             .boundingClientRect((rect) => {
             if (rect) {
                 resolve(rect);
@@ -91,11 +90,15 @@ export const getRect = function (context, selector, needAll = false) {
             .exec();
     });
 };
-const isDef = function (value) {
-    return value !== undefined && value !== null;
-};
 export const isNumber = function (value) {
     return /^\d+(\.\d+)?$/.test(value);
+};
+export const isNull = function (value) {
+    return value === null;
+};
+export const isUndefined = (value) => typeof value === 'undefined';
+export const isDef = function (value) {
+    return !isUndefined(value) && !isNull(value);
 };
 export const addUnit = function (value) {
     if (!isDef(value)) {
@@ -104,8 +107,9 @@ export const addUnit = function (value) {
     value = String(value);
     return isNumber(value) ? `${value}px` : value;
 };
-export const getCharacterLength = (type, str, max) => {
-    if (!str || str.length === 0) {
+export const getCharacterLength = (type, char, max) => {
+    const str = String(char !== null && char !== void 0 ? char : '');
+    if (str.length === 0) {
         return {
             length: 0,
             characters: '',
@@ -168,7 +172,7 @@ export const unitConvert = (value) => {
         }
         return parseInt(value, 10);
     }
-    return value;
+    return value !== null && value !== void 0 ? value : 0;
 };
 export const setIcon = (iconName, icon, defaultIcon) => {
     if (icon) {

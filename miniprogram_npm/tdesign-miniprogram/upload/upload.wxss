@@ -25,6 +25,9 @@
   bottom: 0;
   transform: scale(1.5);
 }
+.t-upload {
+  position: relative;
+}
 .t-upload__grid-content {
   padding: 0;
 }
@@ -39,8 +42,12 @@
   justify-content: center;
   font-size: var(--td-upload-add-icon-font-size, 56rpx);
   background-color: var(--td-upload-add-bg-color, var(--td-bg-color-secondarycontainer, var(--td-gray-color-1, #f3f3f3)));
-  color: var(--td-upload-add-color, var(--td-font-gray-3, rgba(0, 0, 0, 0.4)));
+  color: var(--td-upload-add-color, var(--td-text-color-placeholder, var(--td-font-gray-3, rgba(0, 0, 0, 0.4))));
   border-radius: var(--td-upload-radius, var(--td-radius-default, 12rpx));
+}
+.t-upload__add-icon--disabled {
+  background-color: var(--td-upload-add-disabled-bg-color, var(--td-bg-color-component-disabled, var(--td-gray-color-2, #eeeeee)));
+  color: var(--td-upload-add-icon-disabled-color, var(--td-text-color-disabled, var(--td-font-gray-4, rgba(0, 0, 0, 0.26))));
 }
 .t-upload__add-icon:only-child {
   display: flex;
@@ -55,6 +62,16 @@
   position: relative;
   border-radius: var(--td-upload-radius, var(--td-radius-default, 12rpx));
   overflow: hidden;
+}
+.t-upload__wrapper--disabled::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--td-upload-disabled-mask, rgba(0, 0.6));
+  z-index: 1;
 }
 .t-upload__close-btn {
   position: absolute;
@@ -75,7 +92,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--td-font-gray-3, rgba(0, 0, 0, 0.4));
+  background-color: var(--td-font-gray-2, rgba(0, 0, 0, 0.6));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -90,6 +107,30 @@
 }
 .t-upload__progress-loading {
   animation: spin infinite linear 0.6s;
+}
+.t-upload__drag {
+  position: relative;
+  width: 100%;
+  --td-grid-item-bg-color: transparent;
+}
+.t-upload__drag-item {
+  position: absolute;
+  z-index: 1;
+  top: 0px;
+  left: 0px;
+  height: auto;
+  width: 100%;
+}
+.t-upload__drag--fixed {
+  z-index: 0;
+}
+.t-upload__drag--tran {
+  transition-property: transform;
+  transition-duration: var(--td-upload-drag-transition-duration);
+  transition-timing-function: var(--td-upload-drag-transition-timing-function);
+}
+.t-upload__drag--cur {
+  z-index: var(--td-upload-drag-z-index, 999);
 }
 @keyframes spin {
   0% {

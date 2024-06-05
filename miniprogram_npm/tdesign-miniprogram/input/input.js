@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import props from './props';
-import { getCharacterLength, calcIcon } from '../common/utils';
+import { getCharacterLength, calcIcon, isDef } from '../common/utils';
 const { prefix } = config;
 const name = `${prefix}-input`;
 let Input = class Input extends SuperComponent {
@@ -32,12 +32,13 @@ let Input = class Input extends SuperComponent {
             prefix,
             classPrefix: name,
             classBasePrefix: prefix,
-            excludeType: ['number', 'digit'],
+            showClearIcon: true,
         };
         this.lifetimes = {
             ready() {
-                const { value } = this.properties;
-                this.updateValue(value == null ? '' : value);
+                var _a;
+                const { value, defaultValue } = this.properties;
+                this.updateValue((_a = value !== null && value !== void 0 ? value : defaultValue) !== null && _a !== void 0 ? _a : '');
             },
         };
         this.observers = {
@@ -56,19 +57,21 @@ let Input = class Input extends SuperComponent {
                     _clearIcon: calcIcon(v, 'close-circle-filled'),
                 });
             },
+            clearTrigger() {
+                this.updateClearIconVisible();
+            },
         };
         this.methods = {
             updateValue(value) {
-                const { maxcharacter, maxlength, type } = this.properties;
-                const { excludeType } = this.data;
-                if (!excludeType.includes(type) && maxcharacter && maxcharacter > 0 && !Number.isNaN(maxcharacter)) {
+                const { maxcharacter, maxlength } = this.properties;
+                if (maxcharacter && maxcharacter > 0 && !Number.isNaN(maxcharacter)) {
                     const { length, characters } = getCharacterLength('maxcharacter', value, maxcharacter);
                     this.setData({
                         value: characters,
                         count: length,
                     });
                 }
-                else if (!excludeType.includes(type) && maxlength > 0 && !Number.isNaN(maxlength)) {
+                else if (maxlength && maxlength > 0 && !Number.isNaN(maxlength)) {
                     const { length, characters } = getCharacterLength('maxlength', value, maxlength);
                     this.setData({
                         value: characters,
@@ -78,9 +81,13 @@ let Input = class Input extends SuperComponent {
                 else {
                     this.setData({
                         value,
-                        count: value ? String(value).length : 0,
+                        count: isDef(value) ? String(value).length : 0,
                     });
                 }
+            },
+            updateClearIconVisible(value = false) {
+                const { clearTrigger } = this.properties;
+                this.setData({ showClearIcon: value || clearTrigger === 'always' });
             },
             onInput(e) {
                 const { value, cursor, keyCode } = e.detail;
@@ -88,9 +95,11 @@ let Input = class Input extends SuperComponent {
                 this.triggerEvent('change', { value: this.data.value, cursor, keyCode });
             },
             onFocus(e) {
+                this.updateClearIconVisible(true);
                 this.triggerEvent('focus', e.detail);
             },
             onBlur(e) {
+                this.updateClearIconVisible();
                 this.triggerEvent('blur', e.detail);
             },
             onConfirm(e) {

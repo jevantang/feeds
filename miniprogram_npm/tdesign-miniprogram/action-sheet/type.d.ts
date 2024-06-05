@@ -19,7 +19,15 @@ export interface TdActionSheetProps {
         type: ArrayConstructor;
         value?: Array<string | ActionSheetItem>;
     };
+    popupProps?: {
+        type: ObjectConstructor;
+        value?: object;
+    };
     showCancel?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
+    showOverlay?: {
         type: BooleanConstructor;
         value?: boolean;
     };
@@ -34,14 +42,6 @@ export interface TdActionSheetProps {
     defaultVisible: {
         type: BooleanConstructor;
         value?: boolean;
-    };
-    showOverlay: {
-        type: BooleanConstructor;
-        value?: boolean;
-    };
-    popupProps: {
-        type: ObjectConstructor;
-        value?: object;
     };
 }
 export interface ActionSheetItem {

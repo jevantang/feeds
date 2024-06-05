@@ -26,6 +26,7 @@ export default class NoticeBar extends SuperComponent {
         show(): void;
         clearNoticeBarAnimation(): void;
         setPrefixIcon(v: any): void;
+        onChange(e: WechatMiniprogram.SwiperChange): void;
         clickPrefixIcon(): void;
         clickContent(): void;
         clickSuffixIcon(): void;

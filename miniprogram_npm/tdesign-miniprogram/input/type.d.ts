@@ -15,6 +15,10 @@ export interface TdInputProps {
         type: null;
         value?: boolean | object;
     };
+    clearTrigger?: {
+        type: StringConstructor;
+        value?: 'always' | 'focus';
+    };
     style?: {
         type: StringConstructor;
         value?: string;

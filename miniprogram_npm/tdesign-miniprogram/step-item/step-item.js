@@ -38,6 +38,14 @@ let StepItem = class StepItem extends SuperComponent {
             isLastChild: false,
             sequence: 'positive',
         };
+        this.observers = {
+            status(value) {
+                const { curStatus } = this.data;
+                if (curStatus === '' || value === curStatus)
+                    return;
+                this.setData({ curStatus: value });
+            },
+        };
         this.methods = {
             updateStatus({ current, currentStatus, index, theme, layout, items, sequence }) {
                 let curStatus = this.data.status;

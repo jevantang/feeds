@@ -56,4 +56,8 @@ export interface TdRateProps {
         type: NumberConstructor;
         value?: number;
     };
+    placement?: {
+        type: StringConstructor;
+        value?: 'top' | 'bottom';
+    };
 }

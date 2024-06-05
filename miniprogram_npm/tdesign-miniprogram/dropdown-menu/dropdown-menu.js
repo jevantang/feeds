@@ -40,6 +40,9 @@ let DropdownMenu = class DropdownMenu extends SuperComponent {
                     _arrowIcon: calcIcon(v),
                 });
             },
+            activeIdx(v) {
+                this.triggerEvent(v === -1 ? 'close' : 'open');
+            },
         };
         this.methods = {
             toggle(index) {
@@ -90,6 +93,7 @@ let DropdownMenu = class DropdownMenu extends SuperComponent {
                 const { index } = e.currentTarget.dataset;
                 this.toggle(index);
             },
+            noop() { },
         };
     }
 };

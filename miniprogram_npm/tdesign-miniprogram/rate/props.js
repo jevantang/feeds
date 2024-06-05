@@ -48,5 +48,9 @@ const props = {
         type: Number,
         value: 0,
     },
+    placement: {
+        type: String,
+        value: 'top',
+    },
 };
 export default props;

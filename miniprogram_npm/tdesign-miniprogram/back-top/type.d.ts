@@ -7,6 +7,14 @@ export interface TdBackTopProps {
         type: ArrayConstructor;
         value?: ['t-class', 't-class-icon', 't-class-text'];
     };
+    visibilityHeight?: {
+        type: NumberConstructor;
+        value?: 200;
+    };
+    scrollTop?: {
+        type: NumberConstructor;
+        value: 0;
+    };
     fixed?: {
         type: BooleanConstructor;
         value?: boolean;

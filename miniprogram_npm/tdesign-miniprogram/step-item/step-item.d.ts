@@ -16,6 +16,9 @@ export default class StepItem extends SuperComponent {
         isLastChild: boolean;
         sequence: string;
     };
+    observers: {
+        status(value: any): void;
+    };
     methods: {
         updateStatus({ current, currentStatus, index, theme, layout, items, sequence }: {
             current: any;

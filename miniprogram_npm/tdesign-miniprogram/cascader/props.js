@@ -10,6 +10,10 @@ const props = {
         type: Array,
         value: [],
     },
+    placeholder: {
+        type: String,
+        value: '选择选项',
+    },
     subTitles: {
         type: Array,
         value: [],

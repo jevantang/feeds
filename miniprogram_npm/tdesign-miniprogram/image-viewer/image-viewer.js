@@ -91,12 +91,21 @@ let ImageViewer = class ImageViewer extends SuperComponent {
                         },
                     };
                 }
+                const scaledHeight = ratio * windowHeight * 2;
+                if (scaledHeight < windowWidth) {
+                    return {
+                        styleObj: {
+                            width: `${scaledHeight}rpx`,
+                            height: '100vh',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                        },
+                    };
+                }
                 return {
                     styleObj: {
-                        width: `${ratio * windowHeight * 2}rpx`,
-                        height: '100vh',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
+                        width: '100vw',
+                        height: `${(windowWidth / imageWidth) * imageHeight * 2}rpx`,
                     },
                 };
             },

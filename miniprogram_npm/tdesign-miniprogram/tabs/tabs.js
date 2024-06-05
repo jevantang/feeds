@@ -159,8 +159,6 @@ let Tabs = class Tabs extends SuperComponent {
             },
             setTrack() {
                 return __awaiter(this, void 0, void 0, function* () {
-                    if (!this.properties.showBottomLine)
-                        return;
                     const { children } = this;
                     if (!children)
                         return;
@@ -247,8 +245,13 @@ let Tabs = class Tabs extends SuperComponent {
                 const len = tabs.length;
                 for (let i = step; currentIndex + step >= 0 && currentIndex + step < len; i += step) {
                     const newIndex = currentIndex + i;
-                    if (newIndex >= 0 && newIndex < len && tabs[newIndex] && !tabs[newIndex].disabled) {
-                        return newIndex;
+                    if (newIndex >= 0 && newIndex < len && tabs[newIndex]) {
+                        if (!tabs[newIndex].disabled) {
+                            return newIndex;
+                        }
+                    }
+                    else {
+                        return currentIndex;
                     }
                 }
                 return -1;

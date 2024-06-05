@@ -30,6 +30,7 @@
   height: 100%;
   display: inline-block;
   vertical-align: top;
+  background-color: var(--td-grid-item-bg-color, var(--td-bg-color-container, var(--td-font-white-1, #ffffff)));
 }
 .t-grid-item--hover {
   background-color: var(--td-grid-item-hover-bg-color, var(--td-bg-color-secondarycontainer, var(--td-gray-color-1, #f3f3f3)));
@@ -44,7 +45,6 @@
   overflow: hidden;
   position: relative;
   padding: var(--td-grid-item-padding, 32rpx) 0 24rpx;
-  background-color: var(--td-grid-item-bg-color, var(--td-bg-color-container, var(--td-font-white-1, #ffffff)));
 }
 .t-grid-item__content--horizontal {
   flex-direction: row;
@@ -98,7 +98,7 @@
 }
 .t-grid-item__text {
   width: inherit;
-  color: var(--td-grid-item-text-color, var(--td-font-gray-1, rgba(0, 0, 0, 0.9)));
+  color: var(--td-grid-item-text-color, var(--td-text-color-primary, var(--td-font-gray-1, rgba(0, 0, 0, 0.9))));
   font-size: var(--td-grid-item-text-font-size, 28rpx);
   line-height: var(--td-grid-item-text-line-height, 44rpx);
   padding-top: var(--td-grid-item-text-padding-top, 16rpx);
@@ -116,7 +116,7 @@
 .t-grid-item__description {
   padding-top: var(--td-grid-item-description-padding-top, 0);
   width: inherit;
-  color: var(--td-grid-item-description-color, var(--td-font-gray-3, rgba(0, 0, 0, 0.4)));
+  color: var(--td-grid-item-description-color, var(--td-text-color-placeholder, var(--td-font-gray-3, rgba(0, 0, 0, 0.4))));
   font-size: var(--td-grid-item-description-font-size, 24rpx);
   line-height: var(--td-grid-item-description-line-height, 40rpx);
 }

@@ -14,6 +14,8 @@ let Navbar = class Navbar extends SuperComponent {
         super(...arguments);
         this.externalClasses = [
             `${prefix}-class`,
+            `${prefix}-class-placeholder`,
+            `${prefix}-class-content`,
             `${prefix}-class-title`,
             `${prefix}-class-left`,
             `${prefix}-class-center`,
@@ -24,7 +26,6 @@ let Navbar = class Navbar extends SuperComponent {
         ];
         this.timer = null;
         this.options = {
-            addGlobalClass: true,
             multipleSlots: true,
         };
         this.properties = props;
@@ -96,9 +97,9 @@ let Navbar = class Navbar extends SuperComponent {
             success: (res) => {
                 const boxStyleList = [];
                 const { statusBarHeight } = wx.getSystemInfoSync();
-                boxStyleList.push(`--td-navbar-padding-top:${statusBarHeight}px`);
+                boxStyleList.push(`--td-navbar-padding-top: ${statusBarHeight}px`);
                 if (rect && (res === null || res === void 0 ? void 0 : res.windowWidth)) {
-                    boxStyleList.push(`--td-navbar-right:${res.windowWidth - rect.left}px`);
+                    boxStyleList.push(`--td-navbar-right: ${res.windowWidth - rect.left}px`);
                 }
                 boxStyleList.push(`--td-navbar-capsule-height: ${rect.height}px`);
                 boxStyleList.push(`--td-navbar-capsule-width: ${rect.width}px`);

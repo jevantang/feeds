@@ -19,6 +19,7 @@ declare type dataType = {
     _value: SliderValue;
     prefix: string;
     isVisibleToScreenReader: boolean;
+    identifier: number[];
 };
 export default class Slider extends SuperComponent {
     externalClasses: string[];
@@ -37,6 +38,8 @@ export default class Slider extends SuperComponent {
         created(): void;
         attached(): void;
     };
+    injectPageScroll(): void;
+    observerScrollTop(rest: any): void;
     toggleA11yTips(): void;
     renderLine(val: any): void;
     triggerValue(value?: SliderValue): void;
@@ -54,5 +57,6 @@ export default class Slider extends SuperComponent {
     onTouchMoveRight(e: WechatMiniprogram.TouchEvent): void;
     setLineStyle(left: number, right: number): void;
     onTouchEnd(e: WechatMiniprogram.TouchEvent): void;
+    getPagePosition(touch: any): any;
 }
 export {};

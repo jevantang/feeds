@@ -4,11 +4,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var _a, _b;
 import dayjs from 'dayjs';
+import localeData from 'dayjs/plugin/localeData';
 import config from '../common/config';
 import { SuperComponent, wxComponent } from '../common/src/index';
-import defaultLocale from './locale/zh';
 import props from './props';
+import dayjsLocaleMap from './locale/dayjs';
+dayjs.extend(localeData);
+dayjs.locale('zh-cn');
+const defaultLocale = ((_a = dayjsLocaleMap[dayjs.locale()]) === null || _a === void 0 ? void 0 : _a.key) || ((_b = dayjsLocaleMap.default) === null || _b === void 0 ? void 0 : _b.key);
 const { prefix } = config;
 const name = `${prefix}-date-time-picker`;
 var ModeItem;
@@ -37,6 +42,14 @@ let DateTimePicker = class DateTimePicker extends SuperComponent {
             'start, end, value': function () {
                 this.updateColumns();
             },
+            customLocale(v) {
+                if (!v || !dayjsLocaleMap[v].key)
+                    return;
+                this.setData({
+                    locale: dayjsLocaleMap[v].i18n,
+                    dayjsLocale: dayjsLocaleMap[v].key,
+                });
+            },
             mode(m) {
                 const fullModes = this.getFullModeArray(m);
                 this.setData({
@@ -52,7 +65,8 @@ let DateTimePicker = class DateTimePicker extends SuperComponent {
             columns: [],
             columnsValue: [],
             fullModes: [],
-            locale: defaultLocale,
+            locale: dayjsLocaleMap[defaultLocale].i18n,
+            dayjsLocale: dayjsLocaleMap[defaultLocale].key,
         };
         this.controlledProps = [
             {
@@ -136,11 +150,11 @@ let DateTimePicker = class DateTimePicker extends SuperComponent {
                 const minEdge = this.getOptionEdge('min', type);
                 const maxEdge = this.getOptionEdge('max', type);
                 const step = (_a = steps === null || steps === void 0 ? void 0 : steps[type]) !== null && _a !== void 0 ? _a : 1;
+                const dayjsMonthsShort = dayjs().locale(this.data.dayjsLocale).localeData().monthsShort();
                 for (let i = minEdge; i <= maxEdge; i += step) {
-                    const label = type === 'month' ? i + 1 : i;
                     options.push({
                         value: `${i}`,
-                        label: `${label + locale[type]}`,
+                        label: type === 'month' ? dayjsMonthsShort[i] : `${i + locale[type]}`,
                     });
                 }
                 return options;
@@ -177,14 +191,14 @@ let DateTimePicker = class DateTimePicker extends SuperComponent {
                 return edge[type][minOrMax === 'min' ? 0 : 1];
             },
             getMonthOptions() {
-                const { locale } = this.data;
                 const months = [];
                 const minMonth = this.getOptionEdge('min', 'month');
                 const maxMonth = this.getOptionEdge('max', 'month');
+                const dayjsMonthsShort = dayjs.monthsShort();
                 for (let i = minMonth; i <= maxMonth; i += 1) {
                     months.push({
                         value: `${i}`,
-                        label: `${i + 1 + locale.month}`,
+                        label: dayjsMonthsShort[i],
                     });
                 }
                 return months;

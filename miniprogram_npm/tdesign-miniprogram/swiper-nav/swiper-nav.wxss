@@ -112,6 +112,12 @@
   color: var(--td-swiper-nav-fraction-color, var(--td-font-white-1, #ffffff));
   font-size: var(--td-swiper-nav-fraction-font-size, 24rpx);
 }
+.t-swiper-nav__btn {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .t-swiper-nav__btn--prev,
 .t-swiper-nav__btn--next {
   position: absolute;

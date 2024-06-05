@@ -48,6 +48,7 @@ export interface TdNoticeBarProps {
         value?: boolean;
     };
 }
+export declare type NoticeBarTrigger = 'prefix-icon' | 'content' | 'operation' | 'suffix-icon';
 export interface DrawMarquee {
     speed?: number;
     loop?: number;

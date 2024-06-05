@@ -11,6 +11,12 @@ export default class Cell extends SuperComponent {
         classPrefix: string;
         isLastChild: boolean;
     };
+    observers: {
+        leftIcon(v: any): void;
+        rightIcon(v: any): void;
+        arrow(v: any): void;
+    };
+    setIcon(name: any, value: any, defaultValue: any): void;
     onClick(e: any): void;
     jumpLink(urlKey?: string, link?: string): void;
 }

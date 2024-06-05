@@ -26,8 +26,9 @@
   transform: scale(1.5);
 }
 .t-col {
+  display: block;
   box-sizing: border-box;
-  float: left;
+  min-height: 1px;
 }
 .t-col--1 {
   width: 4.16666667%;

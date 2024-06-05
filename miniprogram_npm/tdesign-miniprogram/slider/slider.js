@@ -56,6 +56,7 @@ let Slider = class Slider extends SuperComponent {
             scaleTextArray: [],
             prefix,
             isVisibleToScreenReader: false,
+            identifier: [-1, -1],
         };
         this.observers = {
             value(newValue) {
@@ -78,8 +79,30 @@ let Slider = class Slider extends SuperComponent {
                 if (!value)
                     this.handlePropsChange(0);
                 this.init();
+                this.injectPageScroll();
             },
         };
+    }
+    injectPageScroll() {
+        const { range, vertical } = this.properties;
+        if (!range || !vertical)
+            return;
+        const pages = getCurrentPages() || [];
+        let curPage = null;
+        if (pages && pages.length - 1 >= 0) {
+            curPage = pages[pages.length - 1];
+        }
+        if (!curPage)
+            return;
+        const originPageScroll = curPage === null || curPage === void 0 ? void 0 : curPage.onPageScroll;
+        curPage.onPageScroll = (rest) => {
+            originPageScroll === null || originPageScroll === void 0 ? void 0 : originPageScroll.call(this, rest);
+            this.observerScrollTop(rest);
+        };
+    }
+    observerScrollTop(rest) {
+        const { scrollTop } = rest || {};
+        this.pageScrollTop = scrollTop;
     }
     toggleA11yTips() {
         this.setData({
@@ -165,11 +188,12 @@ let Slider = class Slider extends SuperComponent {
         return __awaiter(this, void 0, void 0, function* () {
             const line = yield getRect(this, '#sliderLine');
             const { blockSize } = this.data;
-            const { theme } = this.properties;
+            const { theme, vertical } = this.properties;
             const halfBlock = Number(blockSize) / 2;
-            let maxRange = line.right - line.left;
-            let initialLeft = line.left;
-            let initialRight = line.right;
+            const { top, bottom, right, left } = line;
+            let maxRange = vertical ? bottom - top : right - left;
+            let initialLeft = vertical ? top : left;
+            let initialRight = vertical ? bottom : right;
             if (initialLeft === 0 && initialRight === 0)
                 return;
             if (theme === 'capsule') {
@@ -195,15 +219,34 @@ let Slider = class Slider extends SuperComponent {
         const { disabled } = this.properties;
         if (disabled)
             return;
+        const isSingleLineTap = this.data.identifier[0] === -1;
+        if (isSingleLineTap) {
+            const [touch] = e.changedTouches;
+            this.data.identifier[0] = touch.identifier;
+        }
         const value = this.getSingleChangeValue(e);
+        if (isSingleLineTap) {
+            this.data.identifier[0] = -1;
+        }
         this.triggerValue(value);
     }
     getSingleChangeValue(e) {
-        const { min, max } = this.properties;
-        const { initialLeft, maxRange } = this.data;
-        const [touch] = e.changedTouches;
-        const { pageX } = touch;
-        const currentLeft = pageX - initialLeft;
+        const { min, max, theme, vertical } = this.properties;
+        const { initialLeft, maxRange, blockSize } = this.data;
+        const touch = e.changedTouches.find((item) => item.identifier === this.data.identifier[0]);
+        const pagePosition = this.getPagePosition(touch);
+        let offset = 0;
+        if (theme === 'capsule') {
+            offset = Number(blockSize);
+            if (vertical) {
+                offset *= 2;
+            }
+            offset += 6;
+        }
+        else if (vertical) {
+            offset = Number(blockSize);
+        }
+        const currentLeft = pagePosition - initialLeft - offset;
         let value = 0;
         if (currentLeft <= 0) {
             value = Number(min);
@@ -224,27 +267,45 @@ let Slider = class Slider extends SuperComponent {
             : Number(max) - (posValue / maxRange) * (Number(max) - Number(min));
     }
     onLineTap(e) {
-        const { disabled, theme } = this.properties;
+        const { disabled, theme, vertical } = this.properties;
         const { initialLeft, initialRight, maxRange, blockSize } = this.data;
         if (disabled)
             return;
         const [touch] = e.changedTouches;
-        const { pageX } = touch;
+        const pagePosition = this.getPagePosition(touch);
         const halfBlock = theme === 'capsule' ? Number(blockSize) / 2 : 0;
-        const currentLeft = pageX - initialLeft;
-        if (currentLeft < 0 || currentLeft > maxRange + Number(blockSize))
+        const currentLeft = pagePosition - initialLeft;
+        const currentRight = -(pagePosition - initialRight);
+        if (currentLeft < 0 || currentRight > maxRange + Number(blockSize))
             return;
         Promise.all([getRect(this, '#leftDot'), getRect(this, '#rightDot')]).then(([leftDot, rightDot]) => {
-            const distanceLeft = Math.abs(pageX - leftDot.left - halfBlock);
-            const distanceRight = Math.abs(rightDot.left - pageX + halfBlock);
+            const pageScrollTop = this.pageScrollTop || 0;
+            const leftDotPosition = vertical ? leftDot.top + pageScrollTop : leftDot.left;
+            const distanceLeft = Math.abs(pagePosition - leftDotPosition - halfBlock);
+            const rightDotPosition = vertical ? rightDot.top + pageScrollTop : rightDot.left;
+            const distanceRight = Math.abs(rightDotPosition - pagePosition + halfBlock);
             const isMoveLeft = distanceLeft < distanceRight;
+            let offset = 0;
+            if (theme === 'capsule') {
+                offset = Number(blockSize);
+                if (vertical) {
+                    offset *= 2;
+                }
+                offset += 6;
+            }
+            else if (vertical) {
+                offset = Number(blockSize);
+            }
             if (isMoveLeft) {
-                const left = pageX - initialLeft;
+                const left = pagePosition - initialLeft - offset;
                 const leftValue = this.convertPosToValue(left, 0);
                 this.triggerValue([this.stepValue(leftValue), this.data._value[1]]);
             }
             else {
-                const right = -(pageX - initialRight);
+                let right = -(pagePosition - initialRight);
+                if (vertical) {
+                    right += offset / 2;
+                }
                 const rightValue = this.convertPosToValue(right, 1);
                 this.triggerValue([this.data._value[0], this.stepValue(rightValue)]);
             }
@@ -252,28 +313,46 @@ let Slider = class Slider extends SuperComponent {
     }
     onTouchStart(e) {
         this.triggerEvent('dragstart', { e });
+        const [touch] = e.changedTouches;
+        if (e.currentTarget.id === 'rightDot') {
+            this.data.identifier[1] = touch.identifier;
+        }
+        else {
+            this.data.identifier[0] = touch.identifier;
+        }
     }
     onTouchMoveLeft(e) {
-        const { disabled } = this.properties;
-        const { initialLeft, _value } = this.data;
+        const { disabled, theme, vertical } = this.properties;
+        const { initialLeft, _value, blockSize } = this.data;
         if (disabled)
             return;
-        const [touch] = e.changedTouches;
-        const { pageX } = touch;
-        const currentLeft = pageX - initialLeft;
+        const touch = e.changedTouches.find((item) => item.identifier === this.data.identifier[0]);
+        const pagePosition = this.getPagePosition(touch);
+        let offset = 0;
+        if (theme === 'capsule') {
+            offset += Number(blockSize);
+        }
+        if (vertical) {
+            offset += Number(blockSize) + 6;
+        }
+        const currentLeft = pagePosition - initialLeft - offset;
         const newData = [..._value];
         const leftValue = this.convertPosToValue(currentLeft, 0);
         newData[0] = this.stepValue(leftValue);
         this.triggerValue(newData);
     }
     onTouchMoveRight(e) {
-        const { disabled } = this.properties;
-        const { initialRight, _value } = this.data;
+        const { disabled, vertical } = this.properties;
+        const { initialRight, _value, blockSize } = this.data;
         if (disabled)
             return;
-        const [touch] = e.changedTouches;
-        const { pageX } = touch;
-        const currentRight = -(pageX - initialRight);
+        const touch = e.changedTouches.find((item) => item.identifier === this.data.identifier[1]);
+        const pagePosition = this.getPagePosition(touch);
+        let offset = 0;
+        if (vertical) {
+            offset += Number(blockSize) / 2 + 6;
+        }
+        const currentRight = -(pagePosition - initialRight - offset);
         const newData = [..._value];
         const rightValue = this.convertPosToValue(currentRight, 1);
         newData[1] = this.stepValue(rightValue);
@@ -303,6 +382,17 @@ let Slider = class Slider extends SuperComponent {
     }
     onTouchEnd(e) {
         this.triggerEvent('dragend', { e });
+        if (e.currentTarget.id === 'rightDot') {
+            this.data.identifier[1] = -1;
+        }
+        else {
+            this.data.identifier[0] = -1;
+        }
+    }
+    getPagePosition(touch) {
+        const { pageX, pageY } = touch;
+        const { vertical } = this.properties;
+        return vertical ? pageY : pageX;
     }
 };
 Slider = __decorate([

@@ -4,8 +4,8 @@ export interface TdCellProps {
         value?: 'top' | 'middle' | 'bottom';
     };
     arrow?: {
-        type: BooleanConstructor;
-        value?: boolean;
+        type: null;
+        value?: boolean | object;
     };
     bordered?: {
         type: BooleanConstructor;
@@ -45,8 +45,8 @@ export interface TdCellProps {
         value?: 'switchTab' | 'reLaunch' | 'redirectTo' | 'navigateTo';
     };
     leftIcon?: {
-        type: StringConstructor;
-        value?: string;
+        type: null;
+        value?: string | object;
     };
     note?: {
         type: StringConstructor;
@@ -57,8 +57,8 @@ export interface TdCellProps {
         value?: boolean;
     };
     rightIcon?: {
-        type: StringConstructor;
-        value?: string;
+        type: null;
+        value?: string | object;
     };
     title?: {
         type: StringConstructor;

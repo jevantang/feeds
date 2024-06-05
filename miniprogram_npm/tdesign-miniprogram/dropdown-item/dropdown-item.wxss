@@ -123,3 +123,9 @@
 .t-dropdown-item__tree-item--active {
   color: var(--td-tree-item-active-color, var(--td-brand-color, var(--td-primary-color-7, #0052d9)));
 }
+.t-dropdown-item__mask {
+  position: fixed;
+  width: 100vh;
+  top: 0;
+  left: 0;
+}

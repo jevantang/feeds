@@ -33,8 +33,8 @@
   font-style: normal;
 }
 .t-icon--image {
-  width: 1em;
-  height: 1em;
+  width: 100%;
+  height: 100%;
 }
 .t-icon__image {
   vertical-align: top;

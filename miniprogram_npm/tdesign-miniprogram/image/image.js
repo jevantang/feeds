@@ -26,13 +26,6 @@ let Image = class Image extends SuperComponent {
             classPrefix: name,
         };
         this.preSrc = '';
-        this.lifetimes = {
-            attached() {
-                const { width, height } = this.data;
-                this.update();
-                this.calcSize(width, height);
-            },
-        };
         this.observers = {
             src() {
                 if (this.preSrc === this.properties.src)
@@ -47,13 +40,13 @@ let Image = class Image extends SuperComponent {
             onLoaded(e) {
                 const sdkVersion = wx.getSystemInfoSync().SDKVersion;
                 const versionArray = sdkVersion.split('.').map((v) => parseInt(v, 10));
-                const { mode } = this.properties;
+                const { mode, tId } = this.properties;
                 const isInCompatible = versionArray[0] < 2 ||
                     (versionArray[0] === 2 && versionArray[1] < 10) ||
                     (versionArray[0] === 2 && versionArray[1] === 10 && versionArray[2] < 3);
                 if (mode === 'heightFix' && isInCompatible) {
                     const { height: picHeight, width: picWidth } = e.detail;
-                    getRect(this, '#image').then((rect) => {
+                    getRect(this, `#${tId !== null && tId !== void 0 ? tId : 'image'}`).then((rect) => {
                         const { height } = rect;
                         const resultWidth = ((height / picHeight) * picWidth).toFixed(2);
                         this.setData({ innerStyle: `height: ${addUnit(height)}; width: ${resultWidth}px;` });

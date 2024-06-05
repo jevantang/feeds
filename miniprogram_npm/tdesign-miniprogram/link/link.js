@@ -55,7 +55,8 @@ let Link = class Link extends SuperComponent {
                 if (underline) {
                     classList.push(`${name}--underline`);
                 }
-                if ((navigatorProps && !navigatorProps.url) || disabled) {
+                if ((navigatorProps && !navigatorProps.url && !['navigateBack', 'exit'].includes(navigatorProps.openType)) ||
+                    disabled) {
                     classList.push(`${name}--disabled`);
                 }
                 this.setData({

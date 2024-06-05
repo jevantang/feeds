@@ -35,6 +35,10 @@ isComponent: true
 
 {{ advance }}
 
+### 可移动悬浮按钮
+
+{{ draggable }}
+
 ## API
 ### Fab Props
 
@@ -44,6 +48,7 @@ button-props | Object | - | 透传至 Button 组件 | N
 icon | String | - | 图标 | N
 style | String | right: 16px; bottom: 32px; | 悬浮按钮的样式，常用于调整位置（即将废弃，建议使用 `style`） | N
 text | String | - | 文本内容 | N
+draggable | Boolean / String | false | `true` / `'all'`可拖动<br>`'vertical'`可垂直拖动<br>`'horizontal'`可水平拖动<br>`false`禁止拖动 | N
 
 ### Fab Events
 

@@ -18,7 +18,15 @@ const props = {
     items: {
         type: Array,
     },
+    popupProps: {
+        type: Object,
+        value: {},
+    },
     showCancel: {
+        type: Boolean,
+        value: true,
+    },
+    showOverlay: {
         type: Boolean,
         value: true,
     },
@@ -33,14 +41,6 @@ const props = {
     defaultVisible: {
         type: Boolean,
         value: false,
-    },
-    showOverlay: {
-        type: Boolean,
-        value: true,
-    },
-    popupProps: {
-        type: Object,
-        value: {},
     },
 };
 export default props;

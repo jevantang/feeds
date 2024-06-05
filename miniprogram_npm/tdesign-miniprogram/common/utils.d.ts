@@ -5,17 +5,20 @@ export declare const debounce: (func: any, wait?: number) => (...rest: any[]) =>
 export declare const throttle: (func: any, wait?: number, options?: any) => (...args: any[]) => void;
 export declare const classNames: (...args: any[]) => string;
 export declare const styles: (styleObj: any) => string;
-export declare const getAnimationFrame: (context: any, cb: Function) => WechatMiniprogram.NodesRef;
+export declare const getAnimationFrame: (context: any, cb: Function) => any;
 export declare const getRect: (context: any, selector: string, needAll?: boolean) => Promise<any>;
 export declare const isNumber: (value: any) => boolean;
+export declare const isNull: (value: any) => boolean;
+export declare const isUndefined: (value: any) => boolean;
+export declare const isDef: (value: any) => boolean;
 export declare const addUnit: (value?: string | number) => string | undefined;
-export declare const getCharacterLength: (type: string, str: string, max?: number) => {
+export declare const getCharacterLength: (type: string, char: string | number, max?: number) => {
     length: number;
     characters: string;
 };
 export declare const chunk: (arr: any[], size: number) => any[][];
 export declare const getInstance: (context?: Context, selector?: string) => WechatMiniprogram.Component.TrivialInstance;
-export declare const unitConvert: (value: number | string) => number;
+export declare const unitConvert: (value: number | string | null | undefined) => number;
 export declare const setIcon: (iconName: any, icon: any, defaultIcon: any) => {
     [x: string]: any;
 };

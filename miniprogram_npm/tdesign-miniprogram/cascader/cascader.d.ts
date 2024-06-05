@@ -17,12 +17,12 @@ export default class Cascader extends SuperComponent {
         stepIndex: number;
         selectedIndexes: any[];
         selectedValue: any[];
-        defaultOptionLabel: string;
         scrollTopList: any[];
-        steps: string[];
+        steps: any[];
     };
     observers: {
         visible(v: any): void;
+        value(): void;
         'selectedIndexes, options'(): void;
         stepIndex(): Promise<void>;
     };

@@ -19,7 +19,6 @@ import props from './props';
 import { getRect } from '../common/utils';
 const { prefix } = config;
 const name = `${prefix}-cascader`;
-const defaultOptionLabel = '选择选项';
 let Cascader = class Cascader extends SuperComponent {
     constructor() {
         super(...arguments);
@@ -40,9 +39,8 @@ let Cascader = class Cascader extends SuperComponent {
             stepIndex: 0,
             selectedIndexes: [],
             selectedValue: [],
-            defaultOptionLabel,
             scrollTopList: [],
-            steps: [defaultOptionLabel],
+            steps: [],
         };
         this.observers = {
             visible(v) {
@@ -53,9 +51,12 @@ let Cascader = class Cascader extends SuperComponent {
                     this.initWithValue();
                 }
             },
+            value() {
+                this.initWithValue();
+            },
             'selectedIndexes, options'() {
                 var _a, _b, _c, _d;
-                const { options, selectedIndexes, keys } = this.data;
+                const { options, selectedIndexes, keys, placeholder } = this.data;
                 const selectedValue = [];
                 const steps = [];
                 const items = [options];
@@ -71,7 +72,7 @@ let Cascader = class Cascader extends SuperComponent {
                     }
                 }
                 if (steps.length < items.length) {
-                    steps.push(defaultOptionLabel);
+                    steps.push(placeholder);
                 }
                 this.setData({
                     steps,

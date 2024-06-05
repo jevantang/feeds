@@ -1,4 +1,5 @@
 import { ButtonProps } from '../button/index';
+import { PopupProps } from '../popup/index';
 import { KeysType } from '../common/common';
 export interface TdPickerProps {
     autoClose?: {
@@ -21,9 +22,17 @@ export interface TdPickerProps {
         type: ObjectConstructor;
         value?: KeysType;
     };
+    popupProps?: {
+        type: ObjectConstructor;
+        value?: PopupProps;
+    };
     title?: {
         type: StringConstructor;
         value?: string;
+    };
+    usePopup?: {
+        type: BooleanConstructor;
+        value?: boolean;
     };
     value?: {
         type: ArrayConstructor;
@@ -36,10 +45,6 @@ export interface TdPickerProps {
     visible?: {
         type: BooleanConstructor;
         value?: boolean;
-    };
-    popupProps: {
-        type: object;
-        value?: {};
     };
 }
 export declare type PickerValue = string | number;

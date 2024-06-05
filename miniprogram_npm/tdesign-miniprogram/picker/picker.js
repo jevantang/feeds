@@ -7,11 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import props from './props';
+import useCustomNavbar from '../mixins/using-custom-navbar';
 const { prefix } = config;
 const name = `${prefix}-picker`;
 let Picker = class Picker extends SuperComponent {
     constructor() {
         super(...arguments);
+        this.behaviors = [useCustomNavbar];
         this.properties = props;
         this.externalClasses = [`${prefix}-class`, `${prefix}-class-confirm`, `${prefix}-class-cancel`, `${prefix}-class-title`];
         this.options = {
@@ -31,8 +33,8 @@ let Picker = class Picker extends SuperComponent {
             },
             keys(obj) {
                 this.setData({
-                    labelAlias: obj.label || 'label',
-                    valueAlias: obj.value || 'value',
+                    labelAlias: (obj === null || obj === void 0 ? void 0 : obj.label) || 'label',
+                    valueAlias: (obj === null || obj === void 0 ? void 0 : obj.value) || 'value',
                 });
             },
         };

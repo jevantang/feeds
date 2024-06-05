@@ -13,9 +13,6 @@ export default class Image extends SuperComponent {
         classPrefix: string;
     };
     preSrc: string;
-    lifetimes: {
-        attached(): void;
-    };
     observers: {
         src(): void;
         'width, height'(width: any, height: any): void;
