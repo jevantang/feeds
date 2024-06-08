@@ -1,0 +1,309 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<page-meta root-font-size="system"/>
+
+<navigation-bar title="{{title}}" backButton="{{true}}"></navigation-bar>
+
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}">
+  <!-- 个人资料 -->
+  <view class="weui-cells__title">{{fresnsLang.settingGeneral}}</view>
+  <view class="weui-cells weui-cells_after-title">
+    <!-- 头像 -->
+    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="modifyAvatar">
+      <view class="weui-cell__bd">{{fresnsLang.userAvatar}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">
+        <image src="{{fresnsUser.avatar}}" class="avatar-img" mode="scaleToFill"></image>
+      </view>
+    </view>
+
+    <!-- 用户名 -->
+    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="showModifyDialog" data-type="username">
+      <view class="weui-cell__bd">{{fresnsConfig.user_username_name}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsUser.username}}</view>
+    </view>
+
+    <!-- 昵称 -->
+    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="showModifyDialog" data-type="nickname">
+      <view class="weui-cell__bd">{{fresnsConfig.user_nickname_name}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsUser.nickname}}</view>
+    </view>
+
+    <!-- 介绍 -->
+    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="showModifyDialog" data-type="bio">
+      <view class="weui-cell__bd">{{fresnsConfig.user_bio_name}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access" style="width:70%;">{{fresnsUser.bio}}</view>
+    </view>
+
+    <!-- 生日显示方式 -->
+    <picker bindchange="modifyBirthdayDisplayType" header-text="{{fresnsLang.settingBirthdayDisplayType}}" range="{{birthdayDisplayOptions}}" value="{{fresnsUser.birthdayDisplayType - 1}}">
+      <view class="weui-cell weui-cell_access weui-border-top" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">{{fresnsLang.userBirthday}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsAccount.birthday}}</view>
+      </view>
+      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">{{fresnsLang.settingBirthdayDisplayType}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">{{birthdayDisplayOptions[fresnsUser.birthdayDisplayType - 1]}}</view>
+      </view>
+    </picker>
+
+    <!-- 性别 -->
+    <picker bindchange="modifyGender" header-text="{{fresnsLang.userGender}}" range="{{genderOptions}}" value="{{fresnsUser.gender - 1}}">
+      <view class="weui-cell weui-cell_access weui-border-top" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">{{fresnsLang.userGender}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">{{genderOptions[fresnsUser.gender - 1]}}</view>
+      </view>
+    </picker>
+
+    <block wx:if="{{fresnsUser.gender == 4}}">
+      <!-- 性别: 自定义 -->
+      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="showModifyDialog" data-type="genderCustom">
+        <view class="weui-cell__bd">{{fresnsLang.userGender}}: {{fresnsLang.settingGenderCustom}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsUser.genderCustom}}</view>
+      </view>
+
+      <!-- 性别: 自定义代称 -->
+      <picker bindchange="modifyGenderPronoun" header-text="{{fresnsLang.settingGenderPronounOptionTip}}" range="{{genderPronounOptions}}" value="{{fresnsUser.genderPronoun - 1}}">
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__bd">{{fresnsLang.userGender}}: {{fresnsLang.settingGenderPronounOptionTip}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">{{genderPronouns[fresnsUser.genderPronoun - 1]}}</view>
+        </view>
+      </picker>
+    </block>
+  </view>
+
+  <!-- 扩展资料 -->
+  <view class="weui-cells weui-cells_after-title" wx:if="{{userArchives.length > 0}}">
+    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onClickArchiveEdit" wx:for="{{userArchives}}" data-code="{{item.code}}">
+      <view class="weui-cell__bd">
+        <view>{{item.name}}</view>
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access" style="width: 50%;">
+        <block wx:if="{{archivesMap[item.code]}}">
+          <!-- 文件信息 -->
+          <block wx:if="{{archivesMap[item.code].valueType == 'file'}}">
+            <!-- 图片 -->
+            <image wx:if="{{archivesMap[item.code].value.fileType == 1}}" src="{{archivesMap[item.code].value.imageSquareUrl}}"></image>
+            <!-- 视频 -->
+            <image wx:if="{{archivesMap[item.code].value.fileType == 2 && archivesMap[item.code].value}}" src="{{archivesMap[item.code].value.videoPosterUrl}}"></image>
+            <view wx:if="{{archivesMap[item.code].value.fileType == 2 && !archivesMap[item.code].value}}">[{{fresnsLang.video}}]</view>
+            <!-- 音频 -->
+            <view wx:if="{{archivesMap[item.code].value.fileType == 3}}">{{archivesMap[item.code].value ? '[' + fresnsLang.audio + ']' : ''}}</view>
+            <!-- 文档 -->
+            <view wx:if="{{archivesMap[item.code].value.fileType == 4}}">{{archivesMap[item.code].value ? '[' + fresnsLang.document + ']' : ''}}</view>
+          </block>
+
+          <!-- 选项信息 -->
+          <block wx:elif="{{archivesMap[item.code].valueType == 'option'}}">
+            {{archivesMap[item.code].value.name}}
+          </block>
+
+          <block wx:elif="{{archivesMap[item.code].valueType == 'options'}}">
+            <view class="element-options">
+              <text class="weui-badge" wx:for="{{archivesMap[item.code].value}}" wx:for-item="option">{{option.name}}</text>
+            </view>
+          </block>
+
+          <!-- 标签信息 -->
+          <block wx:elif="{{archivesMap[item.code].valueType == 'tags'}}">
+            <view class="element-options">
+              <text class="weui-badge" wx:for="{{archivesMap[item.code].value}}" wx:for-item="tag">{{tag}}</text>
+            </view>
+          </block>
+
+          <!-- 颜色值 -->
+          <block wx:elif="{{archivesMap[item.code].valueType == 'color'}}">
+            <view class="element-options" wx:if="{{archivesMap[item.code].value}}">
+              <text class="color-block" style="background-color:{{archivesMap[item.code].value}}"></text>
+            </view>
+          </block>
+
+          <!-- 字符串 -->
+          <block wx:else>
+            {{archivesMap[item.code].value}}
+          </block>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- 互动设置 -->
+  <view class="weui-cells__title">{{fresnsLang.settingInteraction}}</view>
+  <view class="weui-cells weui-cells_after-title">
+    <!-- 对话 -->
+    <picker wx:if="{{fresnsConfig.conversation_status}}" bindchange="modifyConversationPolicy" header-text="{{fresnsLang.settingConversationPolicy}}" range="{{policyOptions}}" value="{{fresnsUser.conversationPolicy - 1}}">
+      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">{{fresnsLang.settingConversationPolicy}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">{{policyOptions[fresnsUser.conversationPolicy - 1]}}</view>
+      </view>
+    </picker>
+
+    <!-- 评论 -->
+    <picker bindchange="modifyCommentPolicy" header-text="{{fresnsLang.settingCommentPolicy}}" range="{{policyOptions}}" value="{{fresnsUser.commentPolicy - 1}}">
+      <view class="weui-cell weui-cell_access weui-border-top" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">{{fresnsLang.settingCommentPolicy}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">{{policyOptions[fresnsUser.commentPolicy - 1]}}</view>
+      </view>
+    </picker>
+
+    <!-- 扩展资料 -->
+    <block wx:for="{{fresnsOverview.profiles}}" wx:key="fskey">
+      <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active" url="/sdk/extensions/webview" bind:tap="handleExtensionTap"
+        data-title="{{item.name}}"
+        data-url="{{item.appUrl}}"
+        data-post-message-key="fresnsProfileExtension">
+        <view class="weui-cell__bd">{{fresnsConfig.user_bio_name}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access" style="width:70%;">{{fresnsUser.bio ? fresnsUser.bio : ''}}</view>
+      </navigator>
+    </block>
+  </view>
+
+  <!-- 互联信息 -->
+  <block wx:if="{{enableWeChatLogin}}">
+    <!-- 由于微信的授权方式不支持 Web-View，所以只能单独列出操作 -->
+    <view class="weui-cells__title">{{fresnsLang.settingConnects}}</view>
+    <view class="weui-cells weui-cells_after-title">
+      <!-- 微信小程序 -->
+      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onWeChatConnectMiniProgram">
+        <view class="weui-cell__bd">{{wechatMiniProgramLoginName}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access {{connects.wechatMiniProgram ? 'settingAccountDisconnect' : ''}}">{{connects.wechatMiniProgram ? fresnsLang.settingAccountDisconnect : fresnsLang.settingAccountConnect}}</view>
+      </view>
+
+      <!-- 多端应用: 微信 -->
+      <block wx:if="{{appBaseInfo.isApp}}">
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onAppConnectWeChat">
+          <view class="weui-cell__bd">{{wechatLoginName}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access {{connects.wechatMiniProgram ? 'settingAccountDisconnect' : ''}}">{{connects.wechatMobileApp ? fresnsLang.settingAccountDisconnect : fresnsLang.settingAccountConnect}}</view>
+        </view>
+      </block>
+
+      <!-- 多端应用: 苹果账户 -->
+      <block wx:if="{{appBaseInfo.isApp && appBaseInfo.platform == 'ios'}}">
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onAppConnectApple">
+          <view class="weui-cell__bd">{{appleLoginName}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access {{connects.wechatMiniProgram ? 'settingAccountDisconnect' : ''}}">{{connects.apple ? fresnsLang.settingAccountDisconnect : fresnsLang.settingAccountConnect}}</view>
+        </view>
+      </block>
+    </view>
+  </block>
+
+  <view class="account-center">
+    <view class="account-logo">
+      <image src="{{logo}}" mode="widthFix"></image>
+    </view>
+    <view class="account-title">{{fresnsLang.accountCenter}}</view>
+    <view class="account-description">{{fresnsLang.accountCenterDesc}}</view>
+    <view class="account-items">
+      <view class="account-item birthday">{{fresnsLang.userBirthday}}</view>
+      <view class="account-item emailOrPhone">{{fresnsLang.emailOrPhone}}</view>
+      <view class="account-item password">{{fresnsLang.accountPassword}}</view>
+    </view>
+    <view class="account-navigator">
+      <navigator url="/sdk/extensions/webview" bind:tap="handleExtensionTap"
+        data-title="{{fresnsLang.accountCenter}}"
+        data-url="{{fresnsConfig.account_center_service}}"
+        data-post-message-key="fresnsAccountCenter">
+        {{fresnsLang.accountCenterSeeMore}}
+      </navigator>
+    </view>
+  </view>
+</scroll-view>
+
+<!-- 基础资料编辑窗口 -->
+<view wx:if="{{dialogShow}}" aria-role="dialog" aria-modal="true">
+  <view class="weui-mask {{dialogShow ? 'weui-animate_fade-in' : 'weui-animate_fade-out'}}" bind:tap="dialogClose" aria-role="button" aria-label="关闭"></view>
+
+  <view class="weui-half-screen-dialog {{dialogShow ? 'weui-animate_slide-up' : 'weui-animate_slide-down'}} {{dialogWrap ? 'weui-half-screen-dialog_btn-wrap' : ''}}">
+    <view class="weui-half-screen-dialog__hd">
+      <view class="weui-half-screen-dialog__hd__side" bind:tap="dialogClose">
+        <view aria-role="button" class="weui-btn_icon">关闭</view>
+      </view>
+      <view class="weui-half-screen-dialog__hd__main">
+        <strong class="weui-half-screen-dialog__title">{{modifyDialogTitle}}</strong>
+      </view>
+    </view>
+
+    <view class="weui-half-screen-dialog__bd">
+      <!-- 修改用户名 -->
+      <block wx:if="{{modifyDialogType === 'username'}}">
+        <view class="weui-cells weui-cells_form" style="margin-top: 0;">
+          <view class="weui-cell weui-cell_active">
+            <view class="weui-cell__bd">
+              <input value="{{modifyDialogValue}}" maxlength="{{fresnsConfig.username_max}}" bindinput="handleInput" bindkeyboardheightchange="handleKeyboard" bindconfirm="handleKeyboard" bindblur="handleKeyboard" placeholder="{{modifyDialogTitle}}" class="weui-input"/>
+            </view>
+          </view>
+        </view>
+        <view class="weui-cells__tips">{{fresnsLang.settingIntervalDays}}: {{fresnsConfig.username_edit}} {{fresnsLang.modifierDays}}</view>
+        <view class="weui-cells__tips">{{fresnsLang.modifierLength}}: {{fresnsConfig.username_min + ' - ' + fresnsConfig.username_max}}</view>
+        <view class="weui-cells__tips">{{fresnsLang.settingLastTime}}: {{fresnsUser.lastEditUsernameDateTime}}</view>
+      </block>
+
+      <!-- 修改昵称 -->
+      <block wx:if="{{modifyDialogType === 'nickname'}}">
+        <view class="weui-cells weui-cells_form" style="margin-top: 0;">
+          <view class="weui-cell weui-cell_active">
+            <view class="weui-cell__bd">
+              <input value="{{modifyDialogValue}}" maxlength="{{fresnsConfig.nickname_max}}" bindinput="handleInput" bindkeyboardheightchange="handleKeyboard" bindconfirm="handleKeyboard" bindblur="handleKeyboard" placeholder="{{modifyDialogTitle}}" class="weui-input"/>
+            </view>
+          </view>
+        </view>
+        <view class="weui-cells__tips">{{fresnsLang.settingIntervalDays}}: {{fresnsConfig.nickname_edit}} {{fresnsLang.modifierDays}}</view>
+        <view class="weui-cells__tips">{{fresnsLang.modifierLength}}: {{fresnsConfig.nickname_min + ' - ' + fresnsConfig.nickname_max}}</view>
+        <view class="weui-cells__tips">{{fresnsLang.settingLastTime}}: {{fresnsUser.lastEditNicknameDateTime}}</view>
+      </block>
+
+      <!-- 修改介绍 -->
+      <block wx:if="{{modifyDialogType === 'bio'}}">
+        <view class="weui-cells weui-cells_form" style="margin-top: 0;">
+          <view class="weui-cell weui-cell_active">
+            <view class="weui-cell__bd">
+              <textarea value="{{modifyDialogValue}}" maxlength="{{fresnsConfig.bio_length}}" bindinput="handleInput" bindkeyboardheightchange="handleKeyboard" bindconfirm="handleKeyboard" bindblur="handleKeyboard" placeholder="{{fresnsConfig.user_bio_name}}" confirm-type="done" show-confirm-bar="{{false}}" class="weui-textarea" style="height:250rpx"></textarea>
+              <view class="weui-textarea-counter">{{modifyDialogNewValue.length || 0}}/{{fresnsConfig.bio_length}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <!-- 修改性别自定义 -->
+      <block wx:if="{{modifyDialogType === 'genderCustom'}}">
+        <view class="weui-cells weui-cells_form" style="margin-top: 0;">
+          <view class="weui-cell weui-cell_active">
+            <view class="weui-cell__bd">
+              <input value="{{modifyDialogValue}}" maxlength="32" bindinput="handleInput" bindkeyboardheightchange="handleKeyboard" bindconfirm="handleKeyboard" bindblur="handleKeyboard" placeholder="{{modifyDialogTitle}}" class="weui-input"/>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="weui-half-screen-dialog__ft">
+      <view class="weui-half-screen-dialog__btn-area">
+        <button size="default" type="primary" bind:tap="submitChange">{{fresnsLang.saveChanges}}</button>
+      </view>
+    </view>
+
+    <view style="height:{{modifyDialogHeight + 'rpx'}}"></view>
+  </view>
+</view>
+
+<!-- 扩展资料编辑窗口 -->
+<view wx:if="{{archiveDialog}}" aria-role="dialog" aria-modal="true">
+  <view class="weui-mask {{archiveDialog ? 'weui-animate_fade-in' : 'weui-animate_fade-out'}}" bind:tap="archiveDialogClose" aria-role="button" aria-label="关闭"></view>
+  <view class="weui-half-screen-dialog {{archiveDialog ? 'weui-animate_slide-up' : 'weui-animate_slide-down'}}  {{archiveWrap ? 'weui-half-screen-dialog_btn-wrap' : ''}}">
+    <view class="weui-half-screen-dialog__hd">
+      <view class="weui-half-screen-dialog__hd__side" bind:tap="archiveDialogClose">
+        <view aria-role="button" class="weui-btn_icon weui-wa-hotarea">关闭<i class="weui-icon-slide-down"></i></view>
+      </view>
+      <view class="weui-half-screen-dialog__hd__main">
+        <strong class="weui-half-screen-dialog__title">{{currentArchiveConfig.name}}</strong>
+        <view class="weui-half-screen-dialog__subtitle" wx:if="{{currentArchiveConfig.description}}">{{currentArchiveConfig.description}}</view>
+      </view>
+    </view>
+    <view class="weui-half-screen-dialog__bd">
+      <!-- 表单开始 -->
+      <!-- 表单结束 -->
+    </view>
+  </view>
+</view>
