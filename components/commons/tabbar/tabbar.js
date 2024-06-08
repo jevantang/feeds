@@ -3,134 +3,53 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { globalInfo } from '../../../utils/fresnsGlobalInfo';
-import { fresnsConfig, fresnsUserPanel } from '../../../api/tool/function';
+import { fresnsConfig } from '../../../sdk/helpers/configs';
+import { fresnsAuth, fresnsOverview } from '../../../sdk/helpers/profiles';
 
 Component({
   /** 组件的属性列表 **/
   properties: {
-    activeLabel: String,
+    activeLabel: {
+      type: String,
+      value: 'portal',
+    },
   },
 
   /** 组件的初始数据 **/
   data: {
-    value: 'posts',
-    list: [
-      {
-        value: 'posts',
-        icon: 'home',
-        ariaLabel: '首页',
-        pagePath: '/pages/posts/index',
-      },
-      {
-        value: 'groups',
-        icon: 'chart-ring-1',
-        ariaLabel: '社群',
-        pagePath: '/pages/groups/index',
-      },
-      {
-        value: 'editor',
-        icon: 'add-rectangle',
-        ariaLabel: '发表',
-        pagePath: '/pages/editor/index?type=post',
-      },
-      {
-        value: 'channels',
-        icon: 'compass',
-        ariaLabel: '发现',
-        pagePath: '/pages/portal/channels',
-      },
-      {
-        value: 'account',
-        icon: 'user',
-        ariaLabel: '我的',
-        count: 0,
-        pagePath: '/pages/account/index',
-      },
-    ],
-    publishPostName: '发表',
+    messages: 0,
   },
 
   /** 组件生命周期声明对象 **/
   lifetimes: {
     attached: async function () {
-      this.setData({
-        value: this.data.activeLabel,
-        publishPostName: await fresnsConfig('publish_post_name'),
-      });
+      // 获取登录用户的未读消息数
+      if (fresnsAuth.userLogin) {
+        const unreadNotifications = await fresnsOverview('unreadNotifications.all');
+        const unreadMessages = await fresnsOverview('conversations.unreadMessages');
 
-      const list = this.data.list;
-      const idx = list.findIndex((value) => value.value == 'account');
-      let count = 0;
-
-      if (globalInfo.userLogin) {
-        const unreadNotifications = await fresnsUserPanel('unreadNotifications.all');
-        const unreadMessages = await fresnsUserPanel('conversations.unreadMessages');
-
-        count = unreadNotifications + unreadMessages;
+        this.setData({
+          messages: unreadNotifications + unreadMessages,
+        });
       }
-
-      const appInfo = wx.getStorageSync('appInfo');
-      if (appInfo.hasNewVersion) {
-        count = count + 1;
-      }
-
-      list[idx].count = count;
-
-      this.setData({
-        list: list,
-      });
     },
   },
 
   /** 组件功能 **/
   methods: {
-    onChange(e) {
-      const value = e.detail.value;
-      const item = this.data.list.find((item) => item.value === value);
+    goTabPage(e) {
+      const pagePath = e.currentTarget.dataset.pagePath;
 
-      this.setData({
-        value: value,
-      });
-
-      if (value == 'editor') {
+      if (pagePath == '/pages/editor/index') {
         wx.navigateTo({
-          url: item.pagePath,
+          url: pagePath,
         });
 
         return;
       }
 
       wx.reLaunch({
-        url: item.pagePath,
-      });
-    },
-
-    // 修改通知消息数
-    onChangeUnreadNotifications: function () {
-      console.log('onChangeUnreadNotifications tabbar');
-
-      const list = this.data.list;
-      const newCount = list[4].count - 1;
-
-      list[4].count = newCount;
-
-      this.setData({
-        list: list,
-      });
-    },
-
-    // 修改私信消息数
-    onChangeUnreadMessages: function (count = 1) {
-      console.log('onChangeUnreadMessages tabbar', count);
-
-      const list = this.data.list;
-      const newCount = list[4].count - count;
-
-      list[4].count = newCount;
-
-      this.setData({
-        list: list,
+        url: pagePath,
       });
     },
   },

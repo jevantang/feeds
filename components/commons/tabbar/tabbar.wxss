@@ -3,3 +3,90 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+.fs-tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  padding-bottom: 30rpx;
+  z-index: 999;
+}
+
+.fs-tabbar-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+  background-color: var(--weui-BG-2);
+  border-radius: 90rpx;
+  box-shadow: 0 4rpx 16rpx var(--weui-FG-3);
+  padding: 12rpx 0;
+}
+
+.fs-tabbar-item {
+  padding: 6rpx;
+  pointer-events: auto;
+}
+
+.fs-tabbar-item image {
+  width: 44rpx;
+  height: 44rpx;
+  margin: 8rpx;
+}
+
+.editor-btn {
+  background-color: var(--weui-YELLOW);
+  width: 100rpx;
+  height: 44rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10rpx;
+}
+
+.editor-icon {
+  width: 36rpx;
+  height: 36rpx;
+  background: transparent
+    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/></svg>')
+    no-repeat 50% 50%;
+  background-size: 36rpx;
+}
+
+.active {
+  background-color: var(--weui-BG-1);
+  border-radius: 50%;
+}
+
+.weui-tabbar__label {
+  color: var(--weui-FG-0);
+  font-size: 20rpx;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.weui-badge {
+  display: inline-block;
+  padding: 3rpx 6rpx;
+  min-width: 20rpx;
+  border-radius: 36rpx;
+  background-color: var(--weui-RED);
+  color: #fff;
+  line-height: 1.2;
+  text-align: center;
+  font-size: 20rpx;
+  vertical-align: middle;
+  position: absolute;
+  top: -6rpx;
+  right: -18rpx;
+}
+
+.weui-badge_dot {
+  padding: 10rpx;
+  min-width: 0;
+  top: 0;
+  right: -12rpx;
+}

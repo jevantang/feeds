@@ -1,10 +1,36 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.cn)
-    Copyright 2021-Present 唐杰
-    Licensed under the Apache-2.0 license
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
 * -->
-<t-tab-bar value="{{ value }}" bindchange="onChange" shape="round" theme="tag" split="{{false}}">
-    <t-tab-bar-item wx:for="{{ list }}" wx:key="index" value="{{ item.value }}" icon="{{ item.icon }}" ariaLabel="{{ item.ariaLabel }}" badge-props="{{ {count: item.count} }}">
-        <text wx:if="{{ item.value == 'editor'}}" style="margin-left: -12rpx;margin-right: -12rpx;">{{ publishPostName }}</text>
-    </t-tab-bar-item>
-</t-tab-bar>
+<view class="fs-tabbar">
+  <view class="fs-tabbar-box">
+    <!-- home -->
+    <view class="fs-tabbar-item {{activeLabel == 'posts' ? 'active' : ''}}" bind:tap="goTabPage" data-page-path="/pages/posts/index">
+      <image src="{{activeLabel == 'posts' ? '/assets/images/tabbar/home-active.png' : '/assets/images/tabbar/home.png'}}"></image>
+    </view>
+
+    <!-- groups -->
+    <view class="fs-tabbar-item {{activeLabel == 'groups' ? 'active' : ''}}" bind:tap="goTabPage" data-page-path="/pages/groups/index">
+      <image src="{{activeLabel == 'groups' ? '/assets/images/tabbar/groups-active.png' : '/assets/images/tabbar/groups.png'}}"></image>
+    </view>
+
+    <!-- editor -->
+    <view class="fs-tabbar-item" bind:tap="goTabPage" data-page-path="/pages/editor/index">
+      <view class="editor-btn">
+        <view class="editor-icon"></view>
+      </view>
+    </view>
+
+    <!-- discover -->
+    <view class="fs-tabbar-item {{activeLabel == 'discover' ? 'active' : ''}}" bind:tap="goTabPage" data-page-path="/pages/portal/discover">
+      <image src="{{activeLabel == 'discover' ? '/assets/images/tabbar/discover-active.png' : '/assets/images/tabbar/discover.png'}}"></image>
+    </view>
+
+    <!-- me -->
+    <view class="fs-tabbar-item {{activeLabel == 'me' ? 'active' : ''}}" bind:tap="goTabPage" data-page-path="/pages/me/index" style="display: inline-block; position: relative;">
+      <image src="{{activeLabel == 'me' ? '/assets/images/tabbar/me-active.png' : '/assets/images/tabbar/me.png'}}"></image>
+      <text class="weui-badge" wx:if="{{messages}}">{{messages}}</text>
+    </view>
+  </view>
+</view>
