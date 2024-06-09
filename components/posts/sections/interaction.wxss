@@ -1,0 +1,85 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
+ * Licensed under the Apache-2.0 license
+ */
+.list-margin {
+  margin-left: -30rpx;
+}
+
+.detail-padding {
+  padding-top: 6rpx;
+}
+
+.fs_btn {
+  padding: 15rpx 15rpx 15rpx 30rpx;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.btn-icon {
+  margin-right: 10rpx;
+}
+
+.btn-icon image {
+  width: 30rpx !important;
+  height: 30rpx !important;
+}
+
+.btn-text {
+  font-size: 24rpx;
+  white-space: nowrap;
+}
+
+.more-icon {
+  width: 30rpx !important;
+  height: 30rpx !important;
+}
+
+.weui-actionsheet__cell {
+  display: flex;
+  justify-content: center;
+}
+
+.weui-actionsheet__cell image {
+  width: 44rpx !important;
+  height: 44rpx !important;
+  margin-right: 10rpx;
+}
+
+.weui-actionsheet__cell .weui-badge {
+  margin-left: 10rpx;
+  color: var(--weui-FG-1);
+  background-color: var(--weui-TAG-BACKGROUND-BLACK);
+}
+
+.weui-half-screen-dialog__bd {
+  padding-bottom: env(safe-area-inset-bottom) !important;
+}
+
+.comment-box-btn {
+  width: 40% !important;
+  height: 56rpx;
+  margin-top: 10rpx;
+  border-radius: 72rpx;
+  background-color: var(--weui-TAG-BACKGROUND-BLACK);
+  color: var(--weui-TAG-TEXT-BLACK);
+  font-size: 28rpx;
+  padding: 8rpx 0 0 30rpx;
+}
+
+.detail-padding .weui-flex__item {
+  margin-top: 6rpx;
+}
+
+.detail-padding image {
+  width: 44rpx !important;
+  height: 44rpx !important;
+}
+
+.detail-padding .more-icon {
+  padding-top: 10rpx;
+  width: 44rpx !important;
+  height: 44rpx !important;
+}

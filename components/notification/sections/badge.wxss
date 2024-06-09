@@ -1,0 +1,18 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
+ * Licensed under the Apache-2.0 license
+ */
+.weui-badge {
+  font-size: 20rpx !important;
+  margin-top: 2rpx;
+  margin-right: 20rpx;
+}
+
+.bg-primary {
+  background-color: var(--weui-BG-4);
+}
+
+.bg-recommend {
+  background-color: var(--weui-TEXTGREEN);
+}

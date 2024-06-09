@@ -1,0 +1,116 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
+ * Licensed under the Apache-2.0 license
+ */
+.list-style {
+  padding-left: 80rpx;
+}
+
+.card {
+  width: 100%;
+  overflow: hidden;
+  margin-top: 20rpx;
+  padding-bottom: 10rpx;
+  background-color: var(--weui-BG-2);
+  position: relative;
+}
+
+.card-header {
+  margin-top: 10rpx;
+}
+
+.card-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.card-label image {
+  width: 176rpx;
+  height: 176rpx;
+  margin: 0;
+  padding: 0;
+}
+
+.card-body {
+  margin: 0 40rpx;
+  padding-bottom: 10rpx;
+  color: var(--weui-FG-0);
+}
+
+.card-footer {
+  margin: 0 40rpx;
+}
+
+.navigator-inline {
+  display: inline;
+  color: var(--weui-BLUE);
+  z-index: 99;
+}
+
+.content-title image {
+  height: 48rpx;
+  vertical-align: middle;
+}
+
+.content-text {
+  font-size: 26rpx;
+}
+
+.fresns-content image {
+  height: 44rpx;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.content-append {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content-append navigator {
+  font-size: 24rpx;
+  color: var(--weui-FG-1);
+  margin-top: 20rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 40rpx;
+  background-color: var(--weui-BG-1);
+  display: flex;
+  align-items: center;
+}
+
+.content-append navigator image {
+  margin-bottom: -14rpx;
+  margin-top: -14rpx;
+  margin-right: 8rpx;
+  width: 24rpx;
+  height: 24rpx;
+  vertical-align: middle;
+}
+
+.content-append navigator .weui-badge {
+  color: var(--weui-FG-1);
+  background-color: var(--weui-TAG-BACKGROUND-BLACK);
+  margin-left: 10rpx;
+}
+
+/* Allow */
+.content-allow {
+  margin-top: -240rpx;
+}
+
+.allow_mask_static {
+  height: 240rpx;
+  position: relative;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(#fff));
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+  pointer-events: none;
+}
+.allow-info {
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+.allow-info .allow-text {
+  margin-bottom: 20rpx;
+}

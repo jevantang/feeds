@@ -1,0 +1,63 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
+ * Licensed under the Apache-2.0 license
+ */
+.hashtag-box {
+  margin: 0 40rpx;
+  padding: 40rpx 0;
+  border-bottom: 1rpx solid var(--weui-BG-0);
+}
+
+.hashtag-header {
+  display: flex;
+  margin-bottom: 20rpx;
+}
+
+.hashtag-cover image {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 10rpx;
+}
+
+.hashtag-title {
+  margin: 0 20rpx;
+  flex: 1;
+}
+
+.hashtag-title .hashtag-name {
+  font-weight: bold;
+  font-size: 28rpx;
+  white-space: nowrap;
+}
+
+.hashtag-title .hashtag-count {
+  display: flex;
+  color: var(--weui-FG-1);
+  font-size: 24rpx;
+}
+
+.hashtag-title .hashtag-count .vr {
+  font-size: 18rpx;
+  margin: 0 15rpx;
+  padding-top: 5rpx;
+}
+
+.hashtag-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hashtag-btn button {
+  font-size: 24rpx;
+  font-weight: 400;
+}
+
+.hashtag-desc {
+  background-color: #f0f3f5;
+  color: var(--weui-FG-1);
+  border-radius: 12rpx;
+  padding: 20rpx;
+  font-size: 24rpx;
+}

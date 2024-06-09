@@ -1,0 +1,27 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="group-box" bind:tap="onClickToDetail" data-gid="{{group.gid}}">
+  <view class="group-header">
+    <view class="group-cover" wx:if="{{group.cover}}"><image src="{{group.cover}}"/></view>
+
+    <view class="group-title">
+      <view class="group-name">{{group.name}}</view>
+      <view class="group-count">
+        <text>{{group.postCount}} {{postName}}</text>
+        <text class="vr">|</text>
+        <text>{{group.postDigestCount}} {{digestName}}</text>
+      </view>
+    </view>
+
+    <view class="group-btn">
+      <button size="mini" type="{{group.interaction.followStatus ? '' : 'primary'}}" catch:tap="onClickGroupFollow">{{group.interaction.followStatus ? modifierCompleted : ''}}{{group.interaction.followName}}</button>
+    </view>
+  </view>
+
+  <view class="group-desc" wx:if="{{description}}">
+    <text>{{description}}</text>
+  </view>
+</view>

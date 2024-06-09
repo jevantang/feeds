@@ -1,0 +1,27 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="hashtag-box" bind:tap="onClickToDetail" data-htid="{{hashtag.htid}}">
+  <view class="hashtag-header">
+    <view class="hashtag-cover" wx:if="{{hashtag.cover}}"><image src="{{hashtag.cover}}"/></view>
+
+    <view class="hashtag-title">
+      <view class="hashtag-name">{{hashtag.name}}</view>
+      <view class="hashtag-count">
+        <text>{{hashtag.postCount}} {{postName}}</text>
+        <text class="vr">|</text>
+        <text>{{hashtag.postDigestCount}} {{digestName}}</text>
+      </view>
+    </view>
+
+    <view class="hashtag-btn">
+      <button size="mini" type="{{hashtag.interaction.followStatus ? '' : 'primary'}}" catch:tap="onClickHashtagFollow">{{hashtag.interaction.followStatus ? modifierCompleted : ''}}{{hashtag.interaction.followName}}</button>
+    </view>
+  </view>
+
+  <view class="hashtag-desc" wx:if="{{description}}">
+    <text>{{description}}</text>
+  </view>
+</view>

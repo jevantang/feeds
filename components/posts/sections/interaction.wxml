@@ -1,0 +1,142 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="weui-flex {{viewType == 'list' ? 'list-margin' : 'detail-padding'}}">
+  <!-- 评论按钮 -->
+  <block wx:if="{{viewType == 'detail'}}">
+    <view class="comment-box-btn" bind:tap="onClickCreateComment">{{commentBtnName}}</view>
+  </block>
+
+  <!-- 点赞 -->
+  <view class="weui-flex__item" wx:if="{{post.interaction.likeEnabled}}">
+    <view class="fs_btn" bind:tap="onClickPostLike">
+      <view class="btn-icon">
+        <image wx:if="{{!post.interaction.likeStatus}}" src="{{buttonIcons.like}}" mode="aspectFit"></image>
+        <image wx:if="{{post.interaction.likeStatus}}" src="{{buttonIcons.likeActive}}" mode="aspectFit"></image>
+      </view>
+      <text wx:if="{{post.likeCount}}" class="btn-text">{{post.likeCount}}</text>
+    </view>
+  </view>
+
+  <!-- 点踩 -->
+  <view class="weui-flex__item" wx:if="{{post.interaction.dislikeEnabled}}">
+    <view class="fs_btn" bind:tap="onClickPostDislike">
+      <view class="btn-icon">
+        <image wx:if="{{!post.interaction.dislikeStatus}}" src="{{buttonIcons.dislike}}" mode="aspectFit"></image>
+        <image wx:if="{{post.interaction.dislikeStatus}}" src="{{buttonIcons.dislikeActive}}" mode="aspectFit"></image>
+      </view>
+      <text wx:if="{{post.dislikeCount}}" class="btn-text">{{post.dislikeCount}}</text>
+    </view>
+  </view>
+
+  <!-- 评论 -->
+  <view class="weui-flex__item" wx:if="{{viewType == 'list'}}">
+    <view class="fs_btn" bind:tap="onClickCreateComment">
+      <view class="btn-icon">
+        <image src="{{buttonIcons.comment}}" mode="aspectFit"></image>
+      </view>
+      <text wx:if="{{post.commentCount}}" class="btn-text">{{post.commentCount}}</text>
+    </view>
+  </view>
+
+  <!-- 分享 -->
+  <view class="weui-flex__item">
+    <view class="fs_btn" bind:tap="onShowShareMenus">
+      <view class="btn-icon">
+        <image src="{{buttonIcons.share}}" mode="aspectFit"></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="weui-flex__item" wx:if="{{viewType == 'list'}}"></view>
+
+  <!-- 更多 -->
+  <view class="item_more" bind:tap="onShowMoreMenus">
+    <view class="fs_btn">
+      <image src="{{buttonIcons.more}}" mode="aspectFit" class="more-icon"></image>
+    </view>
+  </view>
+</view>
+
+<!-- 分享菜单 -->
+<view wx:if="{{showShareSheet}}" class="fadeIn" bind:tap="onHideMenus">
+  <view class="weui-mask"></view>
+  <view class="weui-actionsheet weui-actionsheet_toggle">
+    <view class="weui-actionsheet__title">
+      <view class="weui-actionsheet__title-text">{{title}}</view>
+    </view>
+    <view class="weui-actionsheet__menu">
+      <view class="weui-actionsheet__cell" bind:tap="onClickCopyShareLink" wx:if="{{post.url}}">{{fresnsLang.copyLink}}</view>
+      <button class="weui-actionsheet__cell" wx:if="{{appBaseInfo.isWechat}}" open-type="share" data-type="post" data-fsid="{{post.pid}}" data-title="{{title}}" style="width:100%;font-weight:400;background-color:var(--weui-BG-2);">{{fresnsLang.shareMessage}}</button>
+      <view class="weui-actionsheet__cell" bind:tap="onClickShareAppMessage" wx:if="{{appBaseInfo.isApp}}">{{fresnsLang.shareMessage}}</view>
+      <view class="weui-actionsheet__cell" bind:tap="onClickSharePoster" wx:if="{{enableSharePoster}}">{{fresnsLang.sharePoster}}</view>
+      <view class="weui-actionsheet__cell" bind:tap="onClickQuote">{{fresnsLang.quote}}</view>
+    </view>
+    <view class="weui-actionsheet__action">
+      <view class="weui-actionsheet__cell" bind:tap="onHideMenus">{{fresnsLang.cancel}}</view>
+    </view>
+  </view>
+</view>
+
+<!-- 更多菜单 -->
+<view wx:if="{{showMoreSheet}}" class="fadeIn" bind:tap="onHideMenus">
+  <view class="weui-mask"></view>
+  <view class="weui-actionsheet weui-actionsheet_toggle">
+    <view class="weui-actionsheet__title">
+      <view class="weui-actionsheet__title-text">{{title}}</view>
+    </view>
+    <view class="weui-actionsheet__menu more-menus">
+      <navigator class="weui-actionsheet__cell" url="{{'/pages/editor/index?type=post&fsid=' + post.pid}}" wx:if="{{post.controls.canEdit}}">{{fresnsLang.edit}}</navigator>
+      <view class="weui-actionsheet__cell weui-actionsheet__cell_warn" bind:tap="onClickDelete" wx:if="{{post.controls.canDelete}}">{{fresnsLang.delete}}</view>
+      <!-- 关注 -->
+      <view class="weui-actionsheet__cell" bind:tap="onClickPostFollow" wx:if="{{post.interaction.followEnabled}}">
+        <image wx:if="{{!post.interaction.followStatus}}" src="{{buttonIcons.follow}}" mode="aspectFit"></image>
+        <image wx:if="{{post.interaction.followStatus}}" src="{{buttonIcons.followActive}}" mode="aspectFit"></image>
+        <text wx:if="{{post.interaction.followStatus}}">{{fresnsLang.modifierCompleted}}</text>
+        <text>{{post.interaction.followName}}</text>
+        <text class="weui-badge" wx:if="{{post.followCount}}">{{post.followCount}}</text>
+      </view>
+      <!-- 屏蔽 -->
+      <view class="weui-actionsheet__cell" bind:tap="onClickPostBlock" wx:if="{{post.interaction.blockEnabled}}">
+        <image wx:if="{{!post.interaction.blockStatus}}" src="{{buttonIcons.block}}" mode="aspectFit"></image>
+        <image wx:if="{{post.interaction.blockStatus}}" src="{{buttonIcons.blockActive}}" mode="aspectFit"></image>
+        <text wx:if="{{post.interaction.blockStatus}}">{{fresnsLang.modifierCompleted}}</text>
+        <text>{{post.interaction.blockName}}</text>
+        <text class="weui-badge" wx:if="{{post.blockCount}}">{{post.blockCount}}</text>
+      </view>
+      <!-- 扩展功能 -->
+      <navigator class="weui-actionsheet__cell" wx:for="{{post.manages}}" url="/sdk/extensions/webview" bind:tap="handleExtensionTap"
+        data-title="{{item.name}}"
+        data-url="{{item.appUrl}}"
+        data-pid="{{post.pid}}"
+        data-view-type="{{viewType}}"
+        data-post-message-key="fresnsPostManage">
+        <image wx:if="{{item.icon}}" src="{{item.icon}}" mode="aspectFit"></image>
+        <text>{{item.name}}</text>
+      </navigator>
+    </view>
+    <view class="weui-actionsheet__action">
+      <view class="weui-actionsheet__cell" bind:tap="onHideMenus">{{fresnsLang.cancel}}</view>
+    </view>
+  </view>
+</view>
+
+<!-- 评论框 -->
+<view wx:if="{{showCommentBox}}" aria-role="dialog" aria-modal="true">
+  <view class="weui-mask {{showCommentBox ? 'weui-animate_fade-in' : 'weui-animate_fade-out'}}" bind:tap="eventCommentBoxHide"></view>
+  <view class="weui-half-screen-dialog {{showCommentBox ? 'weui-animate_slide-up' : 'weui-animate_slide-down'}}">
+    <view class="weui-half-screen-dialog__hd">
+      <view class="weui-half-screen-dialog__hd__side" bind:tap="eventCommentBoxHide">
+        <view aria-role="button" class="weui-btn_icon weui-wa-hotarea">关闭<i class="weui-icon-slide-down"></i></view>
+      </view>
+      <view class="weui-half-screen-dialog__hd__main">
+        <strong class="weui-half-screen-dialog__title">{{title}}</strong>
+      </view>
+    </view>
+    <view class="weui-half-screen-dialog__bd" style="{{commentBoxBottom ? 'padding-bottom:' + commentBoxBottom + 'px !important;' : ''}}">
+      <comment-box commentPid="{{post.pid}}" commentCid="" nickname="{{nickname}}" bind:eventCommentBoxHide="eventCommentBoxHide" bind:eventCommentBoxHeight="eventCommentBoxHeight"/>
+    </view>
+  </view>
+</view>
