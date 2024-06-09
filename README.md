@@ -29,7 +29,7 @@
 ### App 客户端
 
 - 源码: [https://marketplace.fresns.cn/open-source/detail/ZhijieApp](https://marketplace.fresns.cn/open-source/detail/ZhijieApp)
-- App 是基于 [Fresns App for WeChat Mini Program](https://github.com/fresns/wechat) 框架版微信小程序二次定制开发，使用微信原生语言，采用 Donut 跨端方案编译为 iOS 和 Android 应用。
+- App 是基于 [Fresns App for WeChat Mini Program](https://github.com/fresns/client-demo-wechat) 框架版微信小程序二次定制开发，使用微信原生语言，采用 Donut 跨端方案编译为 iOS 和 Android 应用。
 - 体验: 扫描下方二维码即可下载
     - iOS App: [https://apps.apple.com/cn/app/知结/id6462404756](https://apps.apple.com/cn/app/%E7%9F%A5%E7%BB%93/id6462404756)
     - Android App: [https://zhijieshequ.com/app/latest.apk](https://zhijieshequ.com/app/latest.apk)
@@ -45,21 +45,24 @@
 
 ## 使用说明
 
-- 1、下载[代码包](https://github.com/fresns/wechat-moments/releases)；
+- 1、下载[代码包](https://github.com/jevantang/zhijie-app/releases)；
 - 2、解压后使用[微信开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)导入项目，项目名称和 AppID 填写你的小程序信息；
-- 3、将根目录的 `fresns.example.js` 文件名修改为 `fresns.js`，然后根据里面的描述填写你的配置信息（[Fresns 官方社区 API 密钥，对外公开，所有人可以直接使用](https://discuss.fresns.cn/post/RJ35gFtb)）；
+- 3、从 `/sdk/` 文件夹复制 `env.example.js` 文件到根目录，并重命名为 `env.js`，然后根据里面的描述填写你的配置信息（[公共密钥](https://docs.fresns.com/zh-Hans/clients/sdk/#%E5%85%AC%E5%85%B1%E5%AF%86%E9%92%A5)）；
 - 4、将你的 `apiHost` 录入到微信配置：公众平台->开发->开发管理->开发设置
-    - 服务器域名 `request合法域名`, `uploadFile合法域名`, `downloadFile合法域名`
+    - 服务器域名 `request合法域名` 和 `uploadFile合法域名`
     - 业务域名
-- 5、申请位置信息接口
+- 5、配置基础库最低可用版本
+    - 公众平台->设置->基本设置->版本设置->基础库最低可用版本
+    - 最低可用版本 `3.1.0`
+- 6、申请位置信息接口
     - 如果你不需要该功能，忽略下方开通描述，并删除 `app.json` 配置文件中 `"requiredPrivateInfos": ["chooseLocation"]`
     - 公众平台->开发->开发管理->接口设置
     - 申请开通 `wx.chooseLocation` 打开地图选择位置
     - 申请时，可使用编辑器页面截图作为使用场景
-- 6、安装配套插件
+- 7、安装配套插件
     - [微信登录](https://marketplace.fresns.cn/open-source/detail/WeChatLogin) 插件，配置小程序密钥信息；
     - [生成分享海报](https://marketplace.fresns.cn/open-source/detail/SharePoster) 插件，配置分享图生成功能；
-- 7、使用[微信开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)上传代码，提交到微信公众平台。
+- 8、使用[微信开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)上传代码，提交到微信公众平台。
 
 > 编译为 App 则阅读微信 [Donut](https://dev.weixin.qq.com/docs/) 技术方案的文档。
 
@@ -108,8 +111,6 @@
     - `hashtagType3` 人物
     - `postDetailTitle` 知结动态
     - `commentDetailTitle` 知结评论
-    - `tipConnectWeChatMiniProgram` 请在微信小程序里或网站上操作绑定
-    - `tipConnectWeChatMiniApp` 请在「知结」App 里操作关联绑定
 
 > 圈子页分类切换有两个是话题分类，分别获取话题分类为 2 和 3 的话题列表。如果不创建 `hashtagType2` 和 `hashtagType3` 或者值为空时，分类切换则不显示。可以两个都配置，或者只配置其中一个。
 
