@@ -3,23 +3,20 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import './libs/Mixins';
-import { fresnsApi } from './api/api';
-import { globalInfo } from './utils/fresnsGlobalInfo';
-import { cachePut } from './utils/fresnsUtilities';
+require('./libs/Mixins.js');
 
-const themeListeners = [];
+import { fresnsInit } from './sdk/services/init';
+
+const listeners = []; // 监听事件
 
 App({
-  // 全局数据
+  /** 全局数据 **/
   globalData: {
-    // fresns extensions
-    fresnsExtensions: {},
-    extensionsUrl: '',
-    extensionsTitle: '',
+    theme: 'light', // dark
+    mode: '', // 模式(care：关怀模式)
   },
 
-  // 监听小程序初始化
+  /** 监听小程序初始化 **/
   onLaunch: async function () {
     // 版本检测
     if (wx.canIUse('getUpdateManager')) {
@@ -38,6 +35,7 @@ App({
               },
             });
           });
+
           updateManager.onUpdateFailed(function () {
             wx.showModal({
               title: '已经有新版本了哟~',
@@ -48,103 +46,41 @@ App({
           });
         }
       });
-    } else {
-      wx.showModal({
-        title: '提示',
-        content: '当前微信版本过低，无法使用本小程序，请升级到最新版微信。',
-        showCancel: false,
-        confirmText: false,
-      });
     }
   },
 
-  // 监听小程序启动
+  /** 监听小程序启动 **/
   onShow: async function () {
-    await globalInfo.init();
+    await fresnsInit();
+  },
 
-    // 站点状态
-    try {
-      const fresnsStatus = await fresnsApi.global.globalStatus();
-      const langTag = wx.getStorageSync('langTag');
-
-      if (!fresnsStatus.activate) {
-        const deactivateDescribe = fresnsStatus.deactivateDescribe[langTag] || fresnsStatus.deactivateDescribe.default;
-
-        wx.showModal({
-          content: deactivateDescribe,
-          showCancel: false,
-          confirmText: false,
-        });
-      }
-    } catch (e) {
-      console.log('fresnsStatus', e);
-    }
-
-    // 全局配置
-    try {
-      const configValue = wx.getStorageSync('fresnsConfigs');
-      if (!configValue) {
-        console.log('globalConfigs', 'fresnsConfigs');
-        const result = await fresnsApi.global.globalConfigs();
-        const cacheMinutes = result.data.cache_minutes || 30;
-
-        if (result.code === 0 && result?.data) {
-          cachePut('fresnsConfigs', result.data, cacheMinutes);
-        }
-      }
-    } catch (e) {
-      console.log('fresnsConfigs', e);
-    }
-
-    // 监听进入 App 的事件
-    const appInfo = wx.getStorageSync('appInfo');
-    if (appInfo.isApp) {
-      wx.miniapp.registOpenURL((param) => {
-        const paramData = param.data;
-
-        switch (param.action) {
-          case 'scheme':
-            // Android
-            break;
-
-          case 'webpageURL':
-            // iOS
-            break;
-
-          case 'opensdkOnRep':
-            // WeChat
-            break;
-
-          default:
-            console.log('registOpenURL', param);
-            return;
-        }
-      });
+  /** 注册监听函数 **/
+  watchGlobalDataChanged(listener) {
+    if (listeners.indexOf(listener) < 0) {
+      listeners.push(listener);
     }
   },
 
-  // 监听系统主题变化
-  onThemeChange(result) {
-    this.globalData.theme = result.theme;
+  /** 注销监听函数 **/
+  unWatchGlobalDataChanged(listener) {
+    const index = listeners.indexOf(listener);
+    if (index > -1) {
+      listeners.splice(index, 1);
+    }
+  },
 
-    themeListeners.forEach((listener) => {
-      listener(result.theme);
+  /** 监听系统主题改变事件 **/
+  onThemeChange: function (result) {
+    this.changeGlobalData({
+      theme: result.theme,
     });
   },
 
-  // 主题变更
-  themeChanged(theme) {
-    this.onThemeChange({ theme });
-  },
-  watchThemeChange(listener) {
-    if (themeListeners.indexOf(listener) < 0) {
-      themeListeners.push(listener);
-    }
-  },
-  unWatchThemeChange(listener) {
-    const index = themeListeners.indexOf(listener);
-    if (index > -1) {
-      themeListeners.splice(index, 1);
-    }
+  /** 更新全局数据 **/
+  changeGlobalData(data) {
+    this.globalData = Object.assign({}, this.globalData, data);
+    listeners.forEach((listener) => {
+      listener(this.globalData);
+    });
   },
 });

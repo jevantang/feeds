@@ -18,6 +18,10 @@ page {
   background-color: var(--weui-BG-1);
 }
 
+.weui-cell {
+  font-size: 28rpx;
+}
+
 /* 以下 CSS 为兼容 Skyline 渲染引擎提供的 WeUI 临时方案 */
 
 /* button */
@@ -34,7 +38,6 @@ page {
 
 .weui-badge {
   padding: 4.8rpx 12.8rpx !important;
-  min-width: 21.33rpx !important;
 }
 
 /* footer */

@@ -96,9 +96,9 @@ module.exports = {
 
     // 不登录账户也可访问的路由
     const whitelistRoutes = [
-      'pages/portal/index',
       'pages/portal/about',
       'pages/portal/policies',
+      'pages/portal/discover',
 
       'pages/users/index',
       'pages/users/list',

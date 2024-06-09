@@ -1,27 +1,21 @@
 {
   "pages": [
-    "pages/posts/index",
-
-    "pages/portal/index",
     "pages/portal/about",
     "pages/portal/policies",
-    "pages/portal/channels",
+    "pages/portal/discover",
 
-    "pages/users/index",
     "pages/users/list",
-    "pages/users/following",
 
     "pages/groups/index",
     "pages/groups/list",
     "pages/groups/detail",
 
-    "pages/hashtags/index",
     "pages/hashtags/list",
     "pages/hashtags/following",
     "pages/hashtags/detail",
 
+    "pages/posts/index",
     "pages/posts/list",
-    "pages/posts/location",
     "pages/posts/following",
     "pages/posts/detail",
 
@@ -29,47 +23,54 @@
     "pages/comments/following",
     "pages/comments/detail",
 
+    "pages/timelines/index",
+
     "pages/notifications/index",
 
-    "pages/editor/draft-box",
     "pages/editor/index",
 
-    "pages/account/index",
-    "pages/account/register",
-    "pages/account/login",
-    "pages/account/wechat-login/check-sign",
-    "pages/account/wechat-login/website-oauth",
-    "pages/account/reset-password",
-    "pages/account/users",
-    "pages/account/user-extcredits",
-    "pages/account/settings",
-    "pages/account/delete-account",
+    "pages/me/login/index",
+    "pages/me/login/check-sign",
+    "pages/me/login/oauth-website",
+
+    "pages/me/index",
+    "pages/me/extcredits",
+    "pages/me/drafts",
+    "pages/me/users",
+    "pages/me/settings",
 
     "pages/profile/posts",
     "pages/profile/interactions/followers-you-follow",
     "pages/profile/interactions/followers",
     "pages/profile/following/users",
 
-    "pages/webview"
-  ],
-  "requiredPrivateInfos": [ 
-    "chooseLocation"
+    "sdk/extensions/webview"
   ],
   "entryPagePath": "pages/posts/index",
   "window": {
-    "backgroundTextStyle": "@bgTxtStyle",
+    "navigationStyle": "custom",
     "navigationBarBackgroundColor": "@navBgColor",
-    "navigationBarTitleText": "知结社区",
-    "navigationBarTextStyle": "@navTxtStyle"
+    "navigationBarTextStyle": "@navTxtStyle",
+    "backgroundColor": "@bgColor",
+    "backgroundTextStyle": "@bgTxtStyle",
+    "backgroundColorTop": "@bgColorTop",
+    "backgroundColorBottom": "@bgColorBottom"
   },
-  "darkmode": false,
-  "themeLocation": "theme.json",
+  "style": "v2",
+  "renderer": "skyline",
+  "rendererOptions": {
+    "skyline": {
+      "defaultDisplayBlock": true,
+      "defaultContentBox": true,
+      "disableABTest": true
+    }
+  },
+  "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents",
-  "useExtendedLib": {
-    "weui": true
-  },
-  "miniApp": {
-    "useAuthorizePage": true
-  }
+  "darkmode": true,
+  "themeLocation": "theme.json",
+  "requiredPrivateInfos": [
+    "chooseLocation"
+  ]
 }
