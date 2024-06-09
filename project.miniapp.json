@@ -1,16 +1,19 @@
 {
   "miniVersion": "v2",
   "name": "知结",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "i18nFilePath": "",
   "mini-android": {
-    "sdkVersion": "1.2.16",
-    "toolkitVersion": "0.8.0",
+    "sdkVersion": "1.3.16",
+    "toolkitVersion": "0.10.0",
     "useExtendedSdk": {
-      "media": true,
+      "media": false,
       "bluetooth": false,
-      "network": true,
+      "network": false,
       "scanner": false,
-      "xweb": false
+      "xweb": true,
+      "skyline": true,
+      "xwebEmbed": true
     },
     "icons": {
       "hdpi": "miniapp/android/icons/zhijie-icon-72.png",
@@ -26,39 +29,45 @@
     "enableVConsole": "close",
     "privacy": {
       "enable": true,
-      "template": "miniapp/policies.json",
-      "enableViewOnly": true
+      "enableViewOnly": true,
+      "template": "miniapp/policies.json"
     },
-    "usePluginSdk": {
-      "map": "1.2.0"
+    "abi": {
+      "arm64-v8a": true,
+      "armeabi-v7a": true
     },
     "privateDescriptions": {
       "ACCESS_COARSE_LOCATION": "用于发表带有位置的帖子或评论",
+      "READ_EXTERNAL_STORAGE": "拍摄照片，发表附带图片或视频的内容",
       "ACCESS_FINE_LOCATION": "用于发表带有位置的帖子或评论",
-      "CAMERA": "拍摄照片，发表附带图片或视频的内容"
-    },
-    "map": {
-      "qmapAPIKey": "6G2BZ-AQJO4-5MBUQ-X44DS-XNDNZ-P6FA4"
+      "CAMERA": "拍摄照片，发表附带图片或视频的内容",
+      "WRITE_EXTERNAL_STORAGE": "保存图片到相册"
     },
     "schemes": {
       "scheme": "zhijie"
     },
-    "abi": {
-      "armeabi-v7a": true,
-      "arm64-v8a": true
+    "usePluginSdk": {
+      "map": "1.2.0"
+    },
+    "map": {
+      "qmapAPIKey": "6G2BZ-AQJO4-5MBUQ-X44DS-XNDNZ-P6FA4"
     }
   },
   "mini-ios": {
-    "sdkVersion": "1.2.16",
+    "sdkVersion": "1.3.22",
     "toolkitVersion": "0.0.9",
     "useExtendedSdk": {
       "WeAppOpenFuns": true,
-      "WeAppNetwork": true,
+      "WeAppNetwork": false,
       "WeAppBluetooth": false,
-      "WeAppMedia": true,
+      "WeAppMedia": false,
       "WeAppLBS": true,
       "WeAppOthers": false,
-      "WeAppIdaas": true
+      "WeAppSkyline": true,
+      "WeAppCamera": true,
+      "WeAppImage": true,
+      "WeAppAudio": true,
+      "WeAppVideo": true
     },
     "enableVConsole": "close",
     "icons": {
@@ -72,40 +81,34 @@
       "notificationIcon60": "miniapp/ios/icons/zhijie-icon-60.png",
       "appStore1024": "miniapp/ios/icons/zhijie-icon-1024.png"
     },
-    "splashScreen": {
-      "customImage": ""
-    },
-    "privacy": {
-      "enable": true,
-      "template": "miniapp/policies.json"
-    },
     "splashscreen": {
       "customImage": "miniapp/ios/splashscreen/ios-1242x2688.png"
     },
-    "infoPlist": {
-      "DisableAppUsesNonExemptEncryption": true,
-      "CFBundleURLTypes": {
-        "CFBundleURLName": "com.fresns.zhijie",
-        "CFBundleURLSchemes": "zhijie",
-        "CFBundleTypeRole": "Viewer"
-      }
+    "privacy": {
+      "enable": true,
+      "template": "miniapp/policies.json",
+      "enableNativePlugin": false
     },
+    "enableOpenUrlNavigate": true,
+    "qmapAPIKey": "6G2BZ-AQJO4-5MBUQ-X44DS-XNDNZ-P6FA4",
     "privateDescriptions": {
       "NSPhotoLibraryUsageDescription": "为了提供完整的功能，我们的应用程序需要读取相册。这将用于发表富文本内容。我们承诺保护用户隐私和数据安全。",
       "NSPhotoLibraryAddUsageDescription": "为了提供完整的功能，我们的应用程序需要使用相册写入。这将用于用户保存图片到自己相册。我们承诺保护用户隐私和数据安全。",
       "NSCameraUsageDescription": "为了提供完整的功能，我们的应用程序需要使用摄像头。这将用于拍摄照片发表富文本内容。我们承诺保护用户隐私和数据安全。",
       "NSMicrophoneUsageDescription": "为了提供完整的功能，我们的应用程序需要访问麦克风。这将用于录制音频和进行语音交互。我们承诺保护用户隐私和数据安全。",
-      "NSLocationWhenInUseUsageDescription": "为了提供完整的功能，我们的应用程序需要访问位置信息。这将用于提供定位服务和相关功能。我们承诺保护用户隐私和数据安全。",
       "NSLocationAlwaysAndWhenInUseUsageDescription": "为了提供完整的功能，我们的应用程序需要在使用时访问位置信息。这将用于提供定位服务和相关功能。我们承诺保护用户隐私和数据安全。",
+      "NSLocationWhenInUseUsageDescription": "为了提供完整的功能，我们的应用程序需要访问位置信息。这将用于提供定位服务和相关功能。我们承诺保护用户隐私和数据安全。",
       "NSCalendarsUsageDescription": "为了提供完整的功能，我们的应用程序需要访问日历。这将用于提醒和日程管理。我们承诺保护用户隐私和数据安全。",
       "NSBluetoothPeripheralUsageDescription": "为了提供完整的功能，我们的应用程序需要访问蓝牙外设。这将用手与其他设备进行通信和数据交换。我们承诺保护用户隐私和数据安全。",
-      "NSBluetoothAlwaysUsageDescription": "为了提供完整的功能，我们的应用程序需要始终访问蓝牙外设。这将用于与其他设备进行通信和数据交换。我们承诺保护用户隐私和数据安全。"
+      "NSBluetoothAlwaysUsageDescription": "为了提供完整的功能，我们的应用程序需要访问蓝牙外设。这将用手与其他设备进行通信和数据交换。我们承诺保护用户隐私和数据安全。"
     },
-    "qmapAPIKey": "6G2BZ-AQJO4-5MBUQ-X44DS-XNDNZ-P6FA4",
-    "gdt": {
-      "splashAd_defaultEnable": false
-    },
-    "enableOpenUrlNavigate": true
+    "infoPlist": {
+      "CFBundleURLTypes": {
+        "CFBundleURLName": "com.fresns.zhijie",
+        "CFBundleURLSchemes": "zhijie",
+        "CFBundleTypeRole": "Viewer"
+      }
+    }
   },
-  "versionCode": 100
+  "versionCode": 200
 }

@@ -3,6 +3,11 @@
 .idea
 .vscode
 .DS_Store
+
+package.json
 package-lock.json
 project.private.config.json
-fresns.js
+
+env.js
+env-dev.js
+env-test.js
