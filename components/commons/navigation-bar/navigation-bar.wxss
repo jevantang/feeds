@@ -117,3 +117,11 @@
       no-repeat 50% 50%;
   }
 }
+
+.site_logo {
+  margin-left: 30rpx;
+}
+
+.site_logo image {
+  height: 38rpx;
+}

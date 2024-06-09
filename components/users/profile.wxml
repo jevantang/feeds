@@ -54,7 +54,7 @@
       </view>
     </view>
 
-    <navigator url="/pages/profile/interactions/followers-you-follow?fsid={{user.fsid}}" open-type="redirect" class="profile-followersYouKnow" wx:if="{{followersYouFollowEnabled && followersYouKnow.length > 0}}">
+    <navigator url="/pages/profile/interactions/followers-you-follow?fsid={{user.fsid}}" class="profile-followersYouKnow" wx:if="{{!isMe && followersYouFollowEnabled && followersYouKnow.length > 0}}">
       <block wx:for="{{followersYouKnow}}" wx:key="*this">
         <text>{{item.nickname}}</text>
         <text wx:if="{{index < followersYouKnow.length - 1}}">,</text>

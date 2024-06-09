@@ -1,0 +1,16 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="tab-header">
+  <view class="tab-item {{activeLabel == 'followersYouFollow' ? 'active' : ''}}" wx:if="{{!isMe}}" bind:tap="onTabsClick" data-type="followersYouFollow">
+    <view>{{tabs.followersYouFollow}}</view>
+  </view>
+  <view class="tab-item {{activeLabel == 'following' ? 'active' : ''}}" bind:tap="onTabsClick" data-type="following">
+    <view>{{tabs.following}}</view>
+  </view>
+  <view class="tab-item {{activeLabel == 'followers' ? 'active' : ''}}" bind:tap="onTabsClick" data-type="followers">
+    <view>{{tabs.followers}}</view>
+  </view>
+</view>

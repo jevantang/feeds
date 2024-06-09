@@ -3,7 +3,6 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsConfig } from '../../../sdk/helpers/configs';
 import { fresnsAuth, fresnsOverview } from '../../../sdk/helpers/profiles';
 
 Component({

@@ -5,18 +5,24 @@
 * -->
 <view class="weui-navigation-bar {{customRoute ? 'weui-navigation-bar__customRoute' : 'weui-navigation-bar__page'}}">
   <view class="weui-navigation-bar__inner" style="opacity:1;transition:opacity 0.5s;color:{{color}};">
-
     <!-- 左侧 -->
     <view class="weui-navigation-bar__left">
       <view class="weui-navigation-bar__buttons">
-        <!-- 后退 -->
-        <view class="weui-navigation-bar__button" bind:tap="goBack" wx:if="{{backButton}}">
-          <view aria-role="button" aria-label="返回" class="weui-navigation-bar__btn_goback"></view>
-        </view>
-        <!-- 首页 -->
-        <view class="weui-navigation-bar__button" bind:tap="goHome" wx:if="{{homeButton}}">
-          <view aria-role="button" aria-label="首页" class="weui-navigation-bar__btn_gohome"></view>
-        </view>
+        <block wx:if="{{backButton || homeButton}}">
+          <!-- 后退 -->
+          <view class="weui-navigation-bar__button" bind:tap="goBack" wx:if="{{backButton}}">
+            <view aria-role="button" aria-label="返回" class="weui-navigation-bar__btn_goback"></view>
+          </view>
+          <!-- 首页 -->
+          <view class="weui-navigation-bar__button" bind:tap="goHome" wx:if="{{homeButton}}">
+            <view aria-role="button" aria-label="首页" class="weui-navigation-bar__btn_gohome"></view>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="site_logo">
+            <image src="{{logo}}" mode="heightFix"></image>
+          </view>
+        </block>
       </view>
     </view>
 

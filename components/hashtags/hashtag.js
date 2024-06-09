@@ -24,14 +24,22 @@ Component({
     postName: '帖子',
     digestName: '精华',
     modifierCompleted: '已',
+    name: '',
     description: '',
   },
 
   /** 组件数据字段监听器 **/
   observers: {
-    hashtag: function (hashtag) {
+    hashtag: async function (hashtag) {
       if (!hashtag) {
         return;
+      }
+
+      let name = hashtag.name;
+      if (this.data.viewType == 'detail') {
+        const hashtagFormat = await fresnsConfig('hashtag_format');
+        let newName = '#' + hashtag.name;
+        name = hashtagFormat == 1 ? newName : newName + '#';
       }
 
       let description = hashtag.description;
@@ -40,6 +48,7 @@ Component({
       }
 
       this.setData({
+        name: name,
         description: description,
       });
     },

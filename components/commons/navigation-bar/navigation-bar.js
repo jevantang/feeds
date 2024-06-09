@@ -1,3 +1,10 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
+ * Licensed under the Apache-2.0 license
+ */
+import { fresnsConfig } from '../../../sdk/helpers/configs';
+
 Component({
   /** 组件的配置选项 **/
   options: {
@@ -42,11 +49,17 @@ Component({
   },
 
   /** 组件的初始数据 **/
-  data: {},
+  data: {
+    logo: null,
+  },
 
   /** 组件生命周期声明对象 **/
   lifetimes: {
-    attached() {},
+    attached: async function () {
+      this.setData({
+        logo: await fresnsConfig('site_logo'),
+      });
+    },
   },
 
   /** 组件功能 **/

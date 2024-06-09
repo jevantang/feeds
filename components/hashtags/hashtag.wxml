@@ -8,7 +8,7 @@
     <view class="hashtag-cover" wx:if="{{hashtag.cover}}"><image src="{{hashtag.cover}}"/></view>
 
     <view class="hashtag-title">
-      <view class="hashtag-name">{{hashtag.name}}</view>
+      <view class="hashtag-name">{{name}}</view>
       <view class="hashtag-count">
         <text>{{hashtag.postCount}} {{postName}}</text>
         <text class="vr">|</text>
