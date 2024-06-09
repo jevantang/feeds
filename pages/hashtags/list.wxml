@@ -1,25 +1,18 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.cn)
-    Copyright 2021-Present 唐杰
-    Licensed under the Apache-2.0 license
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
 * -->
-<view class="page" data-weui-theme="{{ theme }}">
-    <!-- 话题列表 -->
-    <block wx:for="{{ hashtags }}" wx:for-item="hashtag" wx:key="hid">
-        <t-cell 
-            title="#{{ hashtagFormat == 1 ? hashtag.hname : hashtag.hname + '#' }}"
-            note="{{ hashtag.postCount }}"
-            description="{{ hashtag.description }}"
-            image="{{ hashtag.cover }}"
-            url="{{ '/pages/hashtags/detail?hid=' + hashtag.hid }}"
-            align="top"
-            hover arrow />
-    </block>
+<page-meta root-font-size="system"/>
 
-    <!-- 加载动效 -->
-    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+<navigation-bar title="{{title}}" backButton="{{navbarBackButton}}" homeButton="{{navbarHomeButton}}" loading="{{navbarLoading}}"></navigation-bar>
 
-    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
-        <text class="weui-loadmore__tips">Powered by Fresns</text>
-    </view>
-</view>
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
+  <!-- 话题列表 -->
+  <view class="hashtag-list" wx:for="{{hashtags}}" wx:for-item="hashtag" wx:key="htid">
+    <hashtag hashtag="{{hashtag}}"></hashtag>
+  </view>
+
+  <!-- 加载动效 -->
+  <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
+</scroll-view>

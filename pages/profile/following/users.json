@@ -1,8 +1,9 @@
 {
   "navigationBarTitleText": "用户",
   "usingComponents": {
-    "tabs-followers": "/components/user/section/tabs-followers",
-    "loading": "/components/commons/loading/loading",
-    "user": "/components/user/user"
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "profile-switch": "/components/users/sections/switch",
+    "user": "/components/users/user"
   }
 }

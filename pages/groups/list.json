@@ -1,8 +1,9 @@
 {
   "navigationBarTitleText": "小组列表",
-  "enablePullDownRefresh": true,
   "usingComponents": {
-    "t-cell": "tdesign-miniprogram/cell/cell",
-    "loading": "/components/commons/loading/loading"
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "tabbar": "/components/commons/tabbar/tabbar",
+    "group": "/components/groups/group"
   }
 }

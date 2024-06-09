@@ -3,7 +3,27 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-.tab-content {
-  padding: 30px;
-  color: var(--weui-FG-0);
+.tab-header {
+  display: flex;
+  flex-direction: row;
+  padding: 0 20rpx;
+  padding-top: 20rpx;
+  border-bottom: 1rpx solid var(--weui-BG-4);
+  background-color: var(--weui-BG-2);
+}
+
+.tab-item {
+  font-size: 30rpx;
+  margin: 0 15rpx;
+  padding: 15rpx 0;
+}
+
+.tab-item.active {
+  color: var(--weui-BRAND-100);
+  border-bottom: 4rpx solid var(--weui-BRAND-100);
+}
+
+.tab-container {
+  padding: 40rpx;
+  margin-bottom: 40rpx;
 }

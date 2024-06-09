@@ -1,15 +1,10 @@
 {
   "navigationBarTitleText": "小组主页",
-  "navigationStyle": "custom",
   "usingComponents": {
-    "t-navbar": "tdesign-miniprogram/navbar/navbar",
-    "t-image": "tdesign-miniprogram/image/image",
-    "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",
-    "t-side-bar": "tdesign-miniprogram/side-bar/side-bar",
-    "t-side-bar-item": "tdesign-miniprogram/side-bar-item/side-bar-item",
-    "group": "/components/group/group",
-    "hashtag": "/components/hashtag/hashtag",
-    "loading": "/components/commons/loading/loading",
-    "tabbar": "/components/commons/tabbar/tabbar"
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "tabbar": "/components/commons/tabbar/tabbar",
+    "group": "/components/groups/group",
+    "hashtag": "/components/hashtags/hashtag"
   }
 }

@@ -1,8 +1,9 @@
 {
-  "navigationBarTitleText": "话题",
-  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "话题列表",
   "usingComponents": {
-    "t-cell": "tdesign-miniprogram/cell/cell",
-    "loading": "/components/commons/loading/loading"
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "tabbar": "/components/commons/tabbar/tabbar",
+    "hashtag": "/components/hashtags/hashtag"
   }
 }

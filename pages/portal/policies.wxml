@@ -1,18 +1,22 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.cn)
-    Copyright 2021-Present 唐杰
-    Licensed under the Apache-2.0 license
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
 * -->
-<view class="page" data-weui-theme="{{ theme }}">
-    <t-tabs default-value="{{ activeTab }}" value="{{ activeTab }}" sticky="{{ true }}" bind:change="onTabsChange" bind:click="onClickTab" t-class="custom-tabs">
-        <t-tab-panel wx:for="{{ tabs }}" wx:for-item="tab" wx:for-index="index" label="{{ tab.title }}" value="{{ index }}"/>
-    </t-tabs>
+<page-meta root-font-size="system"/>
 
-    <view class="tab-content">
-        <mp-html content="{{ content }}" markdown="ture"/>
-    </view>
+<navigation-bar title="{{title}}" backButton="{{true}}"></navigation-bar>
 
-    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
-        <text class="weui-loadmore__tips">Powered by Fresns</text>
+<scroll-view class="scrollarea" type="custom" scroll-y="{{true}}" enable-back-to-top="{{true}}">
+  <sticky-header>
+    <view class="tab-header">
+      <view wx:for="{{tabs}}" wx:key="title" class="tab-item {{selectedTab === index ? 'active' : ''}}" data-tab="{{index}}" bind:tap="onTapTab">
+        <view>{{item.title}}</view>
+      </view>
     </view>
-</view>
+  </sticky-header>
+
+  <view class="tab-container">
+    <markdown-viewer content="{{content}}"/>
+  </view>
+</scroll-view>

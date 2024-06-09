@@ -1,8 +1,7 @@
 {
   "navigationBarTitleText": "隐私权和条款",
   "usingComponents": {
-    "mp-html": "mp-html",
-    "t-tabs": "tdesign-miniprogram/tabs/tabs",
-    "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel"
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "markdown-viewer": "/sdk/components/markdown-viewer/markdown-viewer"
   }
 }

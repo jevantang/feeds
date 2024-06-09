@@ -1,15 +1,9 @@
 {
-  "navigationBarTitleText": "首页",
-  "navigationStyle": "custom",
-  "enablePullDownRefresh": true,
-  "component": true,
+  "navigationBarTitleText": "帖子主页",
   "usingComponents": {
-    "t-navbar": "tdesign-miniprogram/navbar/navbar",
-    "t-image": "tdesign-miniprogram/image/image",
-    "t-tabs": "tdesign-miniprogram/tabs/tabs",
-    "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
     "tabbar": "/components/commons/tabbar/tabbar",
-    "loading": "/components/commons/loading/loading",
-    "post": "/components/post/post"
+    "post": "/components/posts/post"
   }
 }

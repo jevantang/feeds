@@ -1,0 +1,94 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<page-meta root-font-size="system"/>
+
+<navigation-bar title="{{title}}" backButton="{{navbarBackButton}}" homeButton="{{navbarHomeButton}}" loading="{{navbarLoading}}"></navigation-bar>
+
+<view class="weui-search-bar {{inputShowed ? 'weui-search-bar_focusing' : ''}}" id="searchBar">
+  <form class="weui-search-bar__form" aria-role="combobox" aria-haspopup="true" aria-expanded="{{inputVal.length > 0 ? 'true' : 'false'}}" aria-owns="searchResult">
+    <view aria-hidden="true" class="weui-search-bar__box">
+      <i class="weui-icon-search"></i>
+      <view class="weui-search-bar__words" bind:tap="onSearchType">{{fresnsConfig.user_name}}</view>
+      <input aria-controls="searchResult" type="text" class="weui-search-bar__input {{isFocus ? 'weui-search-bar__input_focus' : ''}}" placeholder="{{fresnsLang.search}}" confirm-type="search" value="{{inputVal}}" bindinput="inputTyping" focus="{{inputShowed}}" bindblur="blurInput" bindconfirm="confirmSearch"/>
+      <view class="weui-search-bar__mask"></view>
+      <view aria-role="button" aria-label="清除" class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bind:tap="clearInput"></view>
+    </view>
+    <label class="weui-search-bar__label" bind:tap="showInput">
+      <i class="weui-icon-search"></i>
+      <span class="weui-search-bar__label__text">{{fresnsLang.search}}</span>
+    </label>
+  </form>
+  <view aria-role="button" class="weui-search-bar__cancel-btn" bind:tap="hideInput">{{fresnsLang.cancel}}</view>
+</view>
+
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}">
+  <!-- search -->
+  <block wx:if="{{users.length > 0}}">
+    <view class="weui-cells searchbar-result">
+      <navigator class="weui-cell weui-cell_active weui-cell_access" wx:for="{{users}}" url="{{userProfilePath + item.fsid}}">
+        <view class="weui-cell__hd" wx:if="{{item.image}}">
+          <image src="{{item.image}}"/>
+        </view>
+        <view class="weui-cell__bd weui-cell_primary">
+          <text>{{item.name}}</text>
+          <text class="username">@{{item.fsid}}</text>
+        </view>
+      </navigator>
+    </view>
+  </block>
+
+  <!-- channels -->
+  <block wx:if="{{users.length == 0}}">
+    <view class="weui-cells weui-cells_after-title">
+      <!-- users -->
+      <navigator wx:if="{{fresnsConfig.channel_user_list_status}}" url="/pages/users/list" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+          <view class="icon icon-users"></view>
+        </view>
+        <view class="weui-cell__bd">{{fresnsConfig.channel_user_list_name}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+
+      <!-- groups -->
+      <navigator wx:if="{{fresnsConfig.channel_group_list_status}}" url="/pages/groups/list" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+          <view class="icon icon-groups"></view>
+        </view>
+        <view class="weui-cell__bd">{{fresnsConfig.channel_group_list_name}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+
+      <!-- hashtags -->
+      <navigator wx:if="{{fresnsConfig.channel_hashtag_list_status}}" url="/pages/hashtags/list" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+          <view class="icon icon-hashtags"></view>
+        </view>
+        <view class="weui-cell__bd">{{fresnsConfig.channel_hashtag_list_name}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+
+      <!-- posts -->
+      <navigator wx:if="{{fresnsConfig.channel_post_list_status}}" url="/pages/posts/list" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+          <view class="icon icon-posts"></view>
+        </view>
+        <view class="weui-cell__bd">{{fresnsConfig.channel_post_list_name}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+
+      <!-- comments -->
+      <navigator wx:if="{{fresnsConfig.channel_comment_list_status}}" url="/pages/comments/list" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+          <view class="icon icon-comments"></view>
+        </view>
+        <view class="weui-cell__bd">{{fresnsConfig.channel_comment_list_name}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+    </view>
+  </block>
+</scroll-view>
+
+<tabbar activeLabel="discover"></tabbar>

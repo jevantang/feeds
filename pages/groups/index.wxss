@@ -3,66 +3,36 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-page {
-  background-color: var(--weui-BG-2);
-  --td-side-bar-width: 180rpx;
-  --td-side-bar-font-size: 28rpx;
-  --td-cell-title-font-size: 28rpx;
-  --td-cell-image-height: 80rpx;
-  --td-cell-image-width: 80rpx;
-  --td-cell-description-font-size: 24rpx;
-  --td-button-extra-small-font-size: 24rpx;
-}
-
-.page {
-  background-color: var(--weui-BG-2);
-}
-
-.logo-image {
-  height: 44rpx;
-  width: 154rpx;
-  margin-top: 4rpx;
-}
-
-page .round-image {
-  border-radius: 12rpx;
-}
-
-.side-bar-wrapper {
+.tree {
   display: flex;
-  height: calc(100vh - 88px);
-  overflow: hidden;
-}
-
-.side-bar-wrapper .content {
   flex: 1;
-  transition: transform 0.3s ease;
 }
 
-.side-bar-wrapper .section {
-  padding: 32rpx 0;
-  box-sizing: border-box;
-  height: calc(100vh - 88px);
+.left-scroll {
+  width: 220rpx;
+  white-space: nowrap;
+  background-color: var(--weui-BG-1);
 }
 
-.group-list .t-cell {
-  position: initial !important;
-  margin-top: -22rpx;
+.right-scroll {
+  background-color: var(--weui-BG-2);
+  padding-top: -20rpx;
 }
 
-.group-list .t-cell__note {
-  display: block !important;
-  text-align: right !important;
+.tree-list {
+  padding: 30rpx 0;
+  font-size: 26rpx;
 }
 
-.group-list .t-cell__title-text {
-  font-weight: 500 !important;
+.tree-list text {
+  padding-left: 30rpx;
 }
 
-.hashtag-list .t-cell__description-text {
-  line-height: 1.5;
+.action {
+  background-color: var(--weui-BG-2);
 }
 
-.hashtag-list .t-cell__title-text {
-  font-weight: 500 !important;
+.action text {
+  padding-left: 24rpx;
+  border-left: 6rpx solid var(--weui-BLUE-100);
 }

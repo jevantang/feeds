@@ -1,7 +1,7 @@
 {
-  "navigationBarTitleText": "钱包",
+  "navigationBarTitleText": "门户",
   "usingComponents": {
     "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
-    "loading": "/sdk/components/loading/loading"
+    "tabbar": "/components/commons/tabbar/tabbar"
   }
 }

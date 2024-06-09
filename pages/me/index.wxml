@@ -80,37 +80,41 @@
     </block>
   </view>
 
-  <!-- 搜索 -->
-  <view class="weui-cells weui-cells_after-title">
-    <navigator url="/pages/search/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">{{fresnsConfig.channel_search_name}}</view>
+  <view class="weui-cells weui-cells_after-title" wx:if="{{userLogin}}">
+    <!-- 积分 -->
+    <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">{{fresnsConfig.channel_me_extcredits_name}}</view>
       <view class="weui-cell__ft weui-cell__ft_in-access"></view>
     </navigator>
   </view>
 
   <view class="weui-cells weui-cells_after-title" wx:if="{{userLogin}}">
-    <!-- 发表 -->
-    <navigator url="/pages/editor/index?type=post" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">{{fresnsConfig.publish_post_name}}</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    <!-- 通知 -->
+    <navigator url="/pages/notifications/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">{{fresnsConfig.channel_notifications_name}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">
+				<text class="weui-badge" wx:if="{{fresnsOverview.unreadNotifications.all}}">{{fresnsOverview.unreadNotifications.all}}</text>
+      </view>
     </navigator>
+  </view>
 
-    <!-- 积分 -->
-    <navigator url="/pages/me/extcredits" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">{{fresnsConfig.channel_me_extcredits_name}}</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-
-    <!-- 钱包 -->
-    <navigator url="/pages/me/wallet" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">{{fresnsConfig.channel_me_wallet_name}}</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsAccount.wallet.currencyCode}} {{fresnsAccount.wallet.balance}} {{fresnsAccount.wallet.currencyUnit}}</view>
-    </navigator>
-
+  <view class="weui-cells weui-cells_after-title" wx:if="{{userLogin}}">
     <!-- 草稿箱 -->
     <navigator url="/pages/me/drafts?type=post" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
       <view class="weui-cell__bd">{{fresnsConfig.channel_me_drafts_name}}</view>
       <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsOverview.draftCount.posts}}</view>
+    </navigator>
+
+    <!-- 收藏夹 -->
+    <navigator url="/pages/posts/following" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">{{fresnsConfig.channel_following_posts_name}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+
+    <!-- 订阅的话题 -->
+    <navigator url="/pages/hashtags/following" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">{{fresnsConfig.channel_following_hashtags_name}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
     </navigator>
   </view>
 

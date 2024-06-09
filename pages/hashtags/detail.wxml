@@ -1,52 +1,35 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.cn)
-    Copyright 2021-Present 唐杰
-    Licensed under the Apache-2.0 license
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
 * -->
-<view class="page" data-weui-theme="{{ theme }}">
-    <t-navbar title="{{ hashtag.hname }}">
-        <view slot="capsule" class="custom-capsule">
-            <t-icon size="20" bind:tap="onFresnsBack" aria-role="button" aria-label="返回" name="chevron-left" class="custom-capsule__icon"/>
-            <t-icon size="20" bind:tap="onFresnsGoHome" aria-role="button" aria-label="首页" name="home" class="custom-capsule__icon"/>
-        </view>
-    </t-navbar>
+<page-meta root-font-size="system"/>
 
-    <view class="weui-media-box weui-media-box_appmsg">
-        <view class="weui-media-box__hd" wx:if="{{ hashtag.cover }}">
-            <image class="weui-media-box__thumb" src="{{ hashtag.cover }}"></image>
-        </view>
-        <view class="weui-media-box__hd" wx:else>
-            <t-icon name="hashtag" size="56"/>
-        </view>
-        <view class="weui-media-box__bd">
-            <view class="weui-media-box__title">{{ hashtag.hname }}</view>
-            <view class="weui-media-box__desc">{{ hashtag.postCount }} {{ fsConfig.post_name }} <text style="margin: 0 5px;">|</text> {{ hashtag.postDigestCount }} {{ fsLang.contentDigest }}</view>
-        </view>
-        <view class="weui-media-box__ft">
-            <t-button size="small" variant="{{ hashtag.interaction.followStatus ? '' : 'outline' }}" content="{{ hashtag.interaction.followStatus ? '已' : '' }}{{ hashtag.interaction.followName }}" bind:tap="onClickGroupFollow" data-hid="{{ hashtag.hid }}"/>
-            <t-button size="small" variant="outline" content="{{ fsLang.share }}" bind:tap="onClickSharePoster" style="margin-left: 15px;"/>
-        </view>
+<navigation-bar title="{{title}}" backButton="{{true}}" homeButton="{{navbarHomeButton}}" loading="{{navbarLoading}}"></navigation-bar>
+
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
+  <!-- 话题详情 -->
+  <loading status="{{loadingDetailStatus}}" tipType="none"></loading>
+  <view class="hashtag-detail" wx:if="{{hashtag}}">
+    <hashtag hashtag="{{hashtag}}" viewType="detail"></hashtag>
+  </view>
+
+  <!-- 帖子列表 -->
+  <block wx:if="{{detailType == 'posts'}}">
+    <view class="weui-cells__title">{{postName}}: {{hashtag.postCount}}</view>
+    <view class="post-list" wx:for="{{posts}}" wx:for-item="post" wx:key="pid">
+      <post post="{{post}}" viewType="list"></post>
     </view>
+  </block>
 
-    <view class="hashtag-description" wx:if="{{ hashtag.description }}">
-        <text>{{ hashtag.description }}</text>
+  <!-- 评论列表 -->
+  <block wx:if="{{detailType == 'comments'}}">
+    <view class="weui-cells__title">{{commentName}}: {{hashtag.commentCount}}</view>
+    <view class="comment-list" wx:for="{{comments}}" wx:for-item="comment" wx:key="cid">
+      <comment comment="{{comment}}" viewType="list" showReplyToPost="{{false}}"></comment>
     </view>
+  </block>
 
-    <t-tabs default-value="{{ value }}" sticky space-evenly="{{ false }}" bind:change="onTabsChange" bind:click="onTabsClick" t-class="custom-tabs">
-        <t-tab-panel label="{{ fsLang.contentNewList }}" value="0" />
-        <t-tab-panel label="{{ fsLang.contentHotList }}" value="1" />
-        <t-tab-panel label="{{ fsLang.contentDigest }}" value="2" />
-    </t-tabs>
-
-    <!-- 帖子列表 -->
-    <view class="post-list" wx:for="{{ posts }}" wx:for-item="post" wx:key="pid">
-        <post post="{{ post }}" type="list"></post>
-    </view>
-
-    <!-- 加载动效 -->
-    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
-
-    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
-        <text class="weui-loadmore__tips">Powered by Fresns</text>
-    </view>
-</view>
+  <!-- 加载动效 -->
+  <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
+</scroll-view>

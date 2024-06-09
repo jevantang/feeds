@@ -1,8 +1,9 @@
 {
   "navigationBarTitleText": "帖子列表",
-  "enablePullDownRefresh": true,
   "usingComponents": {
-    "loading": "/components/commons/loading/loading",
-    "post": "/components/post/post"
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "tabbar": "/components/commons/tabbar/tabbar",
+    "post": "/components/posts/post"
   }
 }

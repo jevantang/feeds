@@ -3,68 +3,44 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-.weui-media-box {
+.group-detail {
   background-color: var(--weui-BG-2);
-}
-
-.weui-media-box__thumb {
-  border-radius: 12rpx;
-}
-
-.group-description {
-  background-color: var(--weui-BG-2);
-  padding: 0 20px;
-  font-size: 14px;
-  color: var(--weui-FG-1);
 }
 
 .group-extensions {
-  overflow: hidden;
   background-color: var(--weui-BG-2);
-  padding-bottom: 20px;
-  margin-top: 15px;
+  padding-bottom: 40rpx;
+  margin: 14rpx 0;
+  border-top: 1rpx solid var(--weui-BG-0);
+  border-bottom: 1rpx solid var(--weui-BG-0);
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .extension-box {
-  float: left;
   width: 25%;
-  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 40rpx;
 }
 
 .extension-box navigator {
   text-align: center;
-  font-size: 14px;
+  font-size: 28rpx;
+}
+
+.extension-box .extension-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .extension-box .extension-icon image {
-  width: 30px;
-  height: 30px;
+  width: 60rpx;
+  height: 60rpx;
 }
 
 .extension-box .extension-label {
   color: var(--weui-FG-0);
-}
-
-.custom-capsule {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.custom-capsule__icon {
-  flex: 1;
-  position: relative;
-}
-
-.custom-capsule__icon + .custom-capsule__icon:before {
-  content: '';
-  display: block;
-  position: absolute;
-  left: -1px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 36rpx;
-  background: #e7e7e7;
 }

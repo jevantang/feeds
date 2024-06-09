@@ -1,11 +1,9 @@
 {
-  "navigationBarTitleText": "用户",
-  "navigationStyle": "custom",
+  "navigationBarTitleText": "帖子",
   "usingComponents": {
-    "t-navbar": "tdesign-miniprogram/navbar/navbar",
-    "t-icon": "tdesign-miniprogram/icon/icon",
-    "profile-user": "/components/user/profile",
-    "loading": "/components/commons/loading/loading",
-    "post": "/components/post/post"
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "profile-user": "/components/users/profile",
+    "post": "/components/posts/post"
   }
 }

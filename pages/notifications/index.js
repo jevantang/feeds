@@ -3,49 +3,44 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsApi } from '../../api/api';
-import { fresnsConfig } from '../../api/tool/function';
-import { callPrevPageFunction, callPrevPageComponentFunction } from '../../utils/fresnsUtilities';
+import { fresnsApi } from '../../sdk/services/api';
+import { fresnsConfig } from '../../sdk/helpers/configs';
 
 let isRefreshing = false;
 
 Page({
   /** 外部 mixin 引入 **/
   mixins: [
-    require('../../mixins/globalConfig'),
-    require('../../mixins/checkSiteMode'),
-    require('../../mixins/loginInterceptor'),
-    require('../../mixins/fresnsExtensions'),
+    require('../../mixins/common'),
+    require('../../mixins/fresnsCallback'),
+    require('../../mixins/fresnsInteraction'),
+    require('../../sdk/extensions/functions'),
   ],
 
   /** 页面的初始数据 **/
   data: {
-    type: null,
-    navName: {},
+    title: null,
+
+    types: null,
+
+    // 当前分页数据
     notifications: [],
-    page: 1,
-    loadingStatus: false,
-    loadingTipType: 'none',
-    isReachBottom: false,
+
+    // 分页配置
+    page: 1, // 下次请求时候的页码，初始值为 1
+    isReachBottom: false, // 是否已经无内容（已经最后一次，无内容再加载）
+    refresherStatus: false, // scroll-view 视图容器下拉刷新状态
+    loadingStatus: false, // loading 组件状态
+    loadingTipType: 'none', // loading 组件提示文案
   },
 
   /** 监听页面加载 **/
   onLoad: async function (options) {
-    const { type } = options;
+    const types = options.types || '';
+
     this.setData({
-      type: type,
-      navName: {
-        all: await fresnsConfig('menu_notifications_all'),
-        systems: await fresnsConfig('menu_notifications_systems'),
-        recommends: await fresnsConfig('menu_notifications_recommends'),
-        likes: await fresnsConfig('menu_notifications_likes'),
-        dislikes: await fresnsConfig('menu_notifications_dislikes'),
-        follows: await fresnsConfig('menu_notifications_follows'),
-        blocks: await fresnsConfig('menu_notifications_blocks'),
-        mentions: await fresnsConfig('menu_notifications_mentions'),
-        comments: await fresnsConfig('menu_notifications_comments'),
-        quotes: await fresnsConfig('menu_notifications_quotes'),
-      },
+      types: types,
+      title: await fresnsConfig('channel_notifications_name'),
     });
 
     await this.loadFresnsPageData();
@@ -57,11 +52,12 @@ Page({
       return;
     }
 
-    wx.showNavigationBarLoading();
+    this.setData({
+      loadingStatus: true,
+    });
 
-    const resultRes = await fresnsApi.message.notificationList({
-      types: this.data.type,
-      userWhitelistKeys: 'uid,fsid,avatar,nickname,username,status',
+    const resultRes = await fresnsApi.notification.list({
+      types: this.data.types,
       page: this.data.page,
     });
 
@@ -85,17 +81,20 @@ Page({
     }
 
     this.setData({
+      refresherStatus: false,
       loadingStatus: false,
     });
-
-    wx.hideNavigationBarLoading();
   },
 
   /** 监听用户下拉动作 **/
-  onPullDownRefresh: async function () {
-    // 防抖判断
+  onRefresherRefresh: async function () {
     if (isRefreshing) {
-      wx.stopPullDownRefresh();
+      console.log('下拉', '防抖');
+
+      this.setData({
+        refresherStatus: false,
+      });
+
       return;
     }
 
@@ -104,61 +103,32 @@ Page({
     this.setData({
       notifications: [],
       page: 1,
-      loadingTipType: 'none',
       isReachBottom: false,
+      refresherStatus: true,
+      loadingTipType: 'none',
     });
 
     await this.loadFresnsPageData();
 
-    wx.stopPullDownRefresh();
     setTimeout(() => {
       isRefreshing = false;
     }, 5000); // 防抖时间 5 秒
   },
 
   /** 监听用户上拉触底 **/
-  onReachBottom: async function () {
-    await this.loadFresnsPageData();
-  },
+  onScrollToLower: async function () {
+    if (isRefreshing) {
+      console.log('上拉', '防抖');
 
-  // 标记已读
-  onMarkRead(id) {
-    const notifications = this.data.notifications;
-    if (!notifications) {
       return;
     }
 
-    const idx = notifications.findIndex((value) => value.id == id);
-
-    if (idx == -1) {
-      // 未找到记录
-      return;
-    }
-
-    notifications[idx].readStatus = true;
-
-    this.setData({
-      notifications: notifications,
-    });
-
-    wx.removeStorageSync('fresnsUserPanels');
-    callPrevPageFunction('onChangeUnreadNotifications');
-    callPrevPageComponentFunction('#fresnsTabbar', 'onChangeUnreadNotifications');
-  },
-
-  // 切换类型
-  onTabsClick: async function (e) {
-    const value = e.detail.value;
-
-    this.setData({
-      type: value,
-      notifications: [],
-      page: 1,
-      loadingStatus: false,
-      loadingTipType: 'none',
-      isReachBottom: false,
-    });
+    isRefreshing = true;
 
     await this.loadFresnsPageData();
+
+    setTimeout(() => {
+      isRefreshing = false;
+    }, 5000); // 防抖时间 5 秒
   },
 });

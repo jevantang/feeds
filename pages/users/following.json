@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "我关注的用户",
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "tabbar": "/components/commons/tabbar/tabbar",
-    "loading": "/components/commons/loading/loading",
-    "user": "/components/user/user"
-  }
-}

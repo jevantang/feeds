@@ -9,22 +9,31 @@
   <view slot="center" class="nav-tabs">
     <view class="nav-tab_item" bind:tap="onClickToPosts">
       {{tabs.posts}}
-      <text class="active"></text>
     </view>
     <view class="nav-tab_item" bind:tap="onClickToTimelines">
       {{tabs.timelines}}
+      <text class="active"></text>
     </view>
   </view>
 </navigation-bar>
 
 <scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
   <!-- 帖子列表 -->
-  <view class="post-list" wx:for="{{posts}}" wx:for-item="post" wx:key="pid">
-    <post post="{{post}}" viewType="list"></post>
-  </view>
+  <block wx:if="{{detailType == 'posts'}}">
+    <view class="post-list" wx:for="{{posts}}" wx:for-item="post" wx:key="pid">
+      <post post="{{post}}" viewType="list"></post>
+    </view>
+  </block>
+
+  <!-- 评论列表 -->
+  <block wx:if="{{detailType == 'comments'}}">
+    <view class="comment-list" wx:for="{{comments}}" wx:for-item="comment" wx:key="cid">
+      <comment comment="{{comment}}" viewType="list" showReplyToPost="{{false}}"></comment>
+    </view>
+  </block>
 
   <!-- 加载动效 -->
   <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
 </scroll-view>
 
-<tabbar activeLabel="posts"></tabbar>
+<tabbar activeLabel="timelines"></tabbar>

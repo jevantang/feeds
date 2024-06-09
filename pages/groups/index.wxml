@@ -1,40 +1,44 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.cn)
-    Copyright 2021-Present 唐杰
-    Licensed under the Apache-2.0 license
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
 * -->
-<view class="page" data-weui-theme="{{ theme }}">
-    <t-navbar title="{{ title }}">
-        <view slot="left">
-            <t-image t-class="logo-image" src="{{ logo }}" aria-label="Fresns" />
-        </view>
-    </t-navbar>
+<page-meta root-font-size="system"/>
 
-    <view class="side-bar-wrapper">
-        <t-side-bar value="{{ sideBarIndex }}" bind:change="onSideBarChange">
-            <t-side-bar-item wx:for="{{ categories }}" wx:key="index" value="{{ index }}" label="{{ item.gname }}"/>
-        </t-side-bar>
-        <view class="content">
-            <scroll-view class="section" scroll-y scroll-with-animation show-scrollbar="{{ false }}">
-                <t-cell-group>
-                    <block wx:if="{{ currentCategoryIsGroup }}">
-                        <group class="group-list" wx:for="{{ groups }}" wx:for-item="group" wx:key="gid" group="{{ group }}" currentCategoryGid="{{ currentCategoryGid }}"/>
-                    </block>
-                    <block wx:else>
-                        <hashtag class="hashtag-list" wx:for="{{ hashtags }}" wx:for-item="hashtag" wx:key="hid" hashtag="{{ hashtag }}"/>
-                    </block>
-                </t-cell-group>
+<navigation-bar title="{{title}}" backButton="{{navbarBackButton}}" homeButton="{{navbarHomeButton}}" loading="{{navbarLoading}}"></navigation-bar>
 
-                <!-- 加载动效 -->
-                <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+<!-- 小组树结构 -->
+<block wx:if="{{viewType == 'tree'}}">
+  <view class="tree">
+    <scroll-view class="left-scroll" type="list" scroll-y="{{true}}">
+      <view class="tree-list {{item.gid == currentTreeGid ? 'action' : ''}}" wx:for="{{tree}}" wx:for-index="index" wx:key="gid" bind:tap="onSwitchGroups" data-index="{{index}}">
+        <text>{{item.name}}</text>
+      </view>
+    </scroll-view>
 
-                <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
-                    <text class="weui-loadmore__tips">Powered by Fresns</text>
-                </view>
-            </scroll-view>
-        </view>
+    <scroll-view class="right-scroll" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}">
+      <view class="group-list" wx:for="{{treeGroups}}" wx:for-item="group" wx:key="gid">
+        <block wx:if="{{currentTreeGid == 'fresns-hashtag-company' || currentTreeGid == 'fresns-hashtag-star'}}">
+          <hashtag hashtag="{{group}}" viewType="list"></hashtag>
+        </block>
+        <block wx:else>
+          <group group="{{group}}" viewType="list"></group>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+</block>
+
+<block wx:if="{{viewType == 'list'}}">
+  <scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
+    <!-- 小组列表 -->
+    <view class="group-list" wx:for="{{groups}}" wx:for-item="group" wx:key="gid">
+      <group group="{{group}}"></group>
     </view>
 
-    <!-- Tabbar -->
-    <tabbar id="fresnsTabbar" activeLabel="groups"></tabbar>
-</view>
+    <!-- 加载动效 -->
+    <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
+  </scroll-view>
+</block>
+
+<tabbar activeLabel="groups"></tabbar>

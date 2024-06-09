@@ -4,8 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../sdk/services/api';
-import { fresnsConfig, fresnsLang } from '../../sdk/helpers/configs';
-import { callPrevPageFunction } from '../../sdk/utilities/toolkit';
+import { fresnsConfig } from '../../sdk/helpers/configs';
 
 let isRefreshing = false;
 
@@ -22,16 +21,7 @@ Page({
   data: {
     title: null,
     detailType: 'posts',
-    postName: null,
-    commentName: null,
-
-    // 详情
-    loadingDetailStatus: true,
-    group: null,
-    extensions: [],
-
-    // 默认查询条件
-    requestQuery: null,
+    tabs: {},
 
     // 当前分页数据
     posts: [],
@@ -46,35 +36,15 @@ Page({
   },
 
   /** 监听页面加载 **/
-  onLoad: async function (options) {
-    options.groups = options.gid;
-
+  onLoad: async function () {
     this.setData({
-      title: await fresnsConfig('group_name'),
-      detailType: await fresnsConfig('channel_group_detail_type'),
-      postName: await fresnsConfig('post_name'),
-      commentName: await fresnsConfig('comment_name'),
-      contentDigest: await fresnsLang('contentDigest'),
-      errorUnavailable: await fresnsLang('errorUnavailable'),
-      contentGroupTip: await fresnsLang('contentGroupTip'),
-      requestQuery: options,
+      title: await fresnsConfig('channel_timeline_name'),
+      detailType: await fresnsConfig('channel_timeline_type'),
+      tabs: {
+        posts: await fresnsConfig('channel_post_name'),
+        timelines: await fresnsConfig('channel_timeline_name'),
+      },
     });
-
-    const detailRes = await fresnsApi.group.detail(options.gid);
-
-    if (detailRes.code === 0) {
-      const group = detailRes.data.detail;
-
-      this.setData({
-        loadingDetailStatus: false,
-        group: group,
-        extensions: detailRes.data.items.extensions,
-      });
-
-      // 替换上一页数据
-      // mixins/fresnsInteraction.js
-      callPrevPageFunction('onChangeGroup', group);
-    }
 
     await this.loadFresnsPageData();
   },
@@ -91,26 +61,22 @@ Page({
 
     switch (this.data.detailType) {
       case 'posts':
-        const postRes = await fresnsApi.post.list(
-          Object.assign(this.data.requestQuery, {
-            filterType: 'blacklist',
-            filterKeys: 'hashtags,previewLikeUsers',
-            filterGeotagType: 'whitelist',
-            filterGeotagKeys: 'gtid,name,distance,unit',
-            filterAuthorType: 'whitelist',
-            filterAuthorKeys:
-              'fsid,uid,nickname,nicknameColor,avatar,decorate,verified,verifiedIcon,status,roleName,roleNameDisplay,roleIcon,roleIconDisplay,operations',
-            filterPreviewCommentType: 'whitelist',
-            filterPreviewCommentKeys: 'cid,content,contentLength,author.nickname,author.avatar,author.status',
-            filterReplyToPostType: 'whitelist',
-            filterReplyToPostKeys:
-              'pid,title,content,contentLength,author.nickname,author.avatar,author.status,group.name',
-            filterReplyToCommentType: 'whitelist',
-            filterReplyToCommentKeys:
-              'cid,content,contentLength,createdDatetime,author.nickname,author.avatar,author.status',
-            page: this.data.page,
-          })
-        );
+        const postRes = await fresnsApi.post.timelines({
+          filterType: 'blacklist',
+          filterKeys: 'hashtags,previewLikeUsers',
+          filterGroupType: 'whitelist',
+          filterGroupKeys: 'gid,name,cover',
+          filterGeotagType: 'whitelist',
+          filterGeotagKeys: 'gtid,name,distance,unit',
+          filterAuthorType: 'whitelist',
+          filterAuthorKeys:
+            'fsid,uid,nickname,nicknameColor,avatar,decorate,verified,verifiedIcon,status,roleName,roleNameDisplay,roleIcon,roleIconDisplay,operations',
+          filterQuotedPostType: 'whitelist',
+          filterQuotedPostKeys: 'pid,title,content,contentLength,author.nickname,author.avatar,author.status',
+          filterPreviewCommentType: 'whitelist',
+          filterPreviewCommentKeys: 'cid,content,contentLength,author.nickname,author.avatar,author.status',
+          page: this.data.page,
+        });
 
         if (postRes.code === 0) {
           const { pagination, list } = postRes.data;
@@ -133,26 +99,24 @@ Page({
         break;
 
       case 'comments':
-        const commentRes = await fresnsApi.comment.list(
-          Object.assign(this.data.requestQuery, {
-            filterType: 'blacklist',
-            filterKeys: 'hashtags,previewLikeUsers',
-            filterGeotagType: 'whitelist',
-            filterGeotagKeys: 'gtid,name,distance,unit',
-            filterAuthorType: 'whitelist',
-            filterAuthorKeys:
-              'fsid,uid,nickname,nicknameColor,avatar,decorate,verified,verifiedIcon,status,roleName,roleNameDisplay,roleIcon,roleIconDisplay,operations',
-            filterPreviewCommentType: 'whitelist',
-            filterPreviewCommentKeys: 'cid,content,contentLength,author.nickname,author.avatar,author.status',
-            filterReplyToPostType: 'whitelist',
-            filterReplyToPostKeys:
-              'pid,title,content,contentLength,author.nickname,author.avatar,author.status,group.name',
-            filterReplyToCommentType: 'whitelist',
-            filterReplyToCommentKeys:
-              'cid,content,contentLength,createdDatetime,author.nickname,author.avatar,author.status',
-            page: this.data.page,
-          })
-        );
+        const commentRes = await fresnsApi.comment.timelines({
+          filterType: 'blacklist',
+          filterKeys: 'hashtags,previewLikeUsers',
+          filterGeotagType: 'whitelist',
+          filterGeotagKeys: 'gtid,name,distance,unit',
+          filterAuthorType: 'whitelist',
+          filterAuthorKeys:
+            'fsid,uid,nickname,nicknameColor,avatar,decorate,verified,verifiedIcon,status,roleName,roleNameDisplay,roleIcon,roleIconDisplay,operations',
+          filterPreviewCommentType: 'whitelist',
+          filterPreviewCommentKeys: 'cid,content,contentLength,author.nickname,author.avatar,author.status',
+          filterReplyToPostType: 'whitelist',
+          filterReplyToPostKeys:
+            'pid,title,content,contentLength,author.nickname,author.avatar,author.status,group.name',
+          filterReplyToCommentType: 'whitelist',
+          filterReplyToCommentKeys:
+            'cid,content,contentLength,createdDatetime,author.nickname,author.avatar,author.status',
+          page: this.data.page,
+        });
 
         if (commentRes.code === 0) {
           const { pagination, list } = commentRes.data;
@@ -230,4 +194,11 @@ Page({
       isRefreshing = false;
     }, 5000); // 防抖时间 5 秒
   },
+
+  /** 跳转页面 **/
+  onClickToPosts() {
+    wx.redirectTo({
+      url: '/pages/posts/index',
+    });
+  }
 });

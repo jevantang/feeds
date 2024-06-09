@@ -1,29 +1,20 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.cn)
-    Copyright 2021-Present 唐杰
-    Licensed under the Apache-2.0 license
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
 * -->
-<view class="page" data-weui-theme="{{ theme }}">
-    <t-navbar title="{{ profile.detail.nickname }}">
-        <view slot="capsule" class="custom-capsule">
-            <t-icon size="20" bind:tap="onFresnsBack" aria-role="button" aria-label="返回" name="chevron-left" class="custom-capsule__icon"/>
-            <t-icon size="20" bind:tap="onFresnsGoHome" aria-role="button" aria-label="首页" name="home" class="custom-capsule__icon"/>
-        </view>
-    </t-navbar>
+<page-meta root-font-size="system"/>
 
-    <profile-user user="{{ profile.detail }}" items="{{ profile.items }}" followersYouKnow="{{ profile.followersYouKnow }}"/>
+<navigation-bar title="{{title}}" backButton="{{true}}" homeButton="{{navbarHomeButton}}" loading="{{navbarLoading}}"></navigation-bar>
 
-    <!-- 列表 -->
-    <view class="profile-list">
-        <view class="post-list" wx:for="{{ posts }}" wx:for-item="post" wx:key="pid">
-            <post post="{{ post }}" type="userList"></post>
-        </view>
-    </view>
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
+  <profile-user user="{{profile}}" followersYouKnow="{{followersYouKnow}}" items="{{items}}"/>
 
-    <!-- 加载动效 -->
-    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+  <!-- 帖子列表 -->
+  <view class="post-list" wx:for="{{posts}}" wx:for-item="post" wx:key="pid">
+    <post post="{{post}}" viewType="list"></post>
+  </view>
 
-    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
-        <text class="weui-loadmore__tips">Powered by Fresns</text>
-    </view>
-</view>
+  <!-- 加载动效 -->
+  <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
+</scroll-view>

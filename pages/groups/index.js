@@ -3,221 +3,266 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsApi } from '../../api/api';
-import { fresnsConfig, fresnsLang } from '../../api/tool/function';
-import { globalInfo } from '../../utils/fresnsGlobalInfo';
+import { fresnsApi } from '../../sdk/services/api';
+import { fresnsConfig, fresnsLang } from '../../sdk/helpers/configs';
+import { parseUrlParams } from '../../sdk/utilities/toolkit';
+
+let isRefreshing = false;
 
 Page({
   /** 外部 mixin 引入 **/
   mixins: [
-    require('../../mixins/globalConfig'),
-    require('../../mixins/checkSiteMode'),
+    require('../../mixins/common'),
+    require('../../mixins/fresnsCallback'),
     require('../../mixins/fresnsInteraction'),
-    require('../../mixins/fresnsExtensions'),
+    require('../../sdk/extensions/functions'),
   ],
 
   /** 页面的初始数据 **/
   data: {
     title: null,
-    logo: null,
-    // 当前页面数据
-    sideBarIndex: 0,
-    currentCategoryGid: null,
-    currentCategoryIsGroup: true,
-    categories: [],
+    viewType: 'tree',
+
+    // 默认查询条件
+    requestState: null,
+    requestQuery: null,
+
+    // 当前树数据
+    tree: [],
+    treeGroups: [],
+    currentTreeGid: null,
+
+    // 当前分页数据
     groups: [],
-    hashtags: [],
-    // 下次请求时候的页码，初始值为 1
-    page: 1,
-    // 加载状态
-    loadingStatus: false,
-    loadingTipType: 'none',
-    isReachBottom: false,
+
+    // 分页配置
+    page: 1, // 下次请求时候的页码，初始值为 1
+    isReachBottom: false, // 是否已经无内容（已经最后一次，无内容再加载）
+    refresherStatus: false, // scroll-view 视图容器下拉刷新状态
+    loadingStatus: false, // loading 组件状态
+    loadingTipType: 'none', // loading 组件提示文案
   },
 
   /** 监听页面加载 **/
-  onLoad: async function () {
-    const resultRes = await fresnsApi.group.groupCategories();
+  onLoad: async function (options) {
+    let requestState = await fresnsConfig('channel_group_query_state');
+    let requestQuery = parseUrlParams(await fresnsConfig('channel_group_query_config'));
 
-    let categories = [];
-    let initialGid = '';
-    if (resultRes.code === 0) {
-      const list = resultRes.data.list;
-      categories = list;
-      initialGid = list && list.length ? list[0].gid : '';
-
-      const hashtagType2Lang = await fresnsLang('hashtagType2');
-      const hashtagType3Lang = await fresnsLang('hashtagType3');
-
-      const toInsert = [];
-
-      if (hashtagType2Lang) {
-        const hashtagCompany = {
-          gid: 'fresns-hashtag-company',
-          gname: hashtagType2Lang,
-          description: '',
-          cover: '',
-          banner: '',
-        };
-        toInsert.push(hashtagCompany);
-      }
-
-      if (hashtagType3Lang) {
-        const hashtagStar = {
-          gid: 'fresns-hashtag-star',
-          gname: hashtagType3Lang,
-          description: '',
-          cover: '',
-          banner: '',
-        };
-        toInsert.push(hashtagStar);
-      }
-
-      if (toInsert.length) {
-        categories.splice(2, 0, ...toInsert);
-      }
-    }
-
-    if (globalInfo.userLogin) {
-      const myGroups = {
-        gid: 'fresns-my-groups',
-        gname: await fresnsConfig('menu_follow_groups'),
-        description: '',
-        cover: '',
-        banner: '',
-      };
-
-      categories.unshift(myGroups);
-      initialGid = 'fresns-my-groups';
+    if (requestState === 3) {
+      requestQuery = Object.assign(requestQuery, options);
     }
 
     this.setData({
-      title: await fresnsConfig('menu_group_title'),
-      logo: await fresnsConfig('site_logo'),
-      currentCategoryGid: initialGid,
-      categories: categories,
+      title: await fresnsConfig('channel_group_name'),
+      viewType: await fresnsConfig('channel_group_type'),
+      requestState: requestState,
+      requestQuery: requestQuery,
     });
 
-    wx.setNavigationBarTitle({
-      title: await fresnsConfig('menu_group_title'),
-    });
-
-    await this.loadFresnsPageData(initialGid);
+    await this.loadFresnsPageData();
   },
 
   /** 加载列表数据 **/
-  loadFresnsPageData: async function (gid = '') {
-    if (!gid) {
+  loadFresnsPageData: async function () {
+    if (this.data.isReachBottom) {
       return;
     }
-
-    wx.showNavigationBarLoading();
 
     this.setData({
       loadingStatus: true,
-      currentCategoryGid: gid,
     });
 
-    if (this.data.isReachBottom) {
+    switch (this.data.viewType) {
+      case 'tree':
+        const treeRes = await fresnsApi.group.tree();
+
+        const tree = treeRes.data;
+
+        if (treeRes.code === 0) {
+          const hashtagType2Lang = await fresnsLang('hashtagType2');
+          const hashtagType3Lang = await fresnsLang('hashtagType3');
+
+          const toInsert = [];
+
+          if (hashtagType2Lang) {
+            const hashtagCompany = {
+              gid: 'fresns-hashtag-company',
+              name: hashtagType2Lang,
+              groups: [],
+            };
+            toInsert.push(hashtagCompany);
+          }
+
+          if (hashtagType3Lang) {
+            const hashtagStar = {
+              gid: 'fresns-hashtag-star',
+              name: hashtagType3Lang,
+              groups: [],
+            };
+            toInsert.push(hashtagStar);
+          }
+
+          if (toInsert.length) {
+            tree.splice(2, 0, ...toInsert);
+
+            this.setData({
+              tree: tree,
+            });
+          }
+
+          this.setData({
+            tree: tree,
+            treeGroups: tree[0].groups,
+            currentTreeGid: tree[0].gid,
+          });
+
+          await this.loadHashtagData();
+        }
+        break;
+
+      case 'list':
+        const resultRes = await fresnsApi.group.list(
+          Object.assign(this.data.requestQuery, {
+            filterType: 'blacklist',
+            filterKeys: 'archives,operations',
+            page: this.data.page,
+          })
+        );
+
+        if (resultRes.code === 0) {
+          const { pagination, list } = resultRes.data;
+          const isReachBottom = pagination.currentPage === pagination.lastPage;
+
+          const listCount = list.length + this.data.groups.length;
+
+          let tipType = 'none';
+          if (isReachBottom) {
+            tipType = listCount > 0 ? 'page' : 'empty';
+          }
+
+          this.setData({
+            groups: this.data.groups.concat(list),
+            page: this.data.page + 1,
+            loadingTipType: tipType,
+            isReachBottom: isReachBottom,
+          });
+        }
+        break;
+
+      default:
+        return;
+    }
+
+    this.setData({
+      refresherStatus: false,
+      loadingStatus: false,
+    });
+  },
+
+  /** 加载话题数据 **/
+  loadHashtagData: async function () {
+    const tree = this.data.tree;
+
+    const hashtagType2Lang = await fresnsLang('hashtagType2');
+    const hashtagType3Lang = await fresnsLang('hashtagType3');
+
+    if (hashtagType2Lang) {
+      const resultType2Res = await fresnsApi.hashtag.list({
+        type: 2,
+        filterType: 'whitelist',
+        filterKeys: 'htid,url,name,cover,description,postCount,postDigestCount,interaction',
+      });
+
+      const hashtagCompany = {
+        gid: 'fresns-hashtag-company',
+        name: hashtagType2Lang,
+        groups: resultType2Res.data.list,
+      };
+      tree[2] = hashtagCompany;
+    }
+
+    if (hashtagType3Lang) {
+      const resultType3Res = await fresnsApi.hashtag.list({
+        type: 3,
+        filterType: 'whitelist',
+        filterKeys: 'htid,url,name,cover,description,postCount,postDigestCount,interaction',
+      });
+
+      const hashtagStar = {
+        gid: 'fresns-hashtag-star',
+        name: hashtagType3Lang,
+        groups: resultType3Res.data.list,
+      };
+      tree[3] = hashtagStar;
+    }
+
+    this.setData({
+      tree: tree,
+    });
+  },
+
+  /** 监听用户下拉动作 **/
+  onRefresherRefresh: async function () {
+    if (isRefreshing) {
+      console.log('下拉', '防抖');
+
       this.setData({
-        loadingStatus: false,
+        refresherStatus: false,
       });
 
       return;
     }
 
-    const whitelistKeys = 'gid,type,gname,description,cover,postCount,postDigestCount,followCount,interaction';
-
-    let currentCategoryIsGroup = true;
-    let resultRes = {};
-
-    switch (gid) {
-      case 'fresns-my-groups':
-        resultRes = await fresnsApi.user.userMarkList({
-          uidOrUsername: globalInfo.uid,
-          markType: 'follow',
-          listType: 'groups',
-          whitelistKeys: whitelistKeys,
-          page: this.data.page,
-        });
-        break;
-
-      case 'fresns-hashtag-company':
-        resultRes = await fresnsApi.hashtag.hashtagList({
-          type: 2,
-          orderType: 'follow',
-          orderDirection: 'desc',
-          whitelistKeys: 'hid,hname,description,cover,postCount,postDigestCount,followCount,interaction',
-          page: this.data.page,
-        });
-
-        currentCategoryIsGroup = false;
-        break;
-
-      case 'fresns-hashtag-star':
-        resultRes = await fresnsApi.hashtag.hashtagList({
-          type: 3,
-          orderType: 'follow',
-          orderDirection: 'desc',
-          whitelistKeys: 'hid,hname,description,cover,postCount,postDigestCount,followCount,interaction',
-          page: this.data.page,
-        });
-
-        currentCategoryIsGroup = false;
-        break;
-
-      default:
-        resultRes = await fresnsApi.group.groupList({
-          gid: gid,
-          whitelistKeys: whitelistKeys,
-          page: this.data.page,
-        });
-    }
-
-    if (resultRes.code === 0) {
-      const { pagination, list } = resultRes.data;
-      const isReachBottom = pagination.currentPage === pagination.lastPage;
-
-      this.setData({
-        currentCategoryIsGroup: currentCategoryIsGroup,
-        groups: currentCategoryIsGroup ? this.data.groups.concat(list) : [],
-        hashtags: currentCategoryIsGroup ? [] : this.data.hashtags.concat(list),
-        page: this.data.page + 1,
-        isReachBottom: isReachBottom,
-      });
-    }
+    isRefreshing = true;
 
     this.setData({
-      loadingStatus: false,
+      groups: [],
+      page: 1,
+      isReachBottom: false,
+      refresherStatus: true,
+      loadingTipType: 'none',
     });
 
-    wx.hideNavigationBarLoading();
+    await this.loadFresnsPageData();
+
+    setTimeout(() => {
+      isRefreshing = false;
+    }, 5000); // 防抖时间 5 秒
   },
 
   /** 监听用户上拉触底 **/
-  onReachBottom: async function () {
-    const categories = this.data.categories;
-    const value = this.data.sideBarIndex;
-    const gid = categories && categories.length ? categories[value].gid : '';
+  onScrollToLower: async function () {
+    if (isRefreshing) {
+      console.log('上拉', '防抖');
 
-    await this.loadFresnsPageData(gid);
+      return;
+    }
+
+    isRefreshing = true;
+
+    // 不接受客户端传参，包括分页
+    if (this.data.requestState == 1) {
+      this.setData({
+        loadingTipType: this.data.group.length > 0 ? 'page' : 'empty',
+        isReachBottom: true,
+      });
+      return;
+    }
+
+    await this.loadFresnsPageData();
+
+    setTimeout(() => {
+      isRefreshing = false;
+    }, 5000); // 防抖时间 5 秒
   },
 
-  // onSideBarChange
-  onSideBarChange: async function (e) {
-    const value = e.detail.value;
-    const categories = this.data.categories;
-    const gid = categories && categories.length ? categories[value].gid : '';
+  onSwitchGroups: function (e) {
+    const index = e.currentTarget.dataset.index;
+    const tree = this.data.tree;
 
     this.setData({
-      sideBarIndex: value,
-      groups: [],
-      hashtags: [],
-      page: 1,
-      loadingTipType: 'none',
-      isReachBottom: false,
+      treeGroups: tree[index].groups,
+      currentTreeGid: tree[index].gid,
     });
-
-    await this.loadFresnsPageData(gid);
   },
 });

@@ -3,41 +3,21 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-.weui-media-box {
-  padding: 0.01rem;
-}
-
-.comment-box-btn .weui-tabbar__label {
-  width: 90%;
-  margin: 0 auto;
-  text-align: left;
-  border-radius: 36px;
-  background-color: var(--weui-TAG-BACKGROUND-BLACK);
-  color: var(--weui-TAG-TEXT-BLACK);
-  padding: 8px 16px;
-  font-size: 16px;
-}
-
-.custom-capsule {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.custom-capsule__icon {
-  flex: 1;
+.detail-bar {
+  width: 100% !important;
   position: relative;
+  z-index: 500;
+  background-color: var(--weui-BG-1);
+  border-top: 1rpx solid var(--weui-FG-3);
 }
 
-.custom-capsule__icon + .custom-capsule__icon:before {
-  content: '';
-  display: block;
-  position: absolute;
-  left: -1px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 36rpx;
-  background: #e7e7e7;
+.comment-bar {
+  width: 96% !important;
+  margin: 0 auto;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: border-box;
+}
+
+.weui-cells__title {
+  display: flex;
 }
