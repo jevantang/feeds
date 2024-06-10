@@ -22,6 +22,10 @@ page {
   font-size: 28rpx;
 }
 
+.weui-actionsheet__cell {
+  font-size: 28rpx;
+}
+
 /* 以下 CSS 为兼容 Skyline 渲染引擎提供的 WeUI 临时方案 */
 
 /* button */
