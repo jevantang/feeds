@@ -18,6 +18,20 @@
 </navigation-bar>
 
 <scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
+  <!-- 未登录提示 -->
+  <view class="weui-msg" wx:if="{{!userLogin}}">
+    <view class="weui-msg__text-area">
+      <view class="weui-msg__desc">{{loginTip}}</view>
+    </view>
+    <view class="weui-msg__opr-area">
+      <view class="weui-btn-area">
+        <view class="weui-btn weui-btn_primary" bind:tap="toLoginPage">
+          {{loginBtnText}}
+        </view>
+      </view>
+    </view>
+  </view>
+
   <!-- 帖子列表 -->
   <block wx:if="{{detailType == 'posts'}}">
     <view class="post-list" wx:for="{{posts}}" wx:for-item="post" wx:key="pid">

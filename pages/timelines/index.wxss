@@ -20,3 +20,7 @@
   margin-top: 6rpx;
   border-radius: 2rpx;
 }
+
+.weui-msg {
+  background-color: var(--weui-BG-1);
+}

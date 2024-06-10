@@ -27,8 +27,8 @@ module.exports = {
   },
 
   /** 监听页面加载 **/
-  onLoad() {
-    this.checkFresnsSiteMode();
+  onLoad: async function () {
+    await this.checkFresnsSiteMode();
 
     this.loginInterceptor();
 
@@ -122,6 +122,8 @@ module.exports = {
       'pages/comments/index',
       'pages/comments/list',
       'pages/comments/detail',
+
+      'pages/timelines/index',
 
       'pages/nearby/index',
       'pages/nearby/posts',

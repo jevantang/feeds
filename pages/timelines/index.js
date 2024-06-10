@@ -4,7 +4,8 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../sdk/services/api';
-import { fresnsConfig } from '../../sdk/helpers/configs';
+import { fresnsConfig, fresnsLang } from '../../sdk/helpers/configs';
+import { fresnsAuth } from '../../sdk/helpers/profiles';
 
 let isRefreshing = false;
 
@@ -22,6 +23,9 @@ Page({
     title: null,
     detailType: 'posts',
     tabs: {},
+    userLogin: false,
+    loginTip: null,
+    loginBtnText: null,
 
     // 当前分页数据
     posts: [],
@@ -37,6 +41,13 @@ Page({
 
   /** 监听页面加载 **/
   onLoad: async function () {
+    // 登录按钮文字
+    let loginBtnText = await fresnsLang('accountLoginOrRegister'); // 登录或注册
+    const registerStatus = await fresnsConfig('account_register_status');
+    if (!registerStatus) {
+      loginBtnText = await fresnsLang('accountLoginGoTo'); // 前往登录
+    }
+
     this.setData({
       title: await fresnsConfig('channel_timeline_name'),
       detailType: await fresnsConfig('channel_timeline_type'),
@@ -44,14 +55,39 @@ Page({
         posts: await fresnsConfig('channel_post_name'),
         timelines: await fresnsConfig('channel_timeline_name'),
       },
+      userLogin: fresnsAuth.userLogin,
+      loginTip: await fresnsLang('contentLoginTip'),
+      loginBtnText: loginBtnText,
     });
 
     await this.loadFresnsPageData();
   },
 
+  /** 监听页面显示 **/
+  onShow: async function () {
+    const userLogin = fresnsAuth.userLogin;
+
+    this.setData({
+      userLogin: userLogin,
+    });
+
+    if (userLogin) {
+      await this.loadFresnsPageData();
+    }
+  },
+
   /** 加载列表数据 **/
   loadFresnsPageData: async function () {
     if (this.data.isReachBottom) {
+      return;
+    }
+
+    if (!fresnsAuth.userLogin) {
+      this.setData({
+        refresherStatus: false,
+        loadingStatus: false,
+      });
+
       return;
     }
 
@@ -200,5 +236,13 @@ Page({
     wx.redirectTo({
       url: '/pages/posts/index',
     });
-  }
+  },
+
+  // 登录
+  toLoginPage: function () {
+    wx.navigateTo({
+      url: '/pages/me/login/index',
+      routeType: 'wx://cupertino-modal-inside',
+    });
+  },
 });
