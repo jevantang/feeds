@@ -44,3 +44,18 @@
 .extension-box .extension-label {
   color: var(--weui-FG-0);
 }
+
+.list-tabs {
+  display: flex;
+  background-color: var(--weui-BG-2);
+  border-bottom: 1rpx solid var(--weui-FG-3);
+}
+
+.list-tab_item {
+  padding: 15rpx 0;
+  margin: 0 40rpx;
+}
+
+.list-tabs .active {
+  border-bottom: 4rpx solid var(--weui-INDIGO-100);
+}

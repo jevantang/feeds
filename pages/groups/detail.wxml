@@ -37,9 +37,13 @@
     </view>
   </view>
 
+  <view class="list-tabs">
+    <view class="list-tab_item {{listType == 'new' ? 'active' : ''}}" bind:tap="onClickToNew">{{contentNewList}}</view>
+    <view class="list-tab_item {{listType == 'digest' ? 'active' : ''}}" bind:tap="onClickToDigest">{{contentDigest}}</view>
+  </view>
+
   <!-- 帖子列表 -->
   <block wx:if="{{detailType == 'posts'}}">
-    <view class="weui-cells__title" wx:if="{{group.canViewContent}}">{{postName}}: {{geotag.postCount}}</view>
     <view class="post-list" wx:for="{{posts}}" wx:for-item="post" wx:key="pid">
       <post post="{{post}}" viewType="list"></post>
     </view>
@@ -47,7 +51,6 @@
 
   <!-- 评论列表 -->
   <block wx:if="{{detailType == 'comments'}}">
-    <view class="weui-cells__title" wx:if="{{group.canViewContent}}">{{commentName}}: {{geotag.commentCount}}</view>
     <view class="comment-list" wx:for="{{comments}}" wx:for-item="comment" wx:key="cid">
       <comment comment="{{comment}}" viewType="list" showReplyToPost="{{false}}"></comment>
     </view>

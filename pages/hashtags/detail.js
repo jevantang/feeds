@@ -23,14 +23,15 @@ Page({
     title: null,
     hashtagFormat: null,
     detailType: 'posts',
-    postName: null,
-    commentName: null,
+    contentNewList: null,
+    contentDigest: null,
 
     // 详情
     loadingDetailStatus: true,
     hashtag: null,
 
     // 默认查询条件
+    listType: 'new',
     requestQuery: null,
 
     // 当前分页数据
@@ -47,14 +48,13 @@ Page({
 
   /** 监听页面加载 **/
   onLoad: async function (options) {
-    options.hashtags = options.htid;
+    options.hashtags = decodeURIComponent(options.htid);
 
     this.setData({
       title: await fresnsConfig('hashtag_name'),
       hashtagFormat: await fresnsConfig('hashtag_format'),
       detailType: await fresnsConfig('channel_hashtag_detail_type'),
-      postName: await fresnsConfig('post_name'),
-      commentName: await fresnsConfig('comment_name'),
+      contentNewList: await fresnsLang('contentNewList'),
       contentDigest: await fresnsLang('contentDigest'),
       requestQuery: options,
     });
@@ -87,10 +87,14 @@ Page({
       loadingStatus: true,
     });
 
+    const listType = this.data.listType;
+    const allDigest = listType == 'digest' ? 1 : 0;
+
     switch (this.data.detailType) {
       case 'posts':
         const postRes = await fresnsApi.post.list(
           Object.assign(this.data.requestQuery, {
+            allDigest: allDigest,
             filterType: 'blacklist',
             filterKeys: 'hashtags,previewLikeUsers',
             filterGeotagType: 'whitelist',
@@ -133,6 +137,7 @@ Page({
       case 'comments':
         const commentRes = await fresnsApi.comment.list(
           Object.assign(this.data.requestQuery, {
+            allDigest: allDigest,
             filterType: 'blacklist',
             filterKeys: 'hashtags,previewLikeUsers',
             filterGeotagType: 'whitelist',
@@ -227,5 +232,33 @@ Page({
     setTimeout(() => {
       isRefreshing = false;
     }, 5000); // 防抖时间 5 秒
+  },
+
+  /** 切换列表 **/
+  onClickToNew: async function () {
+    this.setData({
+      listType: 'new',
+      posts: [],
+      comments: [],
+      page: 1,
+      isReachBottom: false,
+      refresherStatus: false,
+      loadingTipType: 'none',
+    });
+
+    await this.loadFresnsPageData();
+  },
+  onClickToDigest: async function () {
+    this.setData({
+      listType: 'digest',
+      posts: [],
+      comments: [],
+      page: 1,
+      isReachBottom: false,
+      refresherStatus: false,
+      loadingTipType: 'none',
+    });
+
+    await this.loadFresnsPageData();
   },
 });
