@@ -28,10 +28,7 @@
   color: var(--weui-FG-0);
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
   word-break: break-all;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
 }
 
 .quoted-post-group {
@@ -45,5 +42,4 @@
 .fresns_sticker {
   padding: 0;
   margin: 0;
-  zoom: 0.5;
 }
