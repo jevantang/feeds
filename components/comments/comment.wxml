@@ -33,7 +33,7 @@
       </view>
 
       <view class="content-text">
-        <markdown-viewer content="{{commentContent}}"/>
+        <mp-html content="{{commentContent}}" markdown="{{true}}" lazy-load="true" selectable="{{true}}" bind:linktap="onClickContentLink"/>
       </view>
 
       <view class="content-brief" wx:if="{{viewType == 'list' && comment.isBrief}}">

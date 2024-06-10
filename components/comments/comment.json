@@ -1,7 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "markdown-viewer": "/sdk/components/markdown-viewer/markdown-viewer",
+    "mp-html": "mp-html",
     "author": "/components/posts/sections/author",
     "files": "/components/posts/sections/files",
     "extend-text": "/components/posts/sections/extend-text",

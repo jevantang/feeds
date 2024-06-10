@@ -17,6 +17,6 @@
   </sticky-header>
 
   <view class="tab-container">
-    <markdown-viewer content="{{content}}"/>
+    <mp-html content="{{content}}" markdown="{{true}}" lazy-load="true" selectable="{{true}}"/>
   </view>
 </scroll-view>

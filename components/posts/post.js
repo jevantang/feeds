@@ -57,6 +57,16 @@ Component({
           '<img src="$1" alt="$2" class="fresns_sticker" style="display:inline-block;transform:scale(0.5);transform-origin:0 0;width:auto;height:auto;vertical-align:middle;"/>'
         );
         // 表情图尺寸推荐使用 style="zoom:0.5" 缩小一半尺寸，但是 Skyline 不支持该样式
+
+        // 处理自有链接
+        const domainPattern = '(tangjie.me|fresns.cn|zhijieshequ.com)';
+        const pureURLPattern = new RegExp(`(^|\\s)(https?:\\/\\/[^ \\n<]*${domainPattern}[^ \\n<]*)`, 'gi');
+        const markdownURLPattern = new RegExp(`\\[([^\\]]+)\\]\\((https?:\\/\\/[^)]*${domainPattern}[^)]*)\\)`, 'gi');
+        const aTagHrefPattern = new RegExp(`(\\<a[^>]*?)href="((https?:\\/\\/[^"]*${domainPattern}[^"]*))"`, 'gi');
+
+        newContent = newContent.replace(pureURLPattern, '$1<a href="/sdk/extensions/webview?url=$2">$2</a>');
+        newContent = newContent.replace(markdownURLPattern, '<a href="/sdk/extensions/webview?url=$2">$1</a>');
+        newContent = newContent.replace(aTagHrefPattern, '$1href="/sdk/extensions/webview?url=$2"');
       }
 
       this.setData({
@@ -85,6 +95,13 @@ Component({
       wx.navigateTo({
         url: '/pages/posts/detail?pid=' + this.data.post.pid,
       });
+    },
+
+    // 用户点击链接
+    onClickContentLink(e) {
+      const link = e.detail.href;
+
+      // code
     },
   },
 });

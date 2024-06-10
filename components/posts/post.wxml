@@ -27,7 +27,7 @@
       </view>
 
       <view class="content-text">
-        <markdown-viewer content="{{postContent}}"/>
+        <mp-html content="{{postContent}}" markdown="{{true}}" lazy-load="{{true}}" selectable="{{true}}" bind:linktap="onClickContentLink"/>
       </view>
 
       <view class="content-brief" wx:if="{{viewType == 'list' && post.isBrief}}">

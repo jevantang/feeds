@@ -154,3 +154,11 @@
 .weui-footer__link {
   font-size: 24rpx;
 }
+
+.checkVersion {
+  display: flex;
+}
+
+.checkVersion .weui-badge {
+  margin-left: 10rpx;
+}

@@ -12,7 +12,6 @@
     data-eid="{{item.eid}}"
     data-post-message-key="expandEdit"
     data-url="{{item.appUrl}}">
-    <markdown-viewer wx:if="{{item.isMarkdown}}" content="{{item.content}}"/>
-    <rich-text wx:if="{{!item.isMarkdown}}" nodes="{{item.content}}"/>
+    <mp-html content="{{item.content}}" markdown="{{item.isMarkdown}}" lazy-load="true" selectable="{{true}}"/>
   </navigator>
 </view>

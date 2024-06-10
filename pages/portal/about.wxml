@@ -14,7 +14,7 @@
         <image src="{{logo}}" mode="widthFix" alt="Fresns"></image>
       </view>
       <view>
-        <markdown-viewer content="{{intro}}"/>
+        <mp-html content="{{intro}}" markdown="{{true}}" lazy-load="true" selectable="{{true}}"/>
       </view>
     </view>
 
