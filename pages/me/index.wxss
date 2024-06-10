@@ -44,7 +44,7 @@
 }
 
 .profile-nickname {
-  font-size: 40rpx;
+  font-size: 36rpx;
   color: var(--weui-FG-0);
 }
 
@@ -87,8 +87,9 @@
 }
 
 .profile-bio {
+  font-size: 28rpx;
   padding: 0 40rpx;
-  margin-top: 10rpx;
+  margin-top: 20rpx;
   color: var(--weui-FG-1);
 }
 
