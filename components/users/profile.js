@@ -3,8 +3,10 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+import { fresnsClient } from '../../sdk/helpers/client';
 import { fresnsConfig, fresnsLang } from '../../sdk/helpers/configs';
 import { fresnsAuth } from '../../sdk/helpers/profiles';
+import { callPageFunction } from '../../sdk/utilities/toolkit';
 
 Component({
   /** 组件的属性列表 **/
@@ -33,6 +35,9 @@ Component({
     },
 
     isMe: true,
+
+    share: '分享',
+    enableSharePoster: false,
 
     showMoreSheet: false,
   },
@@ -74,7 +79,10 @@ Component({
           userFollowing: await fresnsLang('userFollowing'),
           userFollowersYouKnow: await fresnsLang('userFollowersYouKnow'),
           cancel: await fresnsLang('cancel'),
+          sharePoster: await fresnsLang('sharePoster'),
         },
+        share: await fresnsLang('share'),
+        enableSharePoster: fresnsClient.enableSharePoster,
       });
     },
   },
@@ -94,5 +102,14 @@ Component({
         showMoreSheet: false,
       });
     },
+
+    // 分享菜单: 生成海报
+    onClickSharePoster: async function () {
+      const user = this.data.user;
+
+      // mixins/fresnsInteraction.js
+      callPageFunction('onSharePoster', 'user', user.uid);
+    },
+
   },
 });

@@ -137,8 +137,8 @@
 }
 
 .weui-btn image {
-  height: 28rpx;
-  width: 28rpx;
+  height: 44rpx;
+  width: 44rpx;
   margin-right: 0;
 }
 

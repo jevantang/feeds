@@ -15,7 +15,7 @@
     <view class="profile-btn">
       <interaction user="{{user}}"/>
 
-      <view class="weui-btn weui-btn_mini weui-btn_default" wx:if="{{items.manages.length > 0}}" bind:tap="onShowMoreMenus">
+      <view class="weui-btn weui-btn_mini weui-btn_default" wx:if="{{items.manages.length > 0 || enableSharePoster}}" bind:tap="onShowMoreMenus">
         <image class="weui-btn_cell__icon" src="{{buttonIcons.more}}" style="margin-right: -2rpx;"/>
       </view>
     </view>
@@ -69,6 +69,7 @@
   <view class="weui-mask"></view>
   <view class="weui-actionsheet weui-actionsheet_toggle">
     <view class="weui-actionsheet__menu more-menus">
+      <view class="weui-actionsheet__cell" bind:tap="onClickSharePoster" wx:if="{{enableSharePoster}}">{{fresnsLang.sharePoster}}</view>
       <!-- 扩展功能 -->
       <navigator class="weui-actionsheet__cell" wx:for="{{items.manages}}" url="/sdk/extensions/webview" bind:tap="handleExtensionTap"
         data-title="{{item.name}}"
