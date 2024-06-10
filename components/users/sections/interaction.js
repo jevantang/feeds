@@ -30,6 +30,7 @@ Component({
       more: '/assets/images/interaction/content-more.png',
       moreActive: '/assets/images/interaction/content-more.png',
     },
+    userFollowing: '正在关注',
   },
 
   /** 组件数据字段监听器 **/
@@ -65,6 +66,15 @@ Component({
           buttonIcons: buttonIcons,
         });
       }
+    },
+  },
+
+  /** 组件生命周期声明对象 **/
+  lifetimes: {
+    attached: async function () {
+      this.setData({
+        userFollowing: await fresnsLang('userFollowing'),
+      });
     },
   },
 

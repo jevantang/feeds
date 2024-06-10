@@ -36,4 +36,4 @@
   <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
 </scroll-view>
 
-<tabbar activeLabel="timelines"></tabbar>
+<tabbar activeLabel="posts"></tabbar>

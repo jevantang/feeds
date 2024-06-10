@@ -82,9 +82,25 @@
 
   <view class="weui-cells weui-cells_after-title" wx:if="{{userLogin}}">
     <!-- 积分 -->
-    <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">{{fresnsConfig.channel_me_extcredits_name}}</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    <navigator url="/pages/me/extcredits?id=1" class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:if="{{fresnsUser.stats.extcredits1State != 1}}">
+      <view class="weui-cell__bd">{{fresnsUser.stats.extcredits1Name}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsUser.stats.extcredits1}} {{fresnsUser.stats.extcredits1Unit}}</view>
+    </navigator>
+    <navigator url="/pages/me/extcredits?id=2" class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:if="{{fresnsUser.stats.extcredits2State != 1}}">
+      <view class="weui-cell__bd">{{fresnsUser.stats.extcredits2Name}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsUser.stats.extcredits2}} {{fresnsUser.stats.extcredits2Unit}}</view>
+    </navigator>
+    <navigator url="/pages/me/extcredits?id=3" class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:if="{{fresnsUser.stats.extcredits3State != 1}}">
+      <view class="weui-cell__bd">{{fresnsUser.stats.extcredits3Name}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsUser.stats.extcredits3}} {{fresnsUser.stats.extcredits3Unit}}</view>
+    </navigator>
+    <navigator url="/pages/me/extcredits?id=4" class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:if="{{fresnsUser.stats.extcredits4State != 1}}">
+      <view class="weui-cell__bd">{{fresnsUser.stats.extcredits4Name}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsUser.stats.extcredits4}} {{fresnsUser.stats.extcredits4Unit}}</view>
+    </navigator>
+    <navigator url="/pages/me/extcredits?id=5" class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:if="{{fresnsUser.stats.extcredits5State != 1}}">
+      <view class="weui-cell__bd">{{fresnsUser.stats.extcredits5Name}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsUser.stats.extcredits5}} {{fresnsUser.stats.extcredits5Unit}}</view>
     </navigator>
   </view>
 

@@ -22,7 +22,7 @@ Component({
   /** 组件的初始数据 **/
   data: {
     postName: '帖子',
-    digestName: '精华',
+    digestName: '精选',
     modifierCompleted: '已',
     name: '',
     description: '',
