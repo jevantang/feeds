@@ -11,6 +11,9 @@ Component({
     content: {
       type: String,
       value: '',
+      observer: function (newVal) {
+        this.renderMarkdown(newVal);
+      },
     },
   },
 

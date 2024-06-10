@@ -13,14 +13,6 @@ Component({
 
   /** 组件的属性列表 **/
   properties: {
-    background: {
-      type: String,
-      value: '',
-    },
-    color: {
-      type: String,
-      value: '',
-    },
     title: {
       type: String,
       value: '',
@@ -33,24 +25,19 @@ Component({
       type: Boolean,
       value: false,
     },
-    customRoute: {
-      type: Boolean,
-      value: false,
-    },
     loading: {
       type: Boolean,
       value: false,
     },
-    // back 为 true 的时候，返回的页面深度
-    delta: {
-      type: Number,
-      value: 1,
+    customRoute: {
+      type: Boolean,
+      value: false,
     },
   },
 
   /** 组件的初始数据 **/
   data: {
-    logo: null,
+    logo: '',
   },
 
   /** 组件生命周期声明对象 **/
@@ -65,9 +52,8 @@ Component({
   /** 组件功能 **/
   methods: {
     goBack() {
-      const delta = this.data.delta;
       wx.navigateBack({
-        delta: delta,
+        delta: 1,
         fail() {
           wx.reLaunch({
             url: '/pages/posts/index',
