@@ -72,5 +72,8 @@
   "themeLocation": "theme.json",
   "requiredPrivateInfos": [
     "chooseLocation"
-  ]
+  ],
+  "miniApp": {
+    "useAuthorizePage": true
+  }
 }

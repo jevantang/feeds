@@ -21,7 +21,8 @@
       "outputPath": ""
     },
     "ignoreUploadUnusedFiles": true,
-    "uglifyFileName": true
+    "uglifyFileName": true,
+    "condition": true
   },
   "condition": {},
   "editorSetting": {
@@ -29,5 +30,9 @@
     "tabSize": 2
   },
   "appid": "wxbc94bda125907f11",
-  "projectname": "%E7%9F%A5%E7%BB%93%E7%A4%BE%E5%8C%BA"
+  "projectname": "%E7%9F%A5%E7%BB%93%E7%A4%BE%E5%8C%BA",
+  "projectArchitecture": "multiPlatform",
+  "simulatorPluginLibVersion": {
+    "wxext14566970e7e9f62": "3.2.5-25"
+  }
 }

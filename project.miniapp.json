@@ -4,7 +4,7 @@
   "version": "2.0.0",
   "i18nFilePath": "",
   "mini-android": {
-    "sdkVersion": "1.3.16",
+    "sdkVersion": "1.3.17",
     "toolkitVersion": "0.10.0",
     "useExtendedSdk": {
       "media": false,
@@ -54,7 +54,7 @@
     }
   },
   "mini-ios": {
-    "sdkVersion": "1.3.22",
+    "sdkVersion": "1.3.25",
     "toolkitVersion": "0.0.9",
     "useExtendedSdk": {
       "WeAppOpenFuns": true,
@@ -67,7 +67,8 @@
       "WeAppCamera": true,
       "WeAppImage": true,
       "WeAppAudio": true,
-      "WeAppVideo": true
+      "WeAppVideo": true,
+      "WeAppIdaas": true
     },
     "enableVConsole": "close",
     "icons": {
