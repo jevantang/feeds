@@ -60,6 +60,8 @@ Page({
 
     const appBaseInfo = fresnsClient.appBaseInfo;
     if (appBaseInfo.isApp && appBaseInfo.platform == 'ios') {
+      // 如果 iOS 设备中没有安装微信，则不显示微信登录按钮
+      // 满足苹果审核要求
       wx.miniapp.hasWechatInstall({
         success: (res) => {
           this.setData({
