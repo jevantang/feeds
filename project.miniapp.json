@@ -4,7 +4,7 @@
   "version": "2.0.0",
   "i18nFilePath": "",
   "mini-android": {
-    "sdkVersion": "1.3.17",
+    "sdkVersion": "1.3.18",
     "toolkitVersion": "0.10.0",
     "useExtendedSdk": {
       "media": false,
@@ -108,6 +108,11 @@
         "CFBundleURLSchemes": "zhijie",
         "CFBundleTypeRole": "Viewer"
       }
+    },
+    "buildCloud": {
+      "useRemote": false,
+      "certificate": "iPhone Distribution: Jie Tang (M85PS3GMB4)",
+      "profile": "miniapp/ios/ZhijieApp.mobileprovision"
     }
   },
   "versionCode": 200
