@@ -107,7 +107,8 @@
         "CFBundleURLName": "com.fresns.zhijie",
         "CFBundleURLSchemes": "zhijie",
         "CFBundleTypeRole": "Viewer"
-      }
+      },
+      "DisableAppUsesNonExemptEncryption": true
     },
     "buildCloud": {
       "useRemote": false,
