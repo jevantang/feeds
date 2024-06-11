@@ -5,6 +5,7 @@
  */
 import { fresnsLang } from '../../sdk/helpers/configs';
 import { fresnsViewProfilePath } from '../../sdk/helpers/profiles';
+import { callPageFunction } from '../../sdk/utilities/toolkit';
 
 Component({
   /** 组件的属性列表 **/
@@ -102,6 +103,12 @@ Component({
       const link = e.detail.href;
 
       // code
+    },
+
+    // 回调扩展处理函数
+    handleExtensionTap(e) {
+      // sdk/extensions/functions
+      callPageFunction('handleExtensionTap', e);
     },
   },
 });
