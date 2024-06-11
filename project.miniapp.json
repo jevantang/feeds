@@ -12,8 +12,7 @@
       "network": false,
       "scanner": false,
       "xweb": true,
-      "skyline": true,
-      "xwebEmbed": true
+      "skyline": true
     },
     "icons": {
       "hdpi": "miniapp/android/icons/zhijie-icon-72.png",
@@ -47,7 +46,7 @@
       "scheme": "zhijie"
     },
     "usePluginSdk": {
-      "map": "1.2.0"
+      "map": "1.2.1"
     },
     "map": {
       "qmapAPIKey": "6G2BZ-AQJO4-5MBUQ-X44DS-XNDNZ-P6FA4"
