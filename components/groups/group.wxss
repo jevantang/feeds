@@ -55,7 +55,7 @@
 }
 
 .group-desc {
-  background-color: #f0f3f5;
+  background-color: var(--weui-BG-1);
   color: var(--weui-FG-1);
   border-radius: 12rpx;
   padding: 20rpx;
