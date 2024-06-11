@@ -36,6 +36,7 @@
 .card-body {
   margin: 0 40rpx;
   color: var(--weui-FG-0);
+  margin-top: -10rpx;
 }
 
 .card-footer {

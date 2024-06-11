@@ -29,6 +29,7 @@ Component({
     contentAuthor: '',
     userDeactivate: null,
     authorAnonymous: null,
+    contentFull: null,
   },
 
   /** 组件数据字段监听器 **/
@@ -65,7 +66,7 @@ Component({
         // 表情图尺寸推荐使用 style="zoom:0.5" 缩小一半尺寸，但是 Skyline 不支持该样式
 
         // 处理自有链接
-        const domainPattern = '(tangjie.me|fresns.cn|zhijieshequ.com)';
+        const domainPattern = '(tangjie.me|fresns.cn|fresns.com|fresns.org|zhijieshequ.com)';
         const pureURLPattern = new RegExp(`(^|\\s)(https?:\\/\\/[^ \\n<]*${domainPattern}[^ \\n<]*)`, 'gi');
         const markdownURLPattern = new RegExp(`\\[([^\\]]+)\\]\\((https?:\\/\\/[^)]*${domainPattern}[^)]*)\\)`, 'gi');
         const aTagHrefPattern = new RegExp(`(\\<a[^>]*?)href="((https?:\\/\\/[^"]*${domainPattern}[^"]*))"`, 'gi');
@@ -88,6 +89,7 @@ Component({
         contentAuthor: await fresnsLang('contentAuthor'),
         userDeactivate: await fresnsLang('userDeactivate'),
         authorAnonymous: await fresnsLang('contentAuthorAnonymous'),
+        contentFull: await fresnsLang('contentFull'),
       });
     },
   },
