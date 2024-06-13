@@ -16,5 +16,3 @@
   <!-- 加载动效 -->
   <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
 </scroll-view>
-
-<tabbar activeLabel="notifications"></tabbar>
