@@ -91,4 +91,4 @@
   </block>
 </scroll-view>
 
-<tabbar activeLabel="discover"></tabbar>
+<tabbar id="fresnsTabbar" activeLabel="discover"></tabbar>
