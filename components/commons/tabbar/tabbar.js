@@ -28,7 +28,7 @@ Component({
         const unreadMessages = await fresnsOverview('conversations.unreadMessages');
 
         this.setData({
-          messages: unreadNotifications + unreadMessages,
+          messages: unreadNotifications,
         });
       }
     },
@@ -49,6 +49,28 @@ Component({
 
       wx.reLaunch({
         url: pagePath,
+      });
+    },
+
+    // 修改通知消息数
+    onChangeUnreadNotifications: function () {
+      console.log('onChangeUnreadNotifications tabbar');
+
+      const messages = this.data.messages;
+
+      this.setData({
+        messages: messages - 1,
+      });
+    },
+
+    // 修改私信消息数
+    onChangeUnreadMessages: function (count = 1) {
+      console.log('onChangeUnreadMessages tabbar', count);
+
+      const messages = this.data.messages;
+
+      this.setData({
+        messages: messages - count,
       });
     },
   },

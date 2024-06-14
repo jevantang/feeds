@@ -30,7 +30,7 @@
     <!-- me -->
     <view class="fs-tabbar-item {{activeLabel == 'me' ? 'active' : ''}}" bind:tap="goTabPage" data-page-path="/pages/me/index" style="display: inline-block; position: relative;">
       <image src="{{activeLabel == 'me' ? '/assets/images/tabbar/me-active.png' : '/assets/images/tabbar/me.png'}}"></image>
-      <text class="weui-badge" wx:if="{{messages}}">{{messages}}</text>
+      <text class="weui-badge" wx:if="{{messages && messages > 0}}">{{messages}}</text>
     </view>
   </view>
 </view>
