@@ -61,8 +61,7 @@ Page({
 
     const resultRes = await fresnsApi.user.followersYouKnow(this.data.profile.fsid, {
       filterType: 'whitelist',
-      filterKeys:
-        'fsid,uid,username,url,nickname,nicknameColor,avatar,decorate,bioHtml,verified,verifiedIcon,roleName,roleNameDisplay,roleIcon,roleIconDisplay,stats,operations,interaction',
+      filterKeys: 'fsid,uid,username,url,nickname,nicknameColor,avatar,decorate,bioHtml,verified,verifiedIcon,roleName,roleNameDisplay,roleIcon,roleIconDisplay,stats,operations,interaction',
       page: this.data.page,
     });
 
