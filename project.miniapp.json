@@ -4,7 +4,7 @@
   "version": "2.0.0",
   "i18nFilePath": "",
   "mini-android": {
-    "sdkVersion": "1.3.24",
+    "sdkVersion": "1.4.6",
     "toolkitVersion": "0.10.0",
     "useExtendedSdk": {
       "media": false,
@@ -46,14 +46,14 @@
       "scheme": "zhijie"
     },
     "usePluginSdk": {
-      "map": "1.2.2"
+      "map": "1.2.3"
     },
     "map": {
       "qmapAPIKey": "6G2BZ-AQJO4-5MBUQ-X44DS-XNDNZ-P6FA4"
     }
   },
   "mini-ios": {
-    "sdkVersion": "1.3.35",
+    "sdkVersion": "1.4.11",
     "toolkitVersion": "0.0.9",
     "useExtendedSdk": {
       "WeAppOpenFuns": true,
